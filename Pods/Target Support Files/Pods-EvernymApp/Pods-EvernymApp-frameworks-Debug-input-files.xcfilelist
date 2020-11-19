@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-frameworks.sh
+${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
+${PODS_ROOT}/vcx/vcx/vcx.framework

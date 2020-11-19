@@ -1,0 +1,419 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		51C5EC339DA206B0A3FDAD9F /* Pods_EvernymApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A3DB3E306BD6728CF525EF /* Pods_EvernymApp.framework */; };
+		FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */; };
+		FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */; };
+		FDB5B6F9252A4B6D0035ADC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6F7252A4B6D0035ADC1 /* Main.storyboard */; };
+		FDB5B6FB252A4B700035ADC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6FA252A4B700035ADC1 /* Assets.xcassets */; };
+		FDB5B6FE252A4B700035ADC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6FC252A4B700035ADC1 /* LaunchScreen.storyboard */; };
+		FDB5B706252A4EF70035ADC1 /* genesis.txn in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B705252A4EF70035ADC1 /* genesis.txn */; };
+		FDD5C3B52536F3E400C8215E /* genesis.json in Resources */ = {isa = PBXBuildFile; fileRef = FDD5C3B42536F3E400C8215E /* genesis.json */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D037B6D26E3BCFB75EC8734 /* Pods-EvernymApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvernymApp.debug.xcconfig"; path = "Target Support Files/Pods-EvernymApp/Pods-EvernymApp.debug.xcconfig"; sourceTree = "<group>"; };
+		29A3DB3E306BD6728CF525EF /* Pods_EvernymApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EvernymApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		38DDD2D1A84D97AE105F72A8 /* Pods-EvernymApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvernymApp.release.xcconfig"; path = "Target Support Files/Pods-EvernymApp/Pods-EvernymApp.release.xcconfig"; sourceTree = "<group>"; };
+		FDB5B6EE252A4B6D0035ADC1 /* EvernymApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvernymApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FDB5B6F8252A4B6D0035ADC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FDB5B6FA252A4B700035ADC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FDB5B6FD252A4B700035ADC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FDB5B6FF252A4B700035ADC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDB5B705252A4EF70035ADC1 /* genesis.txn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = genesis.txn; sourceTree = "<group>"; };
+		FDD5C3B42536F3E400C8215E /* genesis.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = genesis.json; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FDB5B6EB252A4B6D0035ADC1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51C5EC339DA206B0A3FDAD9F /* Pods_EvernymApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7BCC424CA84ADC204A7707B9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1D037B6D26E3BCFB75EC8734 /* Pods-EvernymApp.debug.xcconfig */,
+				38DDD2D1A84D97AE105F72A8 /* Pods-EvernymApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A856A56DD58B15426D6AE4CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29A3DB3E306BD6728CF525EF /* Pods_EvernymApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FDB5B6E5252A4B6D0035ADC1 = {
+			isa = PBXGroup;
+			children = (
+				FDB5B6F0252A4B6D0035ADC1 /* EvernymApp */,
+				FDB5B6EF252A4B6D0035ADC1 /* Products */,
+				7BCC424CA84ADC204A7707B9 /* Pods */,
+				A856A56DD58B15426D6AE4CC /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FDB5B6EF252A4B6D0035ADC1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FDB5B6EE252A4B6D0035ADC1 /* EvernymApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDB5B6F0252A4B6D0035ADC1 /* EvernymApp */ = {
+			isa = PBXGroup;
+			children = (
+				FDB5B705252A4EF70035ADC1 /* genesis.txn */,
+				FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */,
+				FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */,
+				FDB5B6F7252A4B6D0035ADC1 /* Main.storyboard */,
+				FDB5B6FA252A4B700035ADC1 /* Assets.xcassets */,
+				FDB5B6FC252A4B700035ADC1 /* LaunchScreen.storyboard */,
+				FDB5B6FF252A4B700035ADC1 /* Info.plist */,
+				FDD5C3B42536F3E400C8215E /* genesis.json */,
+			);
+			path = EvernymApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FDB5B6ED252A4B6D0035ADC1 /* EvernymApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FDB5B702252A4B700035ADC1 /* Build configuration list for PBXNativeTarget "EvernymApp" */;
+			buildPhases = (
+				4E8814B005B3B637EAAB1128 /* [CP] Check Pods Manifest.lock */,
+				FDB5B6EA252A4B6D0035ADC1 /* Sources */,
+				FDB5B6EB252A4B6D0035ADC1 /* Frameworks */,
+				FDB5B6EC252A4B6D0035ADC1 /* Resources */,
+				6097D1C23D0432F0F0DF9010 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EvernymApp;
+			productName = EvernymApp;
+			productReference = FDB5B6EE252A4B6D0035ADC1 /* EvernymApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FDB5B6E6252A4B6D0035ADC1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = "Volkov Alexander";
+				TargetAttributes = {
+					FDB5B6ED252A4B6D0035ADC1 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+				};
+			};
+			buildConfigurationList = FDB5B6E9252A4B6D0035ADC1 /* Build configuration list for PBXProject "EvernymApp" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FDB5B6E5252A4B6D0035ADC1;
+			productRefGroup = FDB5B6EF252A4B6D0035ADC1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FDB5B6ED252A4B6D0035ADC1 /* EvernymApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FDB5B6EC252A4B6D0035ADC1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDB5B6FE252A4B700035ADC1 /* LaunchScreen.storyboard in Resources */,
+				FDB5B706252A4EF70035ADC1 /* genesis.txn in Resources */,
+				FDB5B6FB252A4B700035ADC1 /* Assets.xcassets in Resources */,
+				FDD5C3B52536F3E400C8215E /* genesis.json in Resources */,
+				FDB5B6F9252A4B6D0035ADC1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4E8814B005B3B637EAAB1128 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EvernymApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6097D1C23D0432F0F0DF9010 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FDB5B6EA252A4B6D0035ADC1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */,
+				FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FDB5B6F7252A4B6D0035ADC1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDB5B6F8252A4B6D0035ADC1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FDB5B6FC252A4B700035ADC1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDB5B6FD252A4B700035ADC1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FDB5B700252A4B700035ADC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FDB5B701252A4B700035ADC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FDB5B703252A4B700035ADC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D037B6D26E3BCFB75EC8734 /* Pods-EvernymApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4LPM7QKY6W;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = EvernymApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.EvernymApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FDB5B704252A4B700035ADC1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38DDD2D1A84D97AE105F72A8 /* Pods-EvernymApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4LPM7QKY6W;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = EvernymApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.EvernymApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FDB5B6E9252A4B6D0035ADC1 /* Build configuration list for PBXProject "EvernymApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDB5B700252A4B700035ADC1 /* Debug */,
+				FDB5B701252A4B700035ADC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FDB5B702252A4B700035ADC1 /* Build configuration list for PBXNativeTarget "EvernymApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDB5B703252A4B700035ADC1 /* Debug */,
+				FDB5B704252A4B700035ADC1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FDB5B6E6252A4B6D0035ADC1 /* Project object */;
+}
