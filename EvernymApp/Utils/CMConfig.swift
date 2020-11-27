@@ -13,7 +13,7 @@ import SwiftyJSON
 class CMConfig {
     
     enum Environment: Int {
-        case production = 1, staging = 2, sandbox = 3
+        case sandbox = 0, production = 1, staging = 2
     }
     
     static let environment: Environment = .staging
