@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var sdkApi: ConnectMeVcx!
+    var sdkInited = false
     
     func trySdk() {
         print()
@@ -124,6 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 """
         // Prepare config
+        print(provisionConfig)
         sdkApi.agentProvisionAsync(provisionConfig) { (error, config) in
             self.printError(error)
             print("agentProvisionAsync was successful: \(config!)\n")
@@ -190,7 +192,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         sdkApi = ConnectMeVcx()
-        trySdk()
+//        trySdk()
+        CMConfig.initialize()
         return true
     }
 
