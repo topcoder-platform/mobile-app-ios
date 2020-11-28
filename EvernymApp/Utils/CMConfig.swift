@@ -17,7 +17,7 @@ class CMConfig {
     }
     
     static let environment: Environment = .staging
-    static let walletName = "Topcoder-Dev1"
+    static let walletName = "Topcoder-Dev28"
     
     static func getAgencyConfig() -> String {
         let walletKey = getWalletKey()
@@ -45,17 +45,23 @@ class CMConfig {
         "agency_did": "\(agencyDid)",
         "agency_verkey": "\(agencyVerKey)",
         "wallet_name": "\(walletName)",
-        "wallet_key": "\(walletKey)",
-        "agent_seed": null,
-        "enterprise_seed": null,
-        "protocol_type": "3.0"
+        "wallet_key": "\(walletKey)"
         }
 """
     }
     
     static func getWalletKey() -> String {
-        let data = walletName.data(using: .utf8)!
-        let walletKey = data.base64EncodedString()
+        var walletKey=""
+        var keyData = Data(count: 128)
+        let result = keyData.withUnsafeMutableBytes {
+            SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+        }
+        if result == errSecSuccess {
+            walletKey = keyData.base64EncodedString()
+            print("Wallet key generated successfully")
+        } else {
+            print("Problem generating random bytes")
+        }
         return walletKey
     }
     
