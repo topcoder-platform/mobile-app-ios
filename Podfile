@@ -10,4 +10,5 @@ target 'EvernymApp' do
   # Pods for EvernymApp
   pod 'vcx', '0.8.2'
   pod 'SwiftyJSON', '~> 5.0'
+  pod 'Keychain83', :git => 'https://github.com/seriyvolk83/keychain.git'
 end

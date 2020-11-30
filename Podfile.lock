@@ -1,8 +1,12 @@
 PODS:
+  - Keychain83 (0.0.1):
+    - Keychain83/Core (= 0.0.1)
+  - Keychain83/Core (0.0.1)
   - SwiftyJSON (5.0.0)
   - vcx (0.8.2)
 
 DEPENDENCIES:
+  - Keychain83 (from `https://github.com/seriyvolk83/keychain.git`)
   - SwiftyJSON (~> 5.0)
   - vcx (= 0.8.2)
 
@@ -12,10 +16,20 @@ SPEC REPOS:
   https://github.com/sktston/Specs.git:
     - vcx
 
+EXTERNAL SOURCES:
+  Keychain83:
+    :git: https://github.com/seriyvolk83/keychain.git
+
+CHECKOUT OPTIONS:
+  Keychain83:
+    :commit: 05618a0dd2e0c1681a135e76aa7b54cf1150f552
+    :git: https://github.com/seriyvolk83/keychain.git
+
 SPEC CHECKSUMS:
+  Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   vcx: 29ddfbb180e3605e352666a1156562f4dab045bd
 
-PODFILE CHECKSUM: 6360d7c594bdcb52566e4a2f3451ef5d33f4aef1
+PODFILE CHECKSUM: 729b082a54e0aee7c329c3b9f0739acfe75e10d8
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0.rc.1

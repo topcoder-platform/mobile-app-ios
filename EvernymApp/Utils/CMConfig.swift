@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Keychain83
 
 /// Utility used for configuration
 class CMConfig {
@@ -19,8 +20,16 @@ class CMConfig {
     static let environment: Environment = .staging
     static let walletName = "Topcoder-Dev"
     
-    /// TODO once `walletKey` is generated, put it here to reuse with correponding `walletName`
-    static var savedWalletKey: String? = nil // "bJpg7bZHyhx8AptaGijcZTptVBUagM7SAKNwrY0q5cQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+    // Keychain utility used to store `walletKey` and `vcxConfig`
+    static var keychain: Keychain = {
+        let util = Keychain(service: "Evernym")
+        util.queryConfiguration = { query in
+            let query = NSMutableDictionary(dictionary: query)
+            query[kSecAttrAccessible] = kSecAttrAccessibleWhenUnlocked
+            return query
+        }
+        return util
+    }()
     
     static func getAgencyConfig() -> String {
         let walletKey = getWalletKey()
@@ -57,22 +66,31 @@ class CMConfig {
 //        "protocol_type": "3.0"
     }
     
+    /// Get wallet key from the keychain or generate if it's missing.
+    /// - Returns: the wallet key
     static func getWalletKey() -> String {
-        if let savedWalletKey = savedWalletKey {
-            return savedWalletKey
+        let key = "walletKey-" + walletName
+        
+        // Check if stored in a keychain
+        if let walletKey = keychain[key] {
+            return walletKey
         }
-        else {
+        else { // Generate wallet key
             var keyData = Data(count: 128)
             let result = keyData.withUnsafeMutableBytes {
                 SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
             }
+            var generatedKey = ""
             if result == errSecSuccess {
-                savedWalletKey = keyData.base64EncodedString()
+                generatedKey = keyData.base64EncodedString()
                 print("Wallet key generated successfully")
+                
+                // Store in a keychain
+                keychain[key] = generatedKey
             } else {
                 print("Problem generating random bytes")
             }
-            return savedWalletKey ?? ""
+            return generatedKey
         }
     }
     
@@ -134,39 +152,38 @@ class CMConfig {
     }
     
     // MARK: - VCX Init
-        static func initialize() {
-            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
-        
-    // TODO no such method    [sdkApi initSovToken];
-        
-            let agencyConfig = getAgencyConfig()
-            print("Agency config \(agencyConfig)")
-        
-            sdkApi.agentProvisionAsync(agencyConfig) { (error, oneTimeInfo) in
-                if let nsError = error as NSError?, nsError.code == 1075 {
-                    print("ERROR: 1075 WalletAccessFailed: The `wallet_name` already exist, but you provided different `wallet_key`. Use the same `wallet_key` once it's generated for the first time.")
-                    return
-                }
+    static func initialize() {
+        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
+    
+// TODO no such method    [sdkApi initSovToken];
+    
+        let agencyConfig = getAgencyConfig()
+        print("Agency config \(agencyConfig)")
+    
+        sdkApi.agentProvisionAsync(agencyConfig) { (error, oneTimeInfo) in
+            if let nsError = error as NSError?, nsError.code == 1075 {
+                print("ERROR: 1075 WalletAccessFailed: The `wallet_name` already exist, but you provided different `wallet_key`. Use the same `wallet_key` once it's generated for the first time.")
+                return
+            }
+            guard !printError(error) else { return }
+            
+            print("Success: agentProvisionAsync: oneTimeInfo: \(String(describing: oneTimeInfo))")
+            let config = CMConfig.vsxConfig(oneTimeInfo: oneTimeInfo)
+            
+            sdkApi.initWithConfig(config) { (error) in
                 guard !printError(error) else { return }
                 
-                let keychainVcxConfig: NSMutableDictionary = [kSecClass: kSecClassGenericPassword,
-                             kSecAttrAccessible: kSecAttrAccessibleWhenUnlocked,
-                             kSecAttrType: "vcxConfig",
-                             kSecAttrLabel: walletName
-                    ]
-                let config = CMConfig.vsxConfig(oneTimeInfo: oneTimeInfo, withKeychainConfig: keychainVcxConfig)
-                
-                sdkApi.initWithConfig(config) { (error) in
-                    guard !printError(error) else { return }
-                    
-                    (UIApplication.shared.delegate as? AppDelegate)?.sdkInited = true
-                    print("######## VCX Config Successful! :) #########")
-                }
+                (UIApplication.shared.delegate as? AppDelegate)?.sdkInited = true
+                print("######## VCX Config Successful! :) #########")
             }
         }
+    }
     
-    static func vsxConfig(oneTimeInfo: String?, withKeychainConfig keychainVcxConfig: NSMutableDictionary) -> String? {
+    /// Update `oneTimeInfo` with our data and store in a kaychain. If `oneTimeInfo` is nil, then read from the keychain
+    /// - Parameter oneTimeInfo: the configuration returned from `agentProvisionAsync`
+    static func vsxConfig(oneTimeInfo: String?) -> String? {
         var vcxConfig: String!
+        let kkey = "vcxConfig-" + walletName
         if let oneTimeInfo = oneTimeInfo {
             vcxConfig = updateJSONConfig(jsonConfig: oneTimeInfo, withValues: [
                 "genesis_path": genesisFilePath(),
@@ -175,45 +192,15 @@ class CMConfig {
                 "pool_name": "7e96cbb3b0a1711f3b843af3cb28e31dcmpool",
                 "protocol_version": "2"
             ])
-            if SecItemCopyMatching(keychainVcxConfig as CFDictionary, nil) == noErr {
-                //We can update the keychain item.
-                let attributesToUpdate = NSMutableDictionary()
-                attributesToUpdate[kSecValueData] = vcxConfig.data(using: .utf8)!
-                let sts: OSStatus = SecItemUpdate(keychainVcxConfig, attributesToUpdate);
-                if sts != errSecSuccess {
-                    print("Error Code while updating vcxConfig: \(sts)")
-                }
-                else {
-                    print("Success: updating vcxConfig")
-                }
-            }
-            else {
-                keychainVcxConfig[kSecValueData] = vcxConfig.data(using: .utf8)!
-                let sts: OSStatus = SecItemAdd(keychainVcxConfig, nil);
-                if sts != errSecSuccess {
-                    print("Error Code while adding new vcxConfig: \(sts)")
-                }
-                else {
-                    print("Success: adding new vcxConfig")
-                }
-                
-            }
+            keychain[kkey] = vcxConfig
+            return vcxConfig
+        }
+        else if let vcxConfig = keychain[kkey] {
             return vcxConfig
         }
         else {
-            // Get vcxConfig from secure keychain storage: https://www.andyibanez.com/using-ios-keychain/
-            keychainVcxConfig[kSecReturnData] = kCFBooleanTrue;
-            keychainVcxConfig[kSecReturnAttributes] = kCFBooleanTrue;
-            var result: CFTypeRef!
-            let status = SecItemCopyMatching(keychainVcxConfig as CFDictionary, &result)
-            if status == noErr {
-                let resultDict: NSDictionary = result as! NSDictionary
-                let vcxConfigData = resultDict[kSecValueData] as! Data
-                vcxConfig = String(data: vcxConfigData, encoding: .utf8)
-            } else {
-                print("Error Code while finding vcxConfig: \(status)")
-            }
-            return vcxConfig
+            print("Error Code while finding `\(kkey)`")
+            return nil
         }
     }
     
