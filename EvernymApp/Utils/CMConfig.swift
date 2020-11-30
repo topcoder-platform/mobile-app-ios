@@ -17,7 +17,10 @@ class CMConfig {
     }
     
     static let environment: Environment = .staging
-    static let walletName = "Topcoder-Dev28"
+    static let walletName = "Topcoder-Dev"
+    
+    /// TODO once `walletKey` is generated, put it here to reuse with correponding `walletName`
+    static var savedWalletKey: String? = nil // "bJpg7bZHyhx8AptaGijcZTptVBUagM7SAKNwrY0q5cQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
     
     static func getAgencyConfig() -> String {
         let walletKey = getWalletKey()
@@ -48,21 +51,29 @@ class CMConfig {
         "wallet_key": "\(walletKey)"
         }
 """
+// This was removed from config (ObjC example)
+//        "agent_seed": null,
+//        "enterprise_seed": null,
+//        "protocol_type": "3.0"
     }
     
     static func getWalletKey() -> String {
-        var walletKey=""
-        var keyData = Data(count: 128)
-        let result = keyData.withUnsafeMutableBytes {
-            SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+        if let savedWalletKey = savedWalletKey {
+            return savedWalletKey
         }
-        if result == errSecSuccess {
-            walletKey = keyData.base64EncodedString()
-            print("Wallet key generated successfully")
-        } else {
-            print("Problem generating random bytes")
+        else {
+            var keyData = Data(count: 128)
+            let result = keyData.withUnsafeMutableBytes {
+                SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+            }
+            if result == errSecSuccess {
+                savedWalletKey = keyData.base64EncodedString()
+                print("Wallet key generated successfully")
+            } else {
+                print("Problem generating random bytes")
+            }
+            return savedWalletKey ?? ""
         }
-        return walletKey
     }
     
     // MARK: - Genesis file for server node
@@ -132,6 +143,10 @@ class CMConfig {
             print("Agency config \(agencyConfig)")
         
             sdkApi.agentProvisionAsync(agencyConfig) { (error, oneTimeInfo) in
+                if let nsError = error as NSError?, nsError.code == 1075 {
+                    print("ERROR: 1075 WalletAccessFailed: The `wallet_name` already exist, but you provided different `wallet_key`. Use the same `wallet_key` once it's generated for the first time.")
+                    return
+                }
                 guard !printError(error) else { return }
                 
                 let keychainVcxConfig: NSMutableDictionary = [kSecClass: kSecClassGenericPassword,
