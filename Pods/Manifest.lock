@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Keychain83:
-    :commit: c662807bdc7bb6d6f430ef8a7b2d32f39edafd37
+    :commit: 05618a0dd2e0c1681a135e76aa7b54cf1150f552
     :git: https://github.com/seriyvolk83/keychain.git
 
 SPEC CHECKSUMS:
