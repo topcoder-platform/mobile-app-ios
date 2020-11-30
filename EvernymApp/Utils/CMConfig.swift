@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Keychain83
 
 /// Utility used for configuration
 class CMConfig {
@@ -19,8 +20,7 @@ class CMConfig {
     static let environment: Environment = .staging
     static let walletName = "Topcoder-Dev"
     
-    /// TODO once `walletKey` is generated, put it here to reuse with correponding `walletName`
-    static var savedWalletKey: String? = nil // "bJpg7bZHyhx8AptaGijcZTptVBUagM7SAKNwrY0q5cQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+    static let keychain = Keychain(service: "Evernym")
     
     static func getAgencyConfig() -> String {
         let walletKey = getWalletKey()
@@ -57,22 +57,31 @@ class CMConfig {
 //        "protocol_type": "3.0"
     }
     
+    /// Get wallet key from the keychain or generate if it's missing.
+    /// - Returns: the wallet key
     static func getWalletKey() -> String {
-        if let savedWalletKey = savedWalletKey {
-            return savedWalletKey
+        let key = "walletKey-" + walletName
+        
+        // Check if stored in a keychain
+        if let walletKey = keychain[key] {
+            return walletKey
         }
-        else {
+        else { // Generate wallet key
             var keyData = Data(count: 128)
             let result = keyData.withUnsafeMutableBytes {
                 SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
             }
+            var generatedKey = ""
             if result == errSecSuccess {
-                savedWalletKey = keyData.base64EncodedString()
+                generatedKey = keyData.base64EncodedString()
                 print("Wallet key generated successfully")
+                
+                // Store in a keychain
+                keychain[key] = generatedKey
             } else {
                 print("Problem generating random bytes")
             }
-            return savedWalletKey ?? ""
+            return generatedKey
         }
     }
     

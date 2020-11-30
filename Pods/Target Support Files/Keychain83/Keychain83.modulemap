@@ -1,0 +1,6 @@
+framework module Keychain83 {
+  umbrella header "Keychain83-umbrella.h"
+
+  export *
+  module * { export * }
+}
