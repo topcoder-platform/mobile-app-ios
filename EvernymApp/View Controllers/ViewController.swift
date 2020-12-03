@@ -7,14 +7,90 @@
 //
 
 import UIKit
+import QRCodeScanner83
+import SwiftEx83
+import AVFoundation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CodeScannerViewControllerDelegate {
 
+    /// outlets
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var scanButton: UIButton!
+    
+    /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        statusLabel.text = "SDK Initialization... Please wait."
+        scanButton.isEnabled = false
+        NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: SdkEvent.ready)
     }
-
-
+    
+    @objc func notificationHandler(_ notification: NSNotification) {
+        if notification.name.rawValue == SdkEvent.ready.rawValue {
+            statusLabel.text = "You can scan an invitation now"
+            scanButton.isEnabled = true
+        }
+    }
+    
+    /// "Scan.." button action handler
+    ///
+    /// - parameter sender: the button
+    @IBAction func scanAction(_ sender: Any) {
+        openScanner()
+    }
+    
+    /// Process invitation URL provided as QR code
+    /// - Parameter code: the code
+    private func process(code: String) {
+        print("SCANNED CODE: \(code)")
+        guard let url = URL(string: code) else { return }
+        print("GETTING INVITATION...")
+        RestServiceApi.getInvitation(url: url)
+            .addActivityIndicator(on: UIViewController.getCurrentViewController() ?? self)
+            .subscribe(onNext: { [weak self] value in
+                print("INVITAION:\n\(value)")
+                
+                // Creating a connection
+                CMConfig.connect(withInviteDetails: value) { [weak self] (handle, error) in
+                    if let error = error {
+                        showError(errorMessage: error.localizedDescription)
+                        return
+                    }
+                    else if let handle = handle {
+                        self?.showAlert("Connected", "Successfully connected using the invitation (handle \(handle))")
+                    }
+                    else {
+                        self?.showAlert("Connected", "Successfully connected using the invitation (no handle)")
+                    }
+                }
+                return
+                }, onError: { _ in
+            }).disposed(by: rx.disposeBag)
+    }
+    
+    // MARK: - CodeScannerViewControllerDelegate
+    
+    private func openScanner() {
+        // Open scanner
+        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CodeScannerViewController") as? CodeScannerViewController else {
+            return
+        }
+        vc.delegate = self
+        vc.callbackCodeScanned = { code in
+            vc.dismiss(animated: true, completion: { [weak self] in
+                self?.process(code: code)
+            })
+        }
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    func codeScannerUpdateUIStatus(text: String, screenState: CodeScannerScreenState) {
+        print("state=\(screenState) status: \(text)")
+    }
+    
+    func codeScannerUpdateUIFlashButton(mode: AVCaptureDevice.FlashMode) {
+        /// nothing to do
+    }
 }
 

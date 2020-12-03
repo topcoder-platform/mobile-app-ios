@@ -1,0 +1,6 @@
+framework module SwiftEx83 {
+  umbrella header "SwiftEx83-umbrella.h"
+
+  export *
+  module * { export * }
+}
