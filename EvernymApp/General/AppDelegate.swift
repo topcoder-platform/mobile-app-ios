@@ -24,6 +24,9 @@ enum ConnectionState: Int {
     Rejected = 9
 }
 
+/**
+ Most of the code in `AppDelegate` is a working draft. These functionality is moving into the correct place - CMConfig.swift
+ */
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

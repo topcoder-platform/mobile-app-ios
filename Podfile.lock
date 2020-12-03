@@ -1,35 +1,65 @@
 PODS:
+  - Alamofire (4.9.1)
   - Keychain83 (0.0.1):
     - Keychain83/Core (= 0.0.1)
   - Keychain83/Core (0.0.1)
-  - SwiftyJSON (5.0.0)
+  - "NSObject+Rx (5.1.0)":
+    - RxSwift (~> 5.1)
+  - QRCodeScanner83 (0.0.3):
+    - QRCodeScanner83/Core (= 0.0.3)
+  - QRCodeScanner83/Core (0.0.3)
+  - RxAlamofire (5.0.0):
+    - RxAlamofire/Core (= 5.0.0)
+  - RxAlamofire/Core (5.0.0):
+    - Alamofire (~> 4.8)
+    - RxSwift (~> 5.0)
+  - RxSwift (5.1.1)
+  - SwiftEx83/Int (1.0.3):
+    - "NSObject+Rx"
+    - RxAlamofire (~> 5.0.0)
+    - SwiftyJSON (~> 4.0)
+  - SwiftyJSON (4.3.0)
   - vcx (0.8.2)
 
 DEPENDENCIES:
-  - Keychain83 (from `https://github.com/seriyvolk83/keychain.git`)
-  - SwiftyJSON (~> 5.0)
+  - Keychain83 (= 0.0.1)
+  - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
+  - SwiftEx83/Int
   - vcx (= 0.8.2)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Keychain83
+    - "NSObject+Rx"
+    - RxAlamofire
+    - RxSwift
+    - SwiftEx83
     - SwiftyJSON
   https://github.com/sktston/Specs.git:
     - vcx
 
 EXTERNAL SOURCES:
-  Keychain83:
-    :git: https://github.com/seriyvolk83/keychain.git
+  QRCodeScanner83:
+    :git: https://github.com/seriyvolk83/QRCodeScanner.git
+    :tag: 0.0.3
 
 CHECKOUT OPTIONS:
-  Keychain83:
-    :commit: 05618a0dd2e0c1681a135e76aa7b54cf1150f552
-    :git: https://github.com/seriyvolk83/keychain.git
+  QRCodeScanner83:
+    :git: https://github.com/seriyvolk83/QRCodeScanner.git
+    :tag: 0.0.3
 
 SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
-  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
+  QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
+  RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SwiftEx83: 3416d9f6a3739b7d3011ea6d0bb92cdd23107b53
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   vcx: 29ddfbb180e3605e352666a1156562f4dab045bd
 
-PODFILE CHECKSUM: 729b082a54e0aee7c329c3b9f0739acfe75e10d8
+PODFILE CHECKSUM: 3cd9d2daebb188a7563c8fcf2864bdba34cf4a71
 
 COCOAPODS: 1.10.0.rc.1

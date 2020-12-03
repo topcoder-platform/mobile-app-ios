@@ -1,10 +1,10 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Keychain83" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON" "${PODS_ROOT}/vcx/vcx"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire" "${PODS_CONFIGURATION_BUILD_DIR}/Keychain83" "${PODS_CONFIGURATION_BUILD_DIR}/NSObject+Rx" "${PODS_CONFIGURATION_BUILD_DIR}/QRCodeScanner83" "${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftEx83" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON" "${PODS_ROOT}/vcx/vcx"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Keychain83/Keychain83.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON/SwiftyJSON.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Keychain83/Keychain83.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/NSObject+Rx/NSObject_Rx.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/QRCodeScanner83/QRCodeScanner83.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxAlamofire/RxAlamofire.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift/RxSwift.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftEx83/SwiftEx83.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON/SwiftyJSON.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "Keychain83" -framework "SwiftyJSON" -framework "vcx"
+OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "Foundation" -framework "Keychain83" -framework "NSObject_Rx" -framework "QRCodeScanner83" -framework "RxAlamofire" -framework "RxSwift" -framework "SwiftEx83" -framework "SwiftyJSON" -framework "vcx"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

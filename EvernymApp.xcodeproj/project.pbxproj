@@ -10,6 +10,7 @@
 		51C5EC339DA206B0A3FDAD9F /* Pods_EvernymApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A3DB3E306BD6728CF525EF /* Pods_EvernymApp.framework */; };
 		FD6C8F2A2570DB7600CA4C0B /* StagingPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */; };
 		FD6C8F2C2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */; };
+		FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D856D25792E79009D5DD9 /* DataSource.swift */; };
 		FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */; };
 		FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */; };
 		FDB5B6F9252A4B6D0035ADC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6F7252A4B6D0035ADC1 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		38DDD2D1A84D97AE105F72A8 /* Pods-EvernymApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvernymApp.release.xcconfig"; path = "Target Support Files/Pods-EvernymApp/Pods-EvernymApp.release.xcconfig"; sourceTree = "<group>"; };
 		FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StagingPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionPoolTxnGenesis.swift; sourceTree = "<group>"; };
+		FD8D856D25792E79009D5DD9 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		FDB5B6EE252A4B6D0035ADC1 /* EvernymApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvernymApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				FDEDA0CA256A5ADF00E0FFE7 /* CMConfig.swift */,
 				FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */,
 				FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */,
+				FD8D856D25792E79009D5DD9 /* DataSource.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */,
 				FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */,
 				FD6C8F2A2570DB7600CA4C0B /* StagingPoolTxnGenesis.swift in Sources */,
 				FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */,

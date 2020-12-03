@@ -9,6 +9,12 @@
 import UIKit
 import SwiftyJSON
 import Keychain83
+import SwiftEx83
+import vcx
+
+enum SdkEvent: String {
+    case ready
+}
 
 /// Utility used for configuration
 class CMConfig {
@@ -159,7 +165,7 @@ class CMConfig {
     
         let agencyConfig = getAgencyConfig()
         print("Agency config \(agencyConfig)")
-    
+        print("sdkApi.agentProvisionAsync...")
         sdkApi.agentProvisionAsync(agencyConfig) { (error, oneTimeInfo) in
             if let nsError = error as NSError?, nsError.code == 1075 {
                 print("ERROR: 1075 WalletAccessFailed: The `wallet_name` already exist, but you provided different `wallet_key`. Use the same `wallet_key` once it's generated for the first time.")
@@ -169,12 +175,13 @@ class CMConfig {
             
             print("Success: agentProvisionAsync: oneTimeInfo: \(String(describing: oneTimeInfo))")
             let config = CMConfig.vsxConfig(oneTimeInfo: oneTimeInfo)
-            
+            print("sdkApi.initWithConfig...")
             sdkApi.initWithConfig(config) { (error) in
                 guard !printError(error) else { return }
                 
                 (UIApplication.shared.delegate as? AppDelegate)?.sdkInited = true
                 print("######## VCX Config Successful! :) #########")
+                NotificationCenter.post(SdkEvent.ready)
             }
         }
     }
@@ -203,6 +210,28 @@ class CMConfig {
             return nil
         }
     }
+    
+    // MARK: - Connection
+    
+    /// Connect with given invitation
+    /// - Parameters:
+    ///   - inviteDetails: the invitation details taken from QR code URL
+    ///   - callback: the callback to return a handle after success connection or error
+    static func connect(withInviteDetails inviteDetails: JSON, callback: @escaping (VcxHandle?, Error?)->()) {
+        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
+        let inviteLabel = inviteDetails["@id"].stringValue /// TODO may be `@id` field should be used
+        
+        // Create connection
+        sdkApi.connectionCreate(withInvite: inviteLabel, inviteDetails: inviteDetails.rawString() ?? "") { (error, connectionHandle) in
+            guard !printError(error) else { callback(nil, error);  return }
+            print("connectionCreate: inviteDetails was successful!")
+            print("connectionHandle: \(connectionHandle)")
+            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
+            callback(handle, nil)
+        }
+    }
+    
+    // MARK: -
     
     /// Prints error if presented
     /// - Parameter error: the error
