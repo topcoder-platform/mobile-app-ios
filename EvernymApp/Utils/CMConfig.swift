@@ -105,18 +105,18 @@ class CMConfig {
     static func genesisFileName(environment: Environment) -> String {
         switch environment {
         case .sandbox:
-            return "pool_transactions_genesis_DEMO"
+            return "pool_transactions_genesis_DEMO_2"
         case .staging:
-            return "pool_transactions_genesis_STAG"
+            return "pool_transactions_genesis_STAG_2"
         default:
-            return "pool_transactions_genesis_PROD"
+            return "pool_transactions_genesis_PROD_2"
         }
     }
     
     static func genesisFile(environment: Environment) -> String {
         switch environment {
         case .staging:
-            return stagingPoolTxnGenesisDef
+            return stagingPoolTxnGenesisDef2
         // Default is Production genesis file:
         default:
             return productionPoolTxnGenesisDef
@@ -149,10 +149,10 @@ class CMConfig {
     
     // MARK: - JSON config helper methods
     
-    static func updateJSONConfig(jsonConfig: String, withValues values: [String: String]) -> String {
+    static func updateJSONConfig(jsonConfig: String, withValues values: [String: Any]) -> String {
         var jsonConfig = try! JSON(data: jsonConfig.data(using: .utf8)!)
         for (k,v) in values {
-            jsonConfig[k].string = v
+            jsonConfig[k] = (v is String) ? JSON(v) : (v as! JSON)
         }
         return jsonConfig.rawString() ?? ""
     }
@@ -171,13 +171,14 @@ class CMConfig {
                 print("ERROR: 1075 WalletAccessFailed: The `wallet_name` already exist, but you provided different `wallet_key`. Use the same `wallet_key` once it's generated for the first time.")
                 return
             }
-            guard !printError(error) else { return }
+            guard !printError(label: "agentProvisionAsync", error) else { return }
             
             print("Success: agentProvisionAsync: oneTimeInfo: \(String(describing: oneTimeInfo))")
             let config = CMConfig.vsxConfig(oneTimeInfo: oneTimeInfo)
+            print("Updated config: \(config!))")
             print("sdkApi.initWithConfig...")
             sdkApi.initWithConfig(config) { (error) in
-                guard !printError(error) else { return }
+                guard !printError(label: "initWithConfig", error) else { return }
                 
                 (UIApplication.shared.delegate as? AppDelegate)?.sdkInited = true
                 print("######## VCX Config Successful! :) #########")
@@ -192,6 +193,17 @@ class CMConfig {
         var vcxConfig: String!
         let kkey = "vcxConfig-" + walletName
         if let oneTimeInfo = oneTimeInfo {
+            // V1: genesis file by file path. This does not work. Something with formatting.
+//            let genesisFile = try! String(contentsOf: URL(fileURLWithPath: genesisFilePath()))
+//            print(genesisFile)
+//            vcxConfig = updateJSONConfig(jsonConfig: oneTimeInfo, withValues: [
+//                "poolConfig": genesisFile,
+//                "institution_logo_url": "https://robothash.com/logo.png",
+//                "institution_name": "real institution name",
+//                "pool_name": "7e96cbb3b0a1711f3b843af3cb28e31dcmpool",
+//                "protocol_version": "2"
+//            ])
+            // V2: genesis included
             vcxConfig = updateJSONConfig(jsonConfig: oneTimeInfo, withValues: [
                 "genesis_path": genesisFilePath(),
                 "institution_logo_url": "https://robothash.com/logo.png",
@@ -217,27 +229,47 @@ class CMConfig {
     /// - Parameters:
     ///   - inviteDetails: the invitation details taken from QR code URL
     ///   - callback: the callback to return a handle after success connection or error
-    static func connect(withInviteDetails inviteDetails: JSON, callback: @escaping (VcxHandle?, Error?)->()) {
+    static func connect(withInviteDetails inviteDetails: JSON, callback: @escaping (Int?, Error?)->()) {
         guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
-        let inviteLabel = inviteDetails["@id"].stringValue /// TODO may be `@id` field should be used
+        let inviteLabel = inviteDetails["label"].stringValue /// TODO may be `@id` field should be used
         
         // Create connection
         sdkApi.connectionCreate(withInvite: inviteLabel, inviteDetails: inviteDetails.rawString() ?? "") { (error, connectionHandle) in
-            guard !printError(error) else { callback(nil, error);  return }
+            guard !printError(label: "connectionCreate:withInvite", error) else { callback(nil, error);  return }
             print("connectionCreate: inviteDetails was successful!")
             print("connectionHandle: \(connectionHandle)")
-            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
-            callback(handle, nil)
+//            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
+            callback(connectionHandle, nil)
+        }
+    }
+    
+    static func connectionGetState(handle: Int, callback: @escaping (Int?, Error?)->()) {
+        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
+        sdkApi.connectionGetState(Int(handle)) { (error, state) in
+            guard !printError(label: "connectionGetState", error) else { callback(nil, error); return }
+            print("connectionGetState was successful (state=\(state))!")
+            callback(state, nil)
+        }
+    }
+    
+    static func connectionUpdateState(handle: Int, callback: @escaping (Int?, Error?)->()) {
+        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
+        sdkApi.connectionUpdateState(Int(handle)) { (error, state) in
+            guard !printError(label: "connectionUpdateState", error) else { callback(nil, error); return }
+            print("connectionUpdateState was successful (state=\(state))!")
+            callback(state, nil)
         }
     }
     
     // MARK: -
     
     /// Prints error if presented
-    /// - Parameter error: the error
+    /// - Parameters:
+    ///   - label: the label, e.g. the method or API name
+    ///   - error: the error
     /// - Returns: true - if error found
-    static func printError(_ error: Error?) -> Bool {
-        if error != nil && (error as NSError?)?.code != 0 { print("ERROR: \(String(describing: error))"); return true }
+    static func printError(label: String, _ error: Error?) -> Bool {
+        if error != nil && (error as NSError?)?.code != 0 { print("ERROR [\(label)]: \(String(describing: error))"); return true }
         return false
     }
 }

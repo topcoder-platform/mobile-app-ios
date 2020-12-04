@@ -52,12 +52,15 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
                 
                 // Creating a connection
                 CMConfig.connect(withInviteDetails: value) { [weak self] (handle, error) in
-                    if let error = error {
-                        showError(errorMessage: error.localizedDescription)
-                        return
-                    }
-                    else if let handle = handle {
-                        self?.showAlert("Connected", "Successfully connected using the invitation (handle \(handle))")
+                    guard !ViewController.process(error: error) else { return }
+                    if let handle = handle {
+                        CMConfig.connectionGetState(handle: handle) { (state, error) in
+                            guard !ViewController.process(error: error) else { return }
+                            CMConfig.connectionUpdateState(handle: handle) { (state2, error) in
+                                guard !ViewController.process(error: error) else { return }
+                                self?.showAlert("Connected", "Successfully connected using the invitation (handle \(handle)) and updated state=\(-1) to state=\(state2)")
+                            }
+                        }
                     }
                     else {
                         self?.showAlert("Connected", "Successfully connected using the invitation (no handle)")
@@ -66,6 +69,16 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
                 return
                 }, onError: { _ in
             }).disposed(by: rx.disposeBag)
+    }
+    
+    
+    /// Return true if there is an error
+    private static func process(error: Error?) -> Bool {
+        if let error = error {
+            showError(errorMessage: error.localizedDescription)
+            return true
+        }
+        return false
     }
     
     // MARK: - CodeScannerViewControllerDelegate
