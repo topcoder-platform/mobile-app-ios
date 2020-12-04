@@ -236,10 +236,26 @@ class CMConfig {
         // Create connection
         sdkApi.connectionCreate(withInvite: inviteLabel, inviteDetails: inviteDetails.rawString() ?? "") { (error, connectionHandle) in
             guard !printError(label: "connectionCreate:withInvite", error) else { callback(nil, error);  return }
-            print("connectionCreate: inviteDetails was successful!")
+            print("connectionCreate:inviteDetails was successful!")
             print("connectionHandle: \(connectionHandle)")
 //            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
             callback(connectionHandle, nil)
+        }
+    }
+    
+    /// Need to wait >4 seconds after connection is established
+    /// - Parameters:
+    ///   - handle: the handle
+    ///   - callback: the callback to call when connection is done/fails
+    static func connect(handle: Int, callback: @escaping (Error?)->()) {
+        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
+        
+        // Connect
+        let handle = VcxHandle(truncatingIfNeeded: handle)
+        sdkApi.connectionConnect(handle, connectionType: "{\"use_public_did\":true}") { (error, _) in
+            guard !printError(label: "connectionConnect:handle", error) else { callback(error);  return }
+            print("connectionConnect:handle was successful!")
+            callback(nil)
         }
     }
     

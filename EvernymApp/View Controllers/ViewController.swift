@@ -53,12 +53,19 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
                 // Creating a connection
                 CMConfig.connect(withInviteDetails: value) { [weak self] (handle, error) in
                     guard !ViewController.process(error: error) else { return }
+                    
                     if let handle = handle {
-                        CMConfig.connectionGetState(handle: handle) { (state, error) in
+                        CMConfig.connect(handle: handle) { (error) in
                             guard !ViewController.process(error: error) else { return }
-                            CMConfig.connectionUpdateState(handle: handle) { (state2, error) in
-                                guard !ViewController.process(error: error) else { return }
-                                self?.showAlert("Connected", "Successfully connected using the invitation (handle \(handle)) and updated state=\(-1) to state=\(state2)")
+                            
+                            delay(4) {
+                                CMConfig.connectionGetState(handle: handle) { (state, error) in
+                                    guard !ViewController.process(error: error) else { return }
+                                    CMConfig.connectionUpdateState(handle: handle) { (state2, error) in
+                                        guard !ViewController.process(error: error) else { return }
+                                        self?.showAlert("Connected", "Successfully connected using the invitation (handle \(handle)) and updated state=\(state) to state=\(state2)")
+                                    }
+                                }
                             }
                         }
                     }
