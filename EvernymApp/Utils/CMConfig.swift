@@ -11,10 +11,13 @@ import SwiftyJSON
 import Keychain83
 import SwiftEx83
 import vcx
+import Combine
 
 enum SdkEvent: String {
     case ready
 }
+
+typealias VcxUtil = CMConfig
 
 /// Utility used for configuration
 class CMConfig {
@@ -158,31 +161,32 @@ class CMConfig {
     }
     
     // MARK: - VCX Init
-    static func initialize() {
-        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
-    
-// TODO no such method    [sdkApi initSovToken];
-    
-        let agencyConfig = getAgencyConfig()
-        print("Agency config \(agencyConfig)")
-        print("sdkApi.agentProvisionAsync...")
-        sdkApi.agentProvisionAsync(agencyConfig) { (error, oneTimeInfo) in
-            if let nsError = error as NSError?, nsError.code == 1075 {
-                print("ERROR: 1075 WalletAccessFailed: The `wallet_name` already exist, but you provided different `wallet_key`. Use the same `wallet_key` once it's generated for the first time.")
-                return
-            }
-            guard !printError(label: "agentProvisionAsync", error) else { return }
-            
-            print("Success: agentProvisionAsync: oneTimeInfo: \(String(describing: oneTimeInfo))")
-            let config = CMConfig.vsxConfig(oneTimeInfo: oneTimeInfo)
-            print("Updated config: \(config!))")
-            print("sdkApi.initWithConfig...")
-            sdkApi.initWithConfig(config) { (error) in
-                guard !printError(label: "initWithConfig", error) else { return }
+    static func initialize() -> Future<Void, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            let agencyConfig = getAgencyConfig()
+            print("Agency config \(agencyConfig)")
+            print("sdkApi.agentProvisionAsync...")
+            sdkApi.agentProvisionAsync(agencyConfig) { (error, oneTimeInfo) in
+                if let nsError = error as NSError?, nsError.code == 1075 {
+                    promise(.failure(nsError))
+                    print("ERROR: 1075 WalletAccessFailed: The `wallet_name` already exist, but you provided different `wallet_key`. Use the same `wallet_key` once it's generated for the first time.")
+                    return
+                }
+                guard !printError(label: "agentProvisionAsync", error, promise: promise) else { return }
                 
-                (UIApplication.shared.delegate as? AppDelegate)?.sdkInited = true
-                print("######## VCX Config Successful! :) #########")
-                NotificationCenter.post(SdkEvent.ready)
+                print("Success: agentProvisionAsync: oneTimeInfo: \(String(describing: oneTimeInfo))")
+                let config = CMConfig.vsxConfig(oneTimeInfo: oneTimeInfo)
+                print("Updated config: \(config!))")
+                print("sdkApi.initWithConfig...")
+                sdkApi.initWithConfig(config) { (error) in
+                    guard !printError(label: "initWithConfig", error, promise: promise) else { return }
+                    
+                    (UIApplication.shared.delegate as? AppDelegate)?.sdkInited = true
+                    print("######## VCX Config Successful! :) #########")
+                    NotificationCenter.post(SdkEvent.ready)
+                    promise(.success(()))
+                }
             }
         }
     }
@@ -228,53 +232,87 @@ class CMConfig {
     /// Connect with given invitation
     /// - Parameters:
     ///   - inviteDetails: the invitation details taken from QR code URL
-    ///   - callback: the callback to return a handle after success connection or error
-    static func connect(withInviteDetails inviteDetails: JSON, callback: @escaping (Int?, Error?)->()) {
-        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
-        let inviteLabel = inviteDetails["label"].stringValue /// TODO may be `@id` field should be used
-        
-        // Create connection
-        sdkApi.connectionCreate(withInvite: inviteLabel, inviteDetails: inviteDetails.rawString() ?? "") { (error, connectionHandle) in
-            guard !printError(label: "connectionCreate:withInvite", error) else { callback(nil, error);  return }
-            print("connectionCreate:inviteDetails was successful!")
-            print("connectionHandle: \(connectionHandle)")
-//            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
-            callback(connectionHandle, nil)
+    func connect(withInviteDetails inviteDetails: JSON) -> Future<Int, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            let inviteLabel = inviteDetails["label"].stringValue /// TODO may be `@id` field should be used
+            
+            // Create connection
+            sdkApi.connectionCreate(withInvite: inviteLabel, inviteDetails: inviteDetails.rawString() ?? "") { (error, connectionHandle) in
+                guard !CMConfig.printError(label: "connectionCreate:withInvite", error, promise: promise) else { return }
+                print("connectionCreate:inviteDetails was successful!")
+                print("connectionHandle: \(connectionHandle)")
+                //            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
+                promise(.success(connectionHandle))
+            }
         }
+        
     }
     
     /// Need to wait >4 seconds after connection is established
     /// - Parameters:
     ///   - handle: the handle
     ///   - callback: the callback to call when connection is done/fails
-    static func connect(handle: Int, callback: @escaping (Error?)->()) {
-        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
-        
-        // Connect
-        let handle = VcxHandle(truncatingIfNeeded: handle)
-        sdkApi.connectionConnect(handle, connectionType: "{\"use_public_did\":true}") { (error, _) in
-            guard !printError(label: "connectionConnect:handle", error) else { callback(error);  return }
-            print("connectionConnect:handle was successful!")
-            callback(nil)
+    func connect(handle: Int) -> Future<Void, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            // Connect
+            let handle = VcxHandle(truncatingIfNeeded: handle)
+            sdkApi.connectionConnect(handle, connectionType: "{\"use_public_did\":true}") { (error, _) in
+                guard !CMConfig.printError(label: "connectionConnect:handle", error, promise: promise) else { return }
+                print("connectionConnect:handle was successful!")
+                promise(.success(()))
+            }
         }
     }
     
-    static func connectionGetState(handle: Int, callback: @escaping (Int?, Error?)->()) {
-        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
-        sdkApi.connectionGetState(Int(handle)) { (error, state) in
-            guard !printError(label: "connectionGetState", error) else { callback(nil, error); return }
-            print("connectionGetState was successful (state=\(state))!")
-            callback(state, nil)
+    func connectionGetState(handle: Int) -> Future<Int, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            sdkApi.connectionGetState(Int(handle)) { (error, state) in
+                guard !CMConfig.printError(label: "connectionGetState", error, promise: promise) else { return }
+                print("connectionGetState was successful (state=\(state))!")
+                promise(.success(state))
+            }
         }
     }
     
-    static func connectionUpdateState(handle: Int, callback: @escaping (Int?, Error?)->()) {
-        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { print("ERROR: no sdkAPI"); return }
-        sdkApi.connectionUpdateState(Int(handle)) { (error, state) in
-            guard !printError(label: "connectionUpdateState", error) else { callback(nil, error); return }
-            print("connectionUpdateState was successful (state=\(state))!")
-            callback(state, nil)
+    func connectionUpdateState(handle: Int) -> Future<Int, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            sdkApi.connectionUpdateState(Int(handle)) { (error, state) in
+                guard !CMConfig.printError(label: "connectionUpdateState", error, promise: promise) else { return }
+                print("connectionUpdateState was successful (state=\(state))!")
+                promise(.success(state))
+            }
         }
+    }
+    
+    func connectionSerialize(handle: Int) -> Future<String, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            sdkApi.connectionSerialize(Int(handle)) { (error, serializedConnection) in
+                guard !CMConfig.printError(label: "connectionSerialize", error, promise: promise) else { return }
+                print("connectionSerialize was successful!")
+                promise(.success(serializedConnection!))
+            }
+        }
+    }
+    
+    func connectionDeserialize(serializedConnection: String) -> Future<Int, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            sdkApi.connectionDeserialize(serializedConnection) { (error, handle) in
+                guard !CMConfig.printError(label: "connectionDeserialize", error, promise: promise) else { return }
+                print("connectionDeserialize was successful!")
+                promise(.success(handle))
+            }
+        }
+    }
+    
+    func connectionRelease(handle: Int) {
+        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { return }
+        sdkApi.connectionRelease(handle)
     }
     
     // MARK: -
@@ -284,8 +322,8 @@ class CMConfig {
     ///   - label: the label, e.g. the method or API name
     ///   - error: the error
     /// - Returns: true - if error found
-    static func printError(label: String, _ error: Error?) -> Bool {
-        if error != nil && (error as NSError?)?.code != 0 { print("ERROR [\(label)]: \(String(describing: error))"); return true }
+    static func printError<O>(label: String, _ error: Error?, promise: Future<O, Error>.Promise) -> Bool {
+        if error != nil && (error as NSError?)?.code != 0 { print("ERROR [\(label)]: \(String(describing: error))"); promise(.failure(error!));return true }
         return false
     }
 }

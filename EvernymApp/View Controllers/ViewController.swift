@@ -10,12 +10,16 @@ import UIKit
 import QRCodeScanner83
 import SwiftEx83
 import AVFoundation
+import Combine
 
 class ViewController: UIViewController, CodeScannerViewControllerDelegate {
 
     /// outlets
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var scanButton: UIButton!
+    
+    var cancellable: AnyCancellable?
+    var serializedConnection: String?
     
     /// Setup UI
     override func viewDidLoad() {
@@ -50,34 +54,40 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
             .subscribe(onNext: { [weak self] value in
                 print("INVITAION:\n\(value)")
                 
+                var connectionHandle: Int!
+                let util = VcxUtil()
                 // Creating a connection
-                CMConfig.connect(withInviteDetails: value) { [weak self] (handle, error) in
-                    guard !ViewController.process(error: error) else { return }
-                    
-                    if let handle = handle {
-                        CMConfig.connect(handle: handle) { (error) in
-                            guard !ViewController.process(error: error) else { return }
-                            
-                            delay(4) {
-                                CMConfig.connectionGetState(handle: handle) { (state, error) in
-                                    guard !ViewController.process(error: error) else { return }
-                                    CMConfig.connectionUpdateState(handle: handle) { (state2, error) in
-                                        guard !ViewController.process(error: error) else { return }
-                                        self?.showAlert("Connected", "Successfully connected using the invitation (handle \(handle)) and updated state=\(state) to state=\(state2)")
-                                    }
-                                }
-                            }
+                self?.cancellable = util.connect(withInviteDetails: value)
+                    .flatMap({ handle -> Future<Void, Error> in
+                        connectionHandle = handle
+                        return util.connect(handle: handle)
+                    })
+                    .map { _ in
+                        sleep(4)
+                    }
+                    .flatMap({ handle in
+                        util.connectionGetState(handle: connectionHandle)
+                    })
+                    .flatMap({ handle in
+                        util.connectionUpdateState(handle: connectionHandle)
+                    })
+                    .flatMap({ _ in
+                        util.connectionSerialize(handle: connectionHandle)
+                    })
+                    .map { value in
+                        self?.serializedConnection = value
+                        _ = util.connectionRelease(handle: connectionHandle)
+                    }
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished: break
+                        case .failure(let error): showError(errorMessage: error.localizedDescription)
                         }
-                    }
-                    else {
-                        self?.showAlert("Connected", "Successfully connected using the invitation (no handle)")
-                    }
-                }
+                    }, receiveValue: { _ in })
                 return
                 }, onError: { _ in
             }).disposed(by: rx.disposeBag)
     }
-    
     
     /// Return true if there is an error
     private static func process(error: Error?) -> Bool {
@@ -114,3 +124,25 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
     }
 }
 
+extension Publisher {
+    
+    /// Add delay to Future
+    ///
+    /// - Parameter time: the delay time
+    /// - Returns: Future
+    func withDelay(_ interval: TimeInterval) -> Future<Self.Output, Error> { // where Self.Output == P {
+        let this = self
+        return Future { promise in
+            SwiftEx83.delay(interval) {
+                _ = this.sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished: break
+                    case .failure(let error): promise(.failure(error))
+                    }
+                }, receiveValue: { value in
+                    promise(.success(value))
+                })
+            }
+        }
+    }
+}
