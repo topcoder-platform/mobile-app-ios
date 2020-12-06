@@ -9,6 +9,7 @@
 import UIKit
 import vcx
 import SwiftyJSON
+import Combine
 
 /// https://github.com/hyperledger/indy-sdk/blob/master/vcx/wrappers/python3/vcx/state.py
 enum ConnectionState: Int {
@@ -31,7 +32,7 @@ enum ConnectionState: Int {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    var cancellable: AnyCancellable?
     var sdkApi: ConnectMeVcx!
     var sdkInited = false
     
@@ -196,7 +197,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         sdkApi = ConnectMeVcx()
 //        trySdk()
-        CMConfig.initialize()
+        cancellable = CMConfig.initialize()
+            .sink(receiveCompletion: { completion in
+            switch completion {
+            case .finished: break
+            case .failure(let error): fatalError(error.localizedDescription)
+            }
+        }, receiveValue: { _ in })
         return true
     }
 

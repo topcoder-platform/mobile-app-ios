@@ -9,26 +9,45 @@
 import UIKit
 import QRCodeScanner83
 import SwiftEx83
+import SwiftyJSON
 import AVFoundation
+import Combine
 
 class ViewController: UIViewController, CodeScannerViewControllerDelegate {
-
+    
     /// outlets
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var scanButton: UIButton!
+    @IBOutlet weak var checkCredentialsButton: UIButton!
+    
+    var cancellable: AnyCancellable?
+    var serializedConnection: String?
     
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
         statusLabel.text = "SDK Initialization... Please wait."
         scanButton.isEnabled = false
+        checkCredentialsButton.isEnabled = false
         NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: SdkEvent.ready)
     }
     
     @objc func notificationHandler(_ notification: NSNotification) {
         if notification.name.rawValue == SdkEvent.ready.rawValue {
+            updateUI()
+        }
+    }
+    
+    private func updateUI() {
+        if serializedConnection == nil {
             statusLabel.text = "You can scan an invitation now"
             scanButton.isEnabled = true
+            checkCredentialsButton.isEnabled = false
+        }
+        else {
+            statusLabel.text = "You can accept credential offers (if exist)"
+            scanButton.isEnabled = true
+            checkCredentialsButton.isEnabled = true
         }
     }
     
@@ -36,7 +55,76 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
     ///
     /// - parameter sender: the button
     @IBAction func scanAction(_ sender: Any) {
+        checkCredentialsButton.isEnabled = false
         openScanner()
+    }
+    
+    @IBAction func checkCredentials(_ sender: Any) {
+        guard let serializedConnection = serializedConnection else { return }
+        print("CHECKING CREDENTIALS...")
+        
+        let util = VcxUtil()
+        var connectionHandle: Int!
+        var credentialHandle: Int!
+        let loadingIndicator = ActivityIndicator(parentView: nil).start()
+        
+        statusLabel.text = "Checking offers..."
+        // Deserialize a saved connection
+        self.cancellable = util.connectionDeserialize(serializedConnection: serializedConnection)
+            .map { handle in
+                connectionHandle = handle
+            }
+            .flatMap({
+                // Check agency for a credential offers
+                util.credentialGetOffers(connectionHandle: connectionHandle)
+            })
+            .map { [weak self] offers -> String in
+                let json = JSON(parseJSON: offers) // Parse offers
+                print("Credential offers: ", json)
+                // Use first offer
+                if let firstOffer = json.arrayValue.first {
+                    return firstOffer.rawString()!
+                }
+                loadingIndicator.stop()
+                showError(errorMessage: "No offers")
+                self?.updateUI()
+                self?.cancellable?.cancel()
+                return ""
+            }
+            .flatMap({ [weak self] offer -> Future<Int, Error> in
+                // Create a credential object from the credential offer
+                self?.statusLabel.text = "Processing an offer..."
+                return util.credentialCreateWithOffer(sourceId: "1", credentialOffer: offer)
+            })
+            .map { handle in
+                credentialHandle = handle
+            }
+            .flatMap({
+                // Send a credential request
+                util.credentialSendRequest(credentialHandle: credentialHandle, connectionHandle: connectionHandle, paymentHandle: 0)
+            })
+            .map { _ in
+                sleep(4)
+            }
+            .flatMap({ [weak self] Void -> Future<Int, Error> in
+                self?.statusLabel.text = "Accepting credential offer..."
+                // Accept credential offer from faber
+                return util.credentialUpdateState(credentialHandle: credentialHandle)
+            })
+            .map { _ in
+                // Release vcx objects from memory
+                _ = util.connectionRelease(handle: connectionHandle)
+                _ = util.credentialRelease(credentialHandle: credentialHandle)
+            }
+            .sink(receiveCompletion: { [weak self] completion in
+                loadingIndicator.stop()
+                self?.updateUI()
+                self?.showAlert("", "Credential offer accepted")
+                switch completion {
+                case .finished: break
+                case .failure(let error): fatalError(error.localizedDescription)
+                }
+            }, receiveValue: { _ in })
     }
     
     /// Process invitation URL provided as QR code
@@ -50,34 +138,44 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
             .subscribe(onNext: { [weak self] value in
                 print("INVITAION:\n\(value)")
                 
+                let loadingIndicator = ActivityIndicator(parentView: nil).start()
+                var connectionHandle: Int!
+                let util = VcxUtil()
                 // Creating a connection
-                CMConfig.connect(withInviteDetails: value) { [weak self] (handle, error) in
-                    guard !ViewController.process(error: error) else { return }
-                    
-                    if let handle = handle {
-                        CMConfig.connect(handle: handle) { (error) in
-                            guard !ViewController.process(error: error) else { return }
-                            
-                            delay(4) {
-                                CMConfig.connectionGetState(handle: handle) { (state, error) in
-                                    guard !ViewController.process(error: error) else { return }
-                                    CMConfig.connectionUpdateState(handle: handle) { (state2, error) in
-                                        guard !ViewController.process(error: error) else { return }
-                                        self?.showAlert("Connected", "Successfully connected using the invitation (handle \(handle)) and updated state=\(state) to state=\(state2)")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else {
-                        self?.showAlert("Connected", "Successfully connected using the invitation (no handle)")
-                    }
+                self?.cancellable = util.connect(withInviteDetails: value)
+                    .flatMap({ handle -> Future<Void, Error> in
+                        connectionHandle = handle
+                        return util.connect(handle: handle)
+                    })
+                    .map { _ in
+                        sleep(4)
                 }
+                .flatMap({ handle in
+                    util.connectionGetState(handle: connectionHandle)
+                })
+                    .flatMap({ handle in
+                        util.connectionUpdateState(handle: connectionHandle)
+                    })
+                    .flatMap({ _ in
+                        util.connectionSerialize(handle: connectionHandle)
+                    })
+                    .map { value in
+                        self?.serializedConnection = value
+                        _ = util.connectionRelease(handle: connectionHandle)
+                        self?.checkCredentialsButton.isEnabled = true
+                        self?.updateUI()
+                }
+                .sink(receiveCompletion: { completion in
+                    loadingIndicator.stop()
+                    switch completion {
+                    case .finished: break
+                    case .failure(let error): showError(errorMessage: error.localizedDescription)
+                    }
+                }, receiveValue: { _ in })
                 return
                 }, onError: { _ in
             }).disposed(by: rx.disposeBag)
     }
-    
     
     /// Return true if there is an error
     private static func process(error: Error?) -> Bool {
@@ -114,3 +212,25 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
     }
 }
 
+extension Publisher {
+    
+    /// Add delay to Future
+    ///
+    /// - Parameter time: the delay time
+    /// - Returns: Future
+    func withDelay(_ interval: TimeInterval) -> Future<Self.Output, Error> { // where Self.Output == P {
+        let this = self
+        return Future { promise in
+            SwiftEx83.delay(interval) {
+                _ = this.sink(receiveCompletion: { completion in
+                    switch completion {
+                    case .finished: break
+                    case .failure(let error): promise(.failure(error))
+                    }
+                }, receiveValue: { value in
+                    promise(.success(value))
+                })
+            }
+        }
+    }
+}
