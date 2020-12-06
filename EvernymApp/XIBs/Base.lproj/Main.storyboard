@@ -28,6 +28,13 @@
                                     <action selector="scanAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vus-un-k8t"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJB-cg-53W">
+                                <rect key="frame" x="137" y="608.5" width="124" height="30"/>
+                                <state key="normal" title="Check credentials"/>
+                                <connections>
+                                    <action selector="checkCredentials:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xx1-f8-opr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -35,11 +42,14 @@
                             <constraint firstItem="Bj5-jb-0Jo" firstAttribute="top" secondItem="sxa-gI-Z01" secondAttribute="bottom" constant="100" id="64l-3u-sa3"/>
                             <constraint firstItem="Bj5-jb-0Jo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6PN-wc-SVG"/>
                             <constraint firstItem="sxa-gI-Z01" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="GmD-wS-7Sg"/>
+                            <constraint firstItem="HJB-cg-53W" firstAttribute="top" secondItem="Bj5-jb-0Jo" secondAttribute="bottom" constant="20" id="NFe-K4-Rzl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sxa-gI-Z01" secondAttribute="trailing" constant="10" id="bhS-zc-sH0"/>
+                            <constraint firstItem="HJB-cg-53W" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-8" id="gIW-2Q-rJX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="checkCredentialsButton" destination="HJB-cg-53W" id="8hC-92-rrw"/>
                         <outlet property="scanButton" destination="Bj5-jb-0Jo" id="o9V-um-Ebe"/>
                         <outlet property="statusLabel" destination="sxa-gI-Z01" id="t8O-eN-RqX"/>
                     </connections>
@@ -76,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="apV-zL-KZC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="551" y="-5"/>
+            <point key="canvasLocation" x="681" y="-5"/>
         </scene>
     </scenes>
 </document>

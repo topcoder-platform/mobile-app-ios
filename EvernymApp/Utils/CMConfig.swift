@@ -315,6 +315,58 @@ class CMConfig {
         sdkApi.connectionRelease(handle)
     }
     
+    // MARK: - Credentials
+    
+    func credentialGetOffers(connectionHandle: Int) -> Future<String, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
+            sdkApi.credentialGetOffers(handle) { (error, offers) in
+                guard !CMConfig.printError(label: "credentialGetOffers", error, promise: promise) else { return }
+                print("credentialGetOffers was successful!")
+                promise(.success(offers!))
+            }
+        }
+    }
+    
+    func credentialCreateWithOffer(sourceId: String, credentialOffer: String) -> Future<Int, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            sdkApi.credentialCreate(withOffer: sourceId, offer: credentialOffer) { error, credentialHandle in
+                guard !CMConfig.printError(label: "credentialCreate", error, promise: promise) else { return }
+                print("credentialGetOffers was successful!")
+                promise(.success(credentialHandle))
+            }
+        }
+    }
+    
+    func credentialSendRequest(credentialHandle: Int, connectionHandle: Int, paymentHandle: Int) -> Future<String, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            sdkApi.credentialSendRequest(credentialHandle, connectionHandle: VcxHandle(truncatingIfNeeded: connectionHandle), paymentHandle: vcx_payment_handle_t(paymentHandle)) { error in
+                guard !CMConfig.printError(label: "credentialSendRequest", error, promise: promise) else { return }
+                print("credentialSendRequest was successful!")
+                promise(.success(""))
+            }
+        }
+    }
+    
+    func credentialUpdateState(credentialHandle: Int) -> Future<Int, Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+            sdkApi.credentialUpdateState(credentialHandle) { error, state in
+                guard !CMConfig.printError(label: "credentialUpdateState", error, promise: promise) else { return }
+                print("credentialUpdateState was successful!")
+                promise(.success(state))
+            }
+        }
+    }
+    
+    func credentialRelease(credentialHandle: Int) -> Int {
+        guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { return -1 }
+        return Int(sdkApi.connectionRelease(credentialHandle))
+    }
+    
     // MARK: -
     
     /// Prints error if presented
