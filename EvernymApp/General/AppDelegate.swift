@@ -10,6 +10,8 @@ import UIKit
 import vcx
 import SwiftyJSON
 import Combine
+import AppCenter
+import AppCenterDistribute
 
 /// https://github.com/hyperledger/indy-sdk/blob/master/vcx/wrappers/python3/vcx/state.py
 enum ConnectionState: Int {
@@ -195,6 +197,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // AppCenter
+        #if !DEBUG
+        Distribute.updateTrack = .private
+        AppCenter.start(withAppSecret: Configuration.appCenterSecret, services: [Distribute.self])
+        #endif
+        
+        // VCX
         sdkApi = ConnectMeVcx()
 //        trySdk()
         cancellable = CMConfig.initialize()

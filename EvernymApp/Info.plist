@@ -50,5 +50,14 @@
 		<key>NSAllowsArbitraryLoadsUsageDescription</key>
 		<dict/>
 	</dict>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>appcenter-1b25614b-e105-4740-88f4-b4d687fcb032</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

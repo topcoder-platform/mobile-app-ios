@@ -12,4 +12,5 @@ target 'EvernymApp' do
   pod 'Keychain83', '0.0.1'
   pod 'SwiftEx83/Int'
   pod 'QRCodeScanner83', :git => 'https://github.com/seriyvolk83/QRCodeScanner.git', :tag => '0.0.3'
+  pod 'AppCenter/Distribute'
 end

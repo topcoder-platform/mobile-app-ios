@@ -11,6 +11,8 @@
 		FD6C8F2A2570DB7600CA4C0B /* StagingPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */; };
 		FD6C8F2C2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */; };
 		FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D856D25792E79009D5DD9 /* DataSource.swift */; };
+		FDA792D72583643700F28CFB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA792D62583643700F28CFB /* Configuration.swift */; };
+		FDA792D92583645C00F28CFB /* configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDA792D82583645C00F28CFB /* configuration.plist */; };
 		FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */; };
 		FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */; };
 		FDB5B6F9252A4B6D0035ADC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6F7252A4B6D0035ADC1 /* Main.storyboard */; };
@@ -28,6 +30,8 @@
 		FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StagingPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FD8D856D25792E79009D5DD9 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		FDA792D62583643700F28CFB /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		FDA792D82583645C00F28CFB /* configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = configuration.plist; sourceTree = "<group>"; };
 		FDB5B6EE252A4B6D0035ADC1 /* EvernymApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvernymApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 				FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */,
 				FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */,
 				FD8D856D25792E79009D5DD9 /* DataSource.swift */,
+				FDA792D62583643700F28CFB /* Configuration.swift */,
+				FDA792D82583645C00F28CFB /* configuration.plist */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -158,6 +164,7 @@
 				FDB5B6EB252A4B6D0035ADC1 /* Frameworks */,
 				FDB5B6EC252A4B6D0035ADC1 /* Resources */,
 				6097D1C23D0432F0F0DF9010 /* [CP] Embed Pods Frameworks */,
+				37D140A8A22B650D9398A02C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -207,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDB5B6FE252A4B700035ADC1 /* LaunchScreen.storyboard in Resources */,
+				FDA792D92583645C00F28CFB /* configuration.plist in Resources */,
 				FDB5B706252A4EF70035ADC1 /* genesis.txn in Resources */,
 				FDB5B6FB252A4B700035ADC1 /* Assets.xcassets in Resources */,
 				FDD5C3B52536F3E400C8215E /* genesis.json in Resources */,
@@ -217,6 +225,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		37D140A8A22B650D9398A02C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4E8814B005B3B637EAAB1128 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -265,6 +290,7 @@
 			files = (
 				FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */,
 				FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */,
+				FDA792D72583643700F28CFB /* Configuration.swift in Sources */,
 				FD6C8F2A2570DB7600CA4C0B /* StagingPoolTxnGenesis.swift in Sources */,
 				FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */,
 				FD6C8F2C2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift in Sources */,
