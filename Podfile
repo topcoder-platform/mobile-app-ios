@@ -8,7 +8,7 @@ target 'EvernymApp' do
   use_frameworks!
 
   # Pods for EvernymApp
-  pod 'vcx', '0.8.2'
+  pod 'vcx'
   pod 'Keychain83', '0.0.1'
   pod 'SwiftEx83/Int'
   pod 'QRCodeScanner83', :git => 'https://github.com/seriyvolk83/QRCodeScanner.git', :tag => '0.0.3'

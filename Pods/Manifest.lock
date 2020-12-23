@@ -29,7 +29,7 @@ DEPENDENCIES:
   - Keychain83 (= 0.0.1)
   - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
   - SwiftEx83/Int
-  - vcx (= 0.8.2)
+  - vcx
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -66,6 +66,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   vcx: 29ddfbb180e3605e352666a1156562f4dab045bd
 
-PODFILE CHECKSUM: 077013783a1a75d3b0e45b7dceb7ae4f2d84eacf
+PODFILE CHECKSUM: ea63f543620443604efe33f7a63f2c60bb66e8c3
 
 COCOAPODS: 1.10.0.rc.1

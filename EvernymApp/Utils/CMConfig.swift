@@ -26,7 +26,7 @@ class CMConfig {
         case sandbox = 0, production = 1, staging = 2
     }
     
-    static let environment: Environment = .staging
+    static let environment: Environment = .sandbox
     static let walletName = "Topcoder-Dev"
     
     // Keychain utility used to store `walletKey` and `vcxConfig`
@@ -43,6 +43,11 @@ class CMConfig {
     static func getAgencyConfig() -> String {
         let walletKey = getWalletKey()
         let configs = [
+            "0": [
+                "agencyUrl": "https://agency.pps.evernym.com",
+                "agencyDid": "3mbwr7i85JNSL3LoNQecaW",
+                "agencyVerKey": "2WXxo6y1FJvXWgZnoYUP5BJej2mceFrqBDNPE3p6HDPf",
+            ],
             "1": [
                 "agencyUrl": "https://agency.evernym.com",
                 "agencyDid": "DwXzE7GdE5DNfsrRXJChSD",
@@ -118,6 +123,8 @@ class CMConfig {
     
     static func genesisFile(environment: Environment) -> String {
         switch environment {
+        case .sandbox:
+            return demoPoolTxnGenesisDef
         case .staging:
             return stagingPoolTxnGenesisDef2
         // Default is Production genesis file:
