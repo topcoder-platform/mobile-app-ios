@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// WE USE THIS
 /// Taken from https://github.com/topcoder-platform/evernym-tc-wallet/issues/16
 /// https://github.com/topcoder-platform/mobile-sdk/blob/master/DemoEnvironment.md
 /// Matches `SERVER_ENVIRONMENT.DEMO` in https://github.com/sovrin-foundation/connector-app/blob/master/app/store/config-store.js
