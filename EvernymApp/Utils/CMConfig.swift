@@ -85,6 +85,14 @@ class CMConfig {
     static func getWalletKey() -> String {
         let key = "walletKey-" + walletName
         
+//         TODO If you used a key, then uncomment next line and copy it there, then launch the app once, it will store the key in a kaychain
+        do {
+//            let existingKey = "<put key here>"
+            let existingKey = "bJpg7bZHyhx8AptaGijcZTptVBUagM7SAKNwrY0q5cQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+            keychain[key] = existingKey
+            return existingKey
+        }
+        
         // Check if stored in a keychain
         if let walletKey = keychain[key] {
             return walletKey
@@ -219,8 +227,8 @@ class CMConfig {
                 "genesis_path": genesisFilePath(),
                 "institution_logo_url": "https://robothash.com/logo.png",
                 "institution_name": "real institution name",
-                "pool_name": "7e96cbb3b0a1711f3b843af3cb28e31dcmpool",
-                "protocol_version": "2"
+//                "pool_name": "7e96cbb3b0a1711f3b843af3cb28e31dcmpool",
+//                "protocol_version": "2"
             ])
             keychain[kkey] = vcxConfig
             return vcxConfig
