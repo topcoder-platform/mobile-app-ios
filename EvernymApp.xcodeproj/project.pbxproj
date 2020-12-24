@@ -12,6 +12,7 @@
 		FD6C8F2C2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */; };
 		FD8B7BC12593873000732FF5 /* DemoPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8B7BC02593873000732FF5 /* DemoPoolTxnGenesis.swift */; };
 		FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D856D25792E79009D5DD9 /* DataSource.swift */; };
+		FDA6E05E2594A16E00A88636 /* SandboxPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */; };
 		FDA792D72583643700F28CFB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA792D62583643700F28CFB /* Configuration.swift */; };
 		FDA792D92583645C00F28CFB /* configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDA792D82583645C00F28CFB /* configuration.plist */; };
 		FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 		FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FD8B7BC02593873000732FF5 /* DemoPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FD8D856D25792E79009D5DD9 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FDA792D62583643700F28CFB /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FDA792D82583645C00F28CFB /* configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = configuration.plist; sourceTree = "<group>"; };
 		FDB5B6EE252A4B6D0035ADC1 /* EvernymApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvernymApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,9 +141,10 @@
 			isa = PBXGroup;
 			children = (
 				FDEDA0CA256A5ADF00E0FFE7 /* CMConfig.swift */,
+				FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */,
 				FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */,
-				FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */,
 				FD8B7BC02593873000732FF5 /* DemoPoolTxnGenesis.swift */,
+				FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */,
 				FD8D856D25792E79009D5DD9 /* DataSource.swift */,
 				FDA792D62583643700F28CFB /* Configuration.swift */,
 				FDA792D82583645C00F28CFB /* configuration.plist */,
@@ -290,6 +293,7 @@
 				FD6C8F2A2570DB7600CA4C0B /* StagingPoolTxnGenesis.swift in Sources */,
 				FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */,
 				FD6C8F2C2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift in Sources */,
+				FDA6E05E2594A16E00A88636 /* SandboxPoolTxnGenesis.swift in Sources */,
 				FDEDA0CB256A5ADF00E0FFE7 /* CMConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
