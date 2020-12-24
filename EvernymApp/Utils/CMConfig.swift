@@ -23,10 +23,10 @@ typealias VcxUtil = CMConfig
 class CMConfig {
     
     enum Environment: Int {
-        case sandbox = 0, production = 1, staging = 2
+        case sandbox = 0, production = 1, staging = 2, demo = 3
     }
     
-    static let environment: Environment = .sandbox
+    static let environment: Environment = .demo
     static let walletName = "Topcoder-Dev"
     
     // Keychain utility used to store `walletKey` and `vcxConfig`
@@ -43,21 +43,30 @@ class CMConfig {
     static func getAgencyConfig() -> String {
         let walletKey = getWalletKey()
         let configs = [
-            "0": [
-                "agencyUrl": "https://agency.pps.evernym.com",
-                "agencyDid": "3mbwr7i85JNSL3LoNQecaW",
-                "agencyVerKey": "2WXxo6y1FJvXWgZnoYUP5BJej2mceFrqBDNPE3p6HDPf",
+            // sandbox
+            "0": [ // taken from https://github.com/sovrin-foundation/connector-app/blob/master/app/store/config-store.js
+                "agencyUrl": "http://52.25.123.226",
+                "agencyDid": "Nv9oqGX57gy15kPSJzo2i4",
+                "agencyVerKey": "CwpcjCc6MtVNdQgwoonNMFoR6dhzmRXHHaUCRSrjh8gj"
             ],
+            // production
             "1": [
                 "agencyUrl": "https://agency.evernym.com",
                 "agencyDid": "DwXzE7GdE5DNfsrRXJChSD",
                 "agencyVerKey": "844sJfb2snyeEugKvpY7Y4jZJk9LT6BnS6bnuKoiqbip"
             ],
+            // staging
             "2": [
                 "agencyUrl": "https://agency.pstg.evernym.com",
                 "agencyDid": "LqnB96M6wBALqRZsrTTwda",
                 "agencyVerKey": "BpDPZHLbJFu67sWujecoreojiWZbi2dgf4xnYemUzFvB"
-            ]
+            ],
+            // demo
+            "3": [
+                "agencyUrl": "https://agency.pps.evernym.com",
+                "agencyDid": "3mbwr7i85JNSL3LoNQecaW",
+                "agencyVerKey": "2WXxo6y1FJvXWgZnoYUP5BJej2mceFrqBDNPE3p6HDPf",
+            ],
         ]
         
         let index = environment.rawValue.description
@@ -85,6 +94,14 @@ class CMConfig {
     static func getWalletKey() -> String {
         let key = "walletKey-" + walletName
         
+//         TODO If you used a key, then uncomment next line and copy it there, then launch the app once, it will store the key in a kaychain
+//        do {
+////            let existingKey = "<put key here>"
+//            let existingKey = "bJpg7bZHyhx8AptaGijcZTptVBUagM7SAKNwrY0q5cQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+//            keychain[key] = existingKey
+//            return existingKey
+//        }
+
         // Check if stored in a keychain
         if let walletKey = keychain[key] {
             return walletKey
@@ -113,22 +130,25 @@ class CMConfig {
     static func genesisFileName(environment: Environment) -> String {
         switch environment {
         case .sandbox:
-            return "pool_transactions_genesis_DEMO_2"
+            return "pool_transactions_genesis_SANDBOX_3"
         case .staging:
-            return "pool_transactions_genesis_STAG_2"
-        default:
-            return "pool_transactions_genesis_PROD_2"
+            return "pool_transactions_genesis_STAG_3"
+        case .demo:
+            return "pool_transactions_genesis_DEMO_3"
+        case .production:
+            return "pool_transactions_genesis_PROD_3"
         }
     }
     
     static func genesisFile(environment: Environment) -> String {
         switch environment {
         case .sandbox:
-            return demoPoolTxnGenesisDef
+            return sandboxPoolTxnGenesisDef1
         case .staging:
             return stagingPoolTxnGenesisDef2
-        // Default is Production genesis file:
-        default:
+        case .demo:
+            return demoPoolTxnGenesisDef
+        case .production:
             return productionPoolTxnGenesisDef
         }
     }
@@ -219,8 +239,8 @@ class CMConfig {
                 "genesis_path": genesisFilePath(),
                 "institution_logo_url": "https://robothash.com/logo.png",
                 "institution_name": "real institution name",
-                "pool_name": "7e96cbb3b0a1711f3b843af3cb28e31dcmpool",
-                "protocol_version": "2"
+//                "pool_name": "7e96cbb3b0a1711f3b843af3cb28e31dcmpool",
+//                "protocol_version": "2"
             ])
             keychain[kkey] = vcxConfig
             return vcxConfig
