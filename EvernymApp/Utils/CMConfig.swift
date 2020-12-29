@@ -26,8 +26,8 @@ class CMConfig {
         case sandbox = 0, production = 1, staging = 2, demo = 3
     }
     
-    static let environment: Environment = .demo
-    static let walletName = "Topcoder-Dev"
+    static let environment: Environment = .staging
+    static let walletName = "Topcoder-Dev-Real"
     
     // Keychain utility used to store `walletKey` and `vcxConfig`
     static var keychain: Keychain = {
@@ -130,13 +130,13 @@ class CMConfig {
     static func genesisFileName(environment: Environment) -> String {
         switch environment {
         case .sandbox:
-            return "pool_transactions_genesis_SANDBOX_3"
+            return "pool_transactions_genesis_SANDBOX_4"
         case .staging:
-            return "pool_transactions_genesis_STAG_3"
+            return "pool_transactions_genesis_STAG_4"
         case .demo:
-            return "pool_transactions_genesis_DEMO_3"
+            return "pool_transactions_genesis_DEMO_4"
         case .production:
-            return "pool_transactions_genesis_PROD_3"
+            return "pool_transactions_genesis_PROD_4"
         }
     }
     
@@ -145,7 +145,7 @@ class CMConfig {
         case .sandbox:
             return sandboxPoolTxnGenesisDef1
         case .staging:
-            return stagingPoolTxnGenesisDef2
+            return stagingPoolTxnGenesisDef1
         case .demo:
             return demoPoolTxnGenesisDef
         case .production:
@@ -239,8 +239,9 @@ class CMConfig {
                 "genesis_path": genesisFilePath(),
                 "institution_logo_url": "https://robothash.com/logo.png",
                 "institution_name": "real institution name",
-//                "pool_name": "7e96cbb3b0a1711f3b843af3cb28e31dcmpool",
-//                "protocol_version": "2"
+                "pool_name": "7e96cbb3b0a1711f3b843af3cb28e31dcmpool",
+//                "protocol_version": "2",
+//                "protocol_type": "3.0",
             ])
             keychain[kkey] = vcxConfig
             return vcxConfig
@@ -273,7 +274,21 @@ class CMConfig {
                 promise(.success(connectionHandle))
             }
         }
-        
+    }
+    
+    func connectionDids(handle: Int) -> Future<(String, String), Error> {
+        return Future { promise in
+            guard let sdkApi = (UIApplication.shared.delegate as? AppDelegate)?.sdkApi else { promise(.failure("ERROR: no sdkAPI")); return }
+//            let handle = VcxHandle(truncatingIfNeeded: handle)
+            sdkApi.connectionGetPwDid(handle) { (error, pwdid) in
+                guard !CMConfig.printError(label: "connectionGetPwDid", error, promise: promise) else { return }
+                
+                sdkApi.connectionGetTheirPwDid(handle) { (error, theidDid) in
+                    guard !CMConfig.printError(label: "connectionGetPwDid", error, promise: promise) else { return }
+                    promise(.success(((pwdid ?? "-"), (theidDid ?? "-"))))
+                }
+            }
+        }
     }
     
     /// Need to wait >4 seconds after connection is established
