@@ -9,6 +9,7 @@
 import UIKit
 import vcx
 import SwiftyJSON
+import SwiftEx83
 import Combine
 import AppCenter
 import AppCenterDistribute
@@ -24,8 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var sdkApi: ConnectMeVcx!
     var sdkInited = false
     
+    /// the device token for push notifications
+    static var deviceToken: String?
+    /// true - if device token was requested, false - else
+    static var tokenRequested = false
+    
+    static var shared: AppDelegate!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        AppDelegate.shared = self
         
         // AppCenter
         #if !DEBUG
@@ -40,8 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         cancellable = CMConfig.initialize()
             .sink(receiveCompletion: { completion in
             switch completion {
-            case .finished: break
-            case .failure(let error): fatalError(error.localizedDescription)
+            case .finished:
+                AppDelegate.shared.sdkInited = true
+            case .failure(let error):
+                showError(errorMessage: error.localizedDescription)
             }
         }, receiveValue: { _ in })
         return true
