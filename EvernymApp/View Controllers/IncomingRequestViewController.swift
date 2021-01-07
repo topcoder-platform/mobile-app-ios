@@ -20,11 +20,12 @@ class IncomingRequestViewController: UIViewController {
     /// outlets
     @IBOutlet weak var titleLabel: UILabel!
     
+    @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var actionLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tableHeight: NSLayoutConstraint!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var acceptButton: UIButton!
     
@@ -55,7 +56,14 @@ class IncomingRequestViewController: UIViewController {
         var acceptButton: String {
             switch self {
             case .proof: return "Share Attributes"
-            case .credentials: return "Accpet Credentials"
+            case .credentials: return "Accept Credentials"
+            }
+        }
+        
+        var acceptButtonIcon: UIImage {
+            switch self {
+            case .proof: return #imageLiteral(resourceName: "16px_share-26")
+            case .credentials: return UIImage(systemName: "square.and.arrow.down")!
             }
         }
     }
@@ -90,6 +98,9 @@ class IncomingRequestViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.darkGray.alpha(alpha: 0.9)
+        infoView.layer.borderWidth = 1
+        infoView.layer.borderColor = UIColor(0xAAAAAA).cgColor
+        iconView.round()
         
         table.configureCell = { indexPath, item, _, cell in
             cell.configure(item)
@@ -105,13 +116,12 @@ class IncomingRequestViewController: UIViewController {
             callback(list)
         }
         table.bindData(to: tableView)
-        table.tableHeight = tableHeight
         updateUI()
     }
     
     /// Update UI
     private func updateUI() {
-        titleLabel.text = type.title
+        titleLabel.text = type.title.uppercased()
         actionLabel.text = type.by
         infoLabel.text = json["comment"].stringValue
         cancelButton.setTitle(type.cancelButton, for: .normal)

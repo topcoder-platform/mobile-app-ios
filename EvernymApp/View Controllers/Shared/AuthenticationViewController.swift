@@ -33,9 +33,6 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.tintColor = UIColor.systemOrange
-        title = "Set a passcode"
-        
         for f in fields {
             f.delegate = self
             f.tintColor = .clear
@@ -69,13 +66,16 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
     /// Update UI
     private func updateUI() {
         for i in 0..<n {
+            let f = fields.filter({$0.tag == i}).first
             if i < digits.count {
-                fields.filter({$0.tag == i}).first?.text = digits[i]
+                f?.text = digits[i]
             }
             else {
-                fields.filter({$0.tag == i}).first?.text = ""
+                f?.text = ""
             }
+            f?.setNeedsDisplay()
         }
+        fields.filter({$0.tag == 0}).first?.setNeedsDisplay()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

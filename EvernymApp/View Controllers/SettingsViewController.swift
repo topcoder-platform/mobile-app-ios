@@ -41,6 +41,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupDefaultNavigationBar()
         table.showLoadingIndicator = false
         table.configureCell = { indexPath, item, _, cell in
             cell.configure(item, isSelected: UserDefaults.useBiometrics)
@@ -70,10 +71,10 @@ class SettingsViewController: UIViewController {
     
     private func loadData() {
         items = [
-            SettingsItem(icon: UIImage(systemName: "tornado")!, title: "Biometrics", subtitle: "Use your finger or face to secure app", type: .switch, settings: .biometrics),
-            SettingsItem(icon: UIImage(systemName: "circle.grid.3x3")!, title: "Passcode", subtitle: "Use your finger or face to secure app", type: .disclosure, settings: .passcode),
-            SettingsItem(icon: UIImage(systemName: "message")!, title: "Give app feedback", subtitle: "Tell us what you think of Topcoder.Connect", type: .disclosure, settings: .feedback),
-            SettingsItem(icon: UIImage(systemName: "info.circle")!, title: "About", subtitle: "Legal, Version and Network Information", type: .disclosure, settings: .about),
+            SettingsItem(icon: UIImage(named: "s1")!, title: "Biometrics", subtitle: "Use your finger or face to secure app", type: .switch, settings: .biometrics),
+            SettingsItem(icon: UIImage(named: "s2")!, title: "Passcode", subtitle: "Use your finger or face to secure app", type: .disclosure, settings: .passcode),
+            SettingsItem(icon: UIImage(named: "s3")!, title: "Give app feedback", subtitle: "Tell us what you think of Topcoder.Connect", type: .disclosure, settings: .feedback),
+            SettingsItem(icon: UIImage(named: "s4")!, title: "About", subtitle: "Legal, Version and Network Information", type: .disclosure, settings: .about),
         ]
         table.loadData()
     }

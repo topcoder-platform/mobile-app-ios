@@ -17,52 +17,65 @@ var simulateConnectionAddedComplete = false
 class ConnectionsViewController: UIViewController {
 
     /// outlets
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    /// the table model
-    private var table = InfiniteTableViewModel<Connection, ConnectionCell>()
+    /// collection data source
+    private var dataSource: CollectionDataModel<ConnectionCell>!
+    
+    private weak var noDataLabel: UIView!
 
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initEmptyScreen()
-        table.configureCell = { [weak self] indexPath, item, _, cell in
-            cell.parent = self
+        dataSource = CollectionDataModel(collectionView, cellClass: ConnectionCell.self) { [weak self] (item, indexPath, cell) in
+            guard self != nil else { return }
+            let item = item as! Connection
             cell.configure(item)
         }
-        table.onSelect = { [weak self] _, item in
+        dataSource.calculateCellSize = { [weak self]  item, _ -> CGSize in
+            guard self != nil else { return .zero }
+            let width = self!.collectionView.cellWidth(forColumns: 2)
+            let height = width + 26
+            return CGSize(width: width, height: height)
+        }
+        dataSource.selected = { [weak self] item, indexPath in
+            let item = item as! Connection
             self?.openDetails(item)
         }
-        table.loadItems = { [weak self] callback, failure in
-            guard self != nil else { return }
-            API.getConnections()
-                .subscribe(onNext: { value in
-                    DispatchQueue.main.async {
-                        callback(value)
-                    }
-                    return
-                }, onError: { error in
-                    failure(error.localizedDescription)
-                }).disposed(by: self!.rx.disposeBag)
-        }
-        table.bindData(to: tableView)
+        
         updateUI()
         
         NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: UIEvents.connectionUpdate)
         NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: SdkEvent.ready)
         
         simulateConnectionAdded()
+        
+    }
+    /// Load data
+    private func loadData() {
+        API.getConnections()
+            .subscribe(onNext: { [weak self] value in
+                DispatchQueue.main.async {
+                    self?.dataSource.setItems(value)
+                    self?.noDataLabel?.isHidden = value.isEmpty
+                }
+                return
+            }, onError: { error in
+                showError(errorMessage: error.localizedDescription)
+                return
+            }).disposed(by: self.rx.disposeBag)
     }
     
     private func simulateConnectionAdded() {
         guard !simulateConnectionAddedComplete else { return }
         simulateConnectionAddedComplete = true
-        delay(2) { [weak self] in
+        delay(0) { [weak self] in
             self?.showAlert("", "Connection creation will be simulated in a second") { [weak self] in
                 
                 guard let vc = self?.create(NewConnectionViewController.self) else { return }
-                vc.connectionName = "justin_phone"
+                vc.connection = Connection(relation: "justin_phone", info: "", date: Date(), serializedConnection: nil)
                 vc.callback = { [weak self] in
                     self?.addConnection(connection: Connection(relation: "justin_phone", info: "You shared proof01 with justin_phone.", date: Date(), serializedConnection: nil))
                 }
@@ -79,7 +92,7 @@ class ConnectionsViewController: UIViewController {
         }
         else if notification.name.rawValue == UIEvents.connectionUpdate.rawValue {
             DispatchQueue.main.async { [weak self] in
-                self?.table.loadData()
+                self?.loadData()
             }
         }
     }
@@ -92,9 +105,9 @@ class ConnectionsViewController: UIViewController {
     
     private func initEmptyScreen() {
         guard let vc = create(EmptyInfoViewController.self) else { return }
-        vc.info = EmptyInfo(title: "You now have a digital wallet!", subtitle: "Want to see how it works?", text: "We have setup an optional tutorial site...")
+        vc.info = EmptyInfo(title: "You now have a digital wallet!", subtitle: "Want to see how it works?", text: "We have setup an optional tutorial site...", icon: nil)
         loadViewController(vc, self.view)
-        table.noDataLabel = vc.view
+        noDataLabel = vc.view
         vc.view.superview?.sendSubviewToBack(vc.view)
     }
     
@@ -141,23 +154,20 @@ class ConnectionsViewController: UIViewController {
     
 }
 
-/// Cell for table in this view controller
-class ConnectionCell: UITableViewCell {
+/// Cell for the collection in this screen
+class ConnectionCell: UICollectionViewCell {
     
     /// outlets
+    @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel?
-    @IBOutlet weak var infoLabel: UILabel?
-    @IBOutlet weak var dateLabel: UILabel?
     
     /// the related item
     private var item: Connection!
     
-    fileprivate weak var parent: ConnectionsViewController!
     
-    /// Setup UI
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectionStyle = .none
+        iconView.roundCorners(8)
     }
     
     /// Update UI with given data
@@ -167,12 +177,7 @@ class ConnectionCell: UITableViewCell {
     func configure(_ item: Connection) {
         self.item = item
         titleLabel?.text = item.relation
-        infoLabel?.text = item.info
-        dateLabel?.text = Date.shortDate.string(from: item.date)
-    }
-    
-    @IBAction func buttonAction(_ sender: Any) {
-        parent?.openDetails(item)
+        iconView?.image = item.type.icon
+        iconView.backgroundColor = item.type.color
     }
 }
-

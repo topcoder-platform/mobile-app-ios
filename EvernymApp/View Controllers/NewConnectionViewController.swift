@@ -7,25 +7,34 @@
 //
 
 import UIKit
+import SwiftEx83
 
 /// New connection
 class NewConnectionViewController: UIViewController {
 
     /// outlets
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var currentImage: UIImageView!
+    @IBOutlet weak var remoteImage: UIImageView!
     
-    var connectionName: String!
+    var connection: Connection!
+    
     var callback: (()->())!
     
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentImage.round()
+        remoteImage.round()
         updateUI()
     }
     
     /// Update UI
     private func updateUI() {
-        messageLabel.text = "\(connectionName ?? "-") wants to connect with you."
+        messageLabel.text = connection.relation
+        messageLabel.textColor = connection.type.color
+        remoteImage.image = connection.type.icon
+        remoteImage.backgroundColor = connection.type.color
     }
     
     /// "Deny" button action handler
