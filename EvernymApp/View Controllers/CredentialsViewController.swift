@@ -21,7 +21,7 @@ class CredentialsViewController: UIViewController {
     
     private func initEmptyScreen() {
         guard let vc = create(EmptyInfoViewController.self) else { return }
-        vc.info = EmptyInfo(title: "You now have a digital wallet!", subtitle: "Want to see how it works?", text: "We have setup an optional tutorial site...")
+        vc.info = EmptyInfo(title: "No Credentials yet!", subtitle: "Want to see how it works?", text: "We have setup an optional tutorial site for you to go through using this Topcoder wallet app. To start this process, go to wallet.topcoder.com in a desktop browser and click Start Tutorial. ", icon: UIImage(named: "empty2"))
         loadViewController(vc, self.view)
 //        table.noDataLabel = vc.view
     }

@@ -22,6 +22,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupDefaultNavigationBar()
 //        table.noDataLabel = noDataLabel
         table.configureCell = { indexPath, item, _, cell in
             cell.configure(item)
@@ -46,7 +47,7 @@ class HomeViewController: UIViewController {
     
     private func initEmptyScreen() {
         guard let vc = create(EmptyInfoViewController.self) else { return }
-        vc.info = EmptyInfo(title: "You now have a digital wallet!", subtitle: "Want to see how it works?", text: "We have setup an optional tutorial site...")
+        vc.info = EmptyInfo(title: "You now have a digital wallet!", subtitle: "Want to see how it works?", text: "We have setup an optional tutorial site for you to go through using this Topcoder wallet app. To start this process, go to wallet.topcoder.com in a desktop browser and click Start Tutorial. ", icon: nil)
         loadViewController(vc, self.view)
         table.noDataLabel = vc.view
     }
@@ -82,4 +83,10 @@ class NotificationCell: UITableViewCell {
     }
 }
 
-class MainNavigationViewController: UINavigationController {}
+class MainNavigationViewController: UINavigationController {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+}

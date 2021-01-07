@@ -19,6 +19,13 @@ extension Date {
         df.timeZone = TimeZone(secondsFromGMT: 0)
         return df
     }()
+    
+    public static let connectionStateDateTime: DateFormatter = {
+        let df = DateFormatter()
+        df.dateFormat = "dd MMM yyyy | h:mm a"
+        df.timeZone = TimeZone(secondsFromGMT: 0)
+        return df
+    }()
 }
 
 var Current: UIViewController? {
@@ -47,7 +54,9 @@ extension UIViewController {
     
     func showInvitation(invitation: JSON) {
         guard let vc = create(NewConnectionViewController.self) else { return }
-        vc.connectionName = invitation["label"].string ?? "-"
+        let name = invitation["label"].string ?? "-"
+        let connection = Connection(relation: name, info: "You connected with \(name).", date: Date(), serializedConnection: nil)
+        vc.connection = connection
         vc.callback = { [weak self] in
             self?.connect(withInvitation: invitation)
         }
@@ -131,5 +140,11 @@ extension UIViewController {
         guard let vc = create(AllowPushNotificationsViewController.self) else { return }
         guard let parent = Current else { return }
         parent.showViewControllerFromSide(vc, inContainer: parent.view, bounds: parent.view.bounds, side: .bottom, nil)
+    }
+    
+    func setupDefaultNavigationBar() {
+        setupNavigationBar(bgColor: UIColor(0x2a2a2a))
+        let f = UIFont(name: "Barlow-SemiBold", size: 24)!
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white, .font: f]
     }
 }

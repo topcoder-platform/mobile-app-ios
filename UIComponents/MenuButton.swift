@@ -12,18 +12,32 @@ import UIKit
 @IBDesignable public class MenuButton: UIButton {
     
     /// the main color
-    @IBInspectable public var mainTextColor: UIColor = UIColor(0xa5a5a5) { didSet { self.setNeedsLayout() } }
-    @IBInspectable public var mainTintColor: UIColor = UIColor(0x777777) { didSet { self.setNeedsLayout() } }
-    @IBInspectable public var selectedBgColor: UIColor = UIColor(0xf0f6e7) { didSet { self.setNeedsLayout() } }
-    @IBInspectable public var selectedTextColor: UIColor = UIColor(0x86b93b) { didSet { self.setNeedsLayout() } }
-    @IBInspectable public var selectedTintColor: UIColor = UIColor(0x86b93b) { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var mainTextColor: UIColor = UIColor(0x2A2A2A) { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var mainTintColor: UIColor = UIColor(0x2A2A2A) { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var selectedBgColor: UIColor = UIColor(0xE9E9E9) { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var selectedTextColor: UIColor = UIColor(0x2A2A2A) { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var selectedTintColor: UIColor = UIColor(0x137D60) { didSet { self.setNeedsLayout() } }
     
     /// the border width
     @IBInspectable public var borderWidth: CGFloat = 0
     
     /// the border radius
-    @IBInspectable public var borderRadius: CGFloat = 4
+    @IBInspectable public var borderRadius: CGFloat = 1
     
+    /// Draw extra underline
+    ///
+    /// - Parameter rect: the rect to draw in
+    override open func draw(_ rect: CGRect) {
+        super.draw(rect)
+        if isSelected {
+            selectedTintColor.set()
+         
+            let path = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 6, height: self.bounds.height))
+            let c = UIGraphicsGetCurrentContext()
+            c?.addPath(path.cgPath)
+            c?.drawPath(using: .fill)
+        }
+    }
     
     /// Apply UI changes
     public override func layoutSubviews() {
@@ -38,7 +52,12 @@ import UIKit
         self.layer.masksToBounds = true
         self.backgroundColor = isSelected ? selectedBgColor : white
         
-        self.setTitleColor(isSelected ? selectedTextColor : mainTextColor, for: .normal)
+        let textColor = isSelected ? selectedTextColor : mainTextColor
+        self.setTitleColor(textColor, for: .normal)
+        if let title = self.title(for: .normal) {
+            let f = UIFont(name: isSelected ? "Roboto-Bold" : "Roboto-Regular", size: 18)!
+            setAttributedTitle(NSAttributedString(string: title, attributes: [.font: f, .foregroundColor: textColor]), for: .normal)
+        }
         self.tintColor = isSelected ? selectedTintColor : mainTintColor
         if isHighlighted {
             self.backgroundColor = self.backgroundColor?.alpha(alpha: 0.5)

@@ -35,6 +35,15 @@
 		FD90365325978CBE00C13C74 /* LocalAuthenticationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD90365225978CBE00C13C74 /* LocalAuthenticationUtil.swift */; };
 		FD90365525978F1F00C13C74 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD90365425978F1F00C13C74 /* AuthenticationViewController.swift */; };
 		FD9036572597923000C13C74 /* PincodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9036562597923000C13C74 /* PincodeField.swift */; };
+		FDA6575225A5E07800CC95DC /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6575125A5DCD700CC95DC /* Barlow-SemiBold.ttf */; };
+		FDA6575325A5E07A00CC95DC /* BarlowCondensed-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6574F25A5DCCF00CC95DC /* BarlowCondensed-Medium.ttf */; };
+		FDA6575425A5E07D00CC95DC /* BarlowCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6575025A5DCD000CC95DC /* BarlowCondensed-SemiBold.ttf */; };
+		FDA6575625A5E12100CC95DC /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6575525A5E12100CC95DC /* Roboto-Bold.ttf */; };
+		FDA6575825A5E23000CC95DC /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA6575725A5E23000CC95DC /* CustomButton.swift */; };
+		FDA6575A25A5E3C500CC95DC /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6575925A5E3C500CC95DC /* Roboto-Regular.ttf */; };
+		FDA6575C25A5E60500CC95DC /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6575B25A5E60500CC95DC /* Roboto-Medium.ttf */; };
+		FDA6575E25A7692900CC95DC /* ConnectionInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA6575D25A7692900CC95DC /* ConnectionInfoViewController.swift */; };
+		FDA6576425A7738E00CC95DC /* ConnectionStateInfoSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDA6576325A7738E00CC95DC /* ConnectionStateInfoSection.xib */; };
 		FDA6E05E2594A16E00A88636 /* SandboxPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */; };
 		FDA792D72583643700F28CFB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA792D62583643700F28CFB /* Configuration.swift */; };
 		FDA792D92583645C00F28CFB /* configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDA792D82583645C00F28CFB /* configuration.plist */; };
@@ -104,6 +113,15 @@
 		FD90365225978CBE00C13C74 /* LocalAuthenticationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthenticationUtil.swift; sourceTree = "<group>"; };
 		FD90365425978F1F00C13C74 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		FD9036562597923000C13C74 /* PincodeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeField.swift; sourceTree = "<group>"; };
+		FDA6574F25A5DCCF00CC95DC /* BarlowCondensed-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowCondensed-Medium.ttf"; sourceTree = "<group>"; };
+		FDA6575025A5DCD000CC95DC /* BarlowCondensed-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
+		FDA6575125A5DCD700CC95DC /* Barlow-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBold.ttf"; sourceTree = "<group>"; };
+		FDA6575525A5E12100CC95DC /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		FDA6575725A5E23000CC95DC /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		FDA6575925A5E3C500CC95DC /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		FDA6575B25A5E60500CC95DC /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		FDA6575D25A7692900CC95DC /* ConnectionInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionInfoViewController.swift; sourceTree = "<group>"; };
+		FDA6576325A7738E00CC95DC /* ConnectionStateInfoSection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionStateInfoSection.xib; sourceTree = "<group>"; };
 		FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FDA792D62583643700F28CFB /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FDA792D82583645C00F28CFB /* configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = configuration.plist; sourceTree = "<group>"; };
@@ -176,6 +194,7 @@
 				FD7F52F425975A3000AB4507 /* UIColor+Extensions.swift */,
 				FD9036562597923000C13C74 /* PincodeField.swift */,
 				FD1B18122598FC8B00FA7455 /* RoundView.swift */,
+				FDA6575725A5E23000CC95DC /* CustomButton.swift */,
 			);
 			path = UIComponents;
 			sourceTree = "<group>";
@@ -188,6 +207,19 @@
 				FD1B18142598FDDE00FA7455 /* AllowPushNotificationsViewController.swift */,
 			);
 			path = Setup;
+			sourceTree = "<group>";
+		};
+		FDA6574E25A5DCC400CC95DC /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FDA6575925A5E3C500CC95DC /* Roboto-Regular.ttf */,
+				FDA6575525A5E12100CC95DC /* Roboto-Bold.ttf */,
+				FDA6575B25A5E60500CC95DC /* Roboto-Medium.ttf */,
+				FDA6575125A5DCD700CC95DC /* Barlow-SemiBold.ttf */,
+				FDA6574F25A5DCCF00CC95DC /* BarlowCondensed-Medium.ttf */,
+				FDA6575025A5DCD000CC95DC /* BarlowCondensed-SemiBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		FDB5B6E5252A4B6D0035ADC1 = {
@@ -265,6 +297,7 @@
 				FD1B181D25990B9500FA7455 /* ConnectionDetailsViewController.swift */,
 				FD1B181B259909E800FA7455 /* CredentialsViewController.swift */,
 				FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */,
+				FDA6575D25A7692900CC95DC /* ConnectionInfoViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -273,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				FDB5B6F7252A4B6D0035ADC1 /* Main.storyboard */,
+				FDA6576325A7738E00CC95DC /* ConnectionStateInfoSection.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
@@ -280,6 +314,7 @@
 		FDEDA0C9256A5AC900E0FFE7 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FDA6574E25A5DCC400CC95DC /* Fonts */,
 				FDEDA0CA256A5ADF00E0FFE7 /* CMConfig.swift */,
 				FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */,
 				FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */,
@@ -398,9 +433,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDA6575C25A5E60500CC95DC /* Roboto-Medium.ttf in Resources */,
+				FDA6575325A5E07A00CC95DC /* BarlowCondensed-Medium.ttf in Resources */,
+				FDA6575425A5E07D00CC95DC /* BarlowCondensed-SemiBold.ttf in Resources */,
+				FDA6575225A5E07800CC95DC /* Barlow-SemiBold.ttf in Resources */,
 				FDB5B6FE252A4B700035ADC1 /* LaunchScreen.storyboard in Resources */,
 				FDA792D92583645C00F28CFB /* configuration.plist in Resources */,
 				FDB5B6FB252A4B700035ADC1 /* Assets.xcassets in Resources */,
+				FDA6575A25A5E3C500CC95DC /* Roboto-Regular.ttf in Resources */,
+				FDA6575625A5E12100CC95DC /* Roboto-Bold.ttf in Resources */,
+				FDA6576425A7738E00CC95DC /* ConnectionStateInfoSection.xib in Resources */,
 				FDB5B6F9252A4B6D0035ADC1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,6 +517,7 @@
 				FD1B18132598FC8B00FA7455 /* RoundView.swift in Sources */,
 				FD7F52F3259759E200AB4507 /* MenuButton.swift in Sources */,
 				FD7F52F525975A3000AB4507 /* UIColor+Extensions.swift in Sources */,
+				FDA6575825A5E23000CC95DC /* CustomButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +553,7 @@
 				FD7F52DF25974A2200AB4507 /* EmptyInfoViewController.swift in Sources */,
 				FD90364F2597889100C13C74 /* UserDefaultsExtensions.swift in Sources */,
 				FDEDA0CB256A5ADF00E0FFE7 /* CMConfig.swift in Sources */,
+				FDA6575E25A7692900CC95DC /* ConnectionInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
