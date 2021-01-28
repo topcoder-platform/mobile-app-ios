@@ -116,6 +116,9 @@ class ConnectionsViewController: UIViewController {
         guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CodeScannerViewController") as? CodeScannerViewController else {
             return
         }
+        if let button = vc.view.subviews.filter({$0.tag == 1}).first as? UIButton {
+            button.addTarget(self, action: #selector(closeCodeScanner), for: .touchUpInside)
+        }
         vc.callbackCodeScanned = { code in
             vc.dismiss(animated: true, completion: { [weak self] in
                 self?.process(code: code)
@@ -123,6 +126,10 @@ class ConnectionsViewController: UIViewController {
         }
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func closeCodeScanner() {
+        (UIViewController.getCurrentViewController() as? CodeScannerViewController)?.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - VCX
