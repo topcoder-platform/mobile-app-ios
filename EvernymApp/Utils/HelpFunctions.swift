@@ -66,9 +66,9 @@ extension UIViewController {
     private func connect(withInvitation invitation: JSON) {
         let loadingIndicator = ActivityIndicator(parentView: nil).start()
         var connectionHandle: Int!
-        let util = VcxUtil()
+        let util = VcxUtil.shared
         // Creating a connection
-        cancellable = util.connect(withInviteDetails: invitation)
+        cancellable = util.connect(withInviteDetails: invitation.dictionaryObject ?? [:])
             .flatMap({ handle -> Future<Void, Error> in
                 connectionHandle = handle
                 return util.connect(handle: handle)
@@ -114,7 +114,7 @@ extension UIViewController {
                 }, onError: { _ in
             }).disposed(by: self.rx.disposeBag)
         
-        let util = VcxUtil()
+        let util = VcxUtil.shared
         
         // DIDs
         guard let serializedConnection = connection.serializedConnection else { return }

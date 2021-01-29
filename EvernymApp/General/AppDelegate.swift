@@ -7,23 +7,26 @@
 //
 
 import UIKit
-import vcx
 import SwiftyJSON
 import SwiftEx83
 import Combine
 import AppCenter
 import AppCenterDistribute
+import MobileWallet
+
+enum SdkEvent: String {
+    case ready
+}
 
 /**
- Most of the code in `AppDelegate` is a working draft. These functionality is moving into the correct place - CMConfig.swift
+ All previous code (`CMConfig`, etc.) moved into separate library https://github.com/topcoder-platform/mobile-wallet .
+ If you need to check working version before the library added, then check code before https://github.com/topcoder-platform/evernym-tc-wallet/issues/25 was merged
  */
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var cancellable: AnyCancellable?
-    var sdkApi: ConnectMeVcx!
-    var sdkInited = false
     
     /// the device token for push notifications
     static var deviceToken: String?
@@ -43,22 +46,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         // VCX
-        VcxLogger.setDefault(nil)
-        sdkApi = ConnectMeVcx()
-
-        cancellable = CMConfig.initialize()
+//        do {
+//            CMConfig.shared.environment = .staging
+//            CMConfig.shared.walletName = "Topcoder-Dev-Real"
+//            CMConfig.shared.walletKey = "bJpg7bZHyhx8AptaGijcZTptVBUagM7SAKNwrY0q5cQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+//            CMConfig.shared.poolName = "7e96cbb3b0a1711f3b843af3cb28e31dcmpool"
+//        }
+        do {
+            CMConfig.shared.environment = .demo
+            CMConfig.shared.walletName = "Topcoder-Dev-2"
+            CMConfig.shared.walletKey = "nB5cs1+25cLeD5mbXcLWAiLTiHvVQKpE9Nb4IMD7J3IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+        }
+        cancellable = CMConfig.shared.initialize()
             .sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
-                AppDelegate.shared.sdkInited = true
+                NotificationCenter.post(SdkEvent.ready)
             case .failure(let error):
                 showError(errorMessage: error.localizedDescription)
             }
         }, receiveValue: { _ in })
         return true
     }
-
-
 }
 
 extension JSON {

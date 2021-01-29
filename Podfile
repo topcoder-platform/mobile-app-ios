@@ -8,7 +8,8 @@ target 'EvernymApp' do
   use_frameworks!
 
   # Pods for EvernymApp
-  pod 'vcx'
+  #pod 'vcx'
+  pod 'MobileWallet', :path => '/Users/volk/TopCoder/34_Evernym/mobile-wallet'
   pod 'Keychain83', '0.0.1'
   pod 'SwiftEx83/Int'
   pod 'QRCodeScanner83', :git => 'https://github.com/seriyvolk83/QRCodeScanner.git', :tag => '0.0.3'
