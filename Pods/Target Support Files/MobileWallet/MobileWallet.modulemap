@@ -1,0 +1,6 @@
+framework module MobileWallet {
+  umbrella header "MobileWallet-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -17,8 +17,6 @@
 		FD1B18192599050300FA7455 /* NewConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B18182599050300FA7455 /* NewConnectionViewController.swift */; };
 		FD1B181C259909E800FA7455 /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B181B259909E800FA7455 /* CredentialsViewController.swift */; };
 		FD1B181E25990B9500FA7455 /* ConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B181D25990B9500FA7455 /* ConnectionDetailsViewController.swift */; };
-		FD6C8F2A2570DB7600CA4C0B /* StagingPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */; };
-		FD6C8F2C2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */; };
 		FD7F52DD2597479900AB4507 /* HelpFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F52DC2597479900AB4507 /* HelpFunctions.swift */; };
 		FD7F52DF25974A2200AB4507 /* EmptyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F52DE25974A2200AB4507 /* EmptyInfoViewController.swift */; };
 		FD7F52E9259759D800AB4507 /* UIComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = FD7F52E7259759D800AB4507 /* UIComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -27,7 +25,6 @@
 		FD7F52F3259759E200AB4507 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F52F2259759E200AB4507 /* MenuButton.swift */; };
 		FD7F52F525975A3000AB4507 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F52F425975A3000AB4507 /* UIColor+Extensions.swift */; };
 		FD7F52F725975C6600AB4507 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F52F625975C6600AB4507 /* MenuViewController.swift */; };
-		FD8B7BC12593873000732FF5 /* DemoPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8B7BC02593873000732FF5 /* DemoPoolTxnGenesis.swift */; };
 		FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8D856D25792E79009D5DD9 /* DataSource.swift */; };
 		FD90364D2597884D00C13C74 /* FirstSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD90364C2597884D00C13C74 /* FirstSetupViewController.swift */; };
 		FD90364F2597889100C13C74 /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD90364E2597889100C13C74 /* UserDefaultsExtensions.swift */; };
@@ -44,7 +41,6 @@
 		FDA6575C25A5E60500CC95DC /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6575B25A5E60500CC95DC /* Roboto-Medium.ttf */; };
 		FDA6575E25A7692900CC95DC /* ConnectionInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA6575D25A7692900CC95DC /* ConnectionInfoViewController.swift */; };
 		FDA6576425A7738E00CC95DC /* ConnectionStateInfoSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDA6576325A7738E00CC95DC /* ConnectionStateInfoSection.xib */; };
-		FDA6E05E2594A16E00A88636 /* SandboxPoolTxnGenesis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */; };
 		FDA792D72583643700F28CFB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA792D62583643700F28CFB /* Configuration.swift */; };
 		FDA792D92583645C00F28CFB /* configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDA792D82583645C00F28CFB /* configuration.plist */; };
 		FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */; };
@@ -55,7 +51,6 @@
 		FDBDA6E3259740590013532C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBDA6E2259740580013532C /* HomeViewController.swift */; };
 		FDBDA6E52597408F0013532C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBDA6E42597408F0013532C /* Notification.swift */; };
 		FDD8621A259B254B00A88CE7 /* IncomingRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */; };
-		FDEDA0CB256A5ADF00E0FFE7 /* CMConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEDA0CA256A5ADF00E0FFE7 /* CMConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,8 +90,6 @@
 		FD1B18182599050300FA7455 /* NewConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConnectionViewController.swift; sourceTree = "<group>"; };
 		FD1B181B259909E800FA7455 /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		FD1B181D25990B9500FA7455 /* ConnectionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetailsViewController.swift; sourceTree = "<group>"; };
-		FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StagingPoolTxnGenesis.swift; sourceTree = "<group>"; };
-		FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FD7F52DC2597479900AB4507 /* HelpFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpFunctions.swift; sourceTree = "<group>"; };
 		FD7F52DE25974A2200AB4507 /* EmptyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInfoViewController.swift; sourceTree = "<group>"; };
 		FD7F52E5259759D800AB4507 /* UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,7 +98,6 @@
 		FD7F52F2259759E200AB4507 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
 		FD7F52F425975A3000AB4507 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		FD7F52F625975C6600AB4507 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		FD8B7BC02593873000732FF5 /* DemoPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FD8D856D25792E79009D5DD9 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		FD90364C2597884D00C13C74 /* FirstSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSetupViewController.swift; sourceTree = "<group>"; };
 		FD90364E2597889100C13C74 /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
@@ -122,7 +114,6 @@
 		FDA6575B25A5E60500CC95DC /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		FDA6575D25A7692900CC95DC /* ConnectionInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionInfoViewController.swift; sourceTree = "<group>"; };
 		FDA6576325A7738E00CC95DC /* ConnectionStateInfoSection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionStateInfoSection.xib; sourceTree = "<group>"; };
-		FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SandboxPoolTxnGenesis.swift; sourceTree = "<group>"; };
 		FDA792D62583643700F28CFB /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FDA792D82583645C00F28CFB /* configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = configuration.plist; sourceTree = "<group>"; };
 		FDB5B6EE252A4B6D0035ADC1 /* EvernymApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvernymApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +126,6 @@
 		FDBDA6E2259740580013532C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FDBDA6E42597408F0013532C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingRequestViewController.swift; sourceTree = "<group>"; };
-		FDEDA0CA256A5ADF00E0FFE7 /* CMConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,11 +305,6 @@
 			isa = PBXGroup;
 			children = (
 				FDA6574E25A5DCC400CC95DC /* Fonts */,
-				FDEDA0CA256A5ADF00E0FFE7 /* CMConfig.swift */,
-				FDA6E05D2594A16E00A88636 /* SandboxPoolTxnGenesis.swift */,
-				FD6C8F292570DB7600CA4C0B /* StagingPoolTxnGenesis.swift */,
-				FD8B7BC02593873000732FF5 /* DemoPoolTxnGenesis.swift */,
-				FD6C8F2B2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift */,
 				FDA792D62583643700F28CFB /* Configuration.swift */,
 				FDA792D82583645C00F28CFB /* configuration.plist */,
 				FD90364E2597889100C13C74 /* UserDefaultsExtensions.swift */,
@@ -537,22 +522,17 @@
 				FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */,
 				FD7F52F725975C6600AB4507 /* MenuViewController.swift in Sources */,
 				FD90365125978B8B00C13C74 /* BiometricsViewController.swift in Sources */,
-				FD8B7BC12593873000732FF5 /* DemoPoolTxnGenesis.swift in Sources */,
 				FDA792D72583643700F28CFB /* Configuration.swift in Sources */,
 				FD1B18172598FEDE00FA7455 /* AppDelegate+Notifications.swift in Sources */,
-				FD6C8F2A2570DB7600CA4C0B /* StagingPoolTxnGenesis.swift in Sources */,
 				FD1B180F2598ADEA00FA7455 /* ConnectionsViewController.swift in Sources */,
 				FDBDA6E3259740590013532C /* HomeViewController.swift in Sources */,
 				FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */,
 				FD1B18152598FDDE00FA7455 /* AllowPushNotificationsViewController.swift in Sources */,
-				FD6C8F2C2570DB9F00CA4C0B /* ProductionPoolTxnGenesis.swift in Sources */,
 				FD1B18192599050300FA7455 /* NewConnectionViewController.swift in Sources */,
 				FDBDA6E52597408F0013532C /* Notification.swift in Sources */,
-				FDA6E05E2594A16E00A88636 /* SandboxPoolTxnGenesis.swift in Sources */,
 				FD90365525978F1F00C13C74 /* AuthenticationViewController.swift in Sources */,
 				FD7F52DF25974A2200AB4507 /* EmptyInfoViewController.swift in Sources */,
 				FD90364F2597889100C13C74 /* UserDefaultsExtensions.swift in Sources */,
-				FDEDA0CB256A5ADF00E0FFE7 /* CMConfig.swift in Sources */,
 				FDA6575E25A7692900CC95DC /* ConnectionInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -606,6 +586,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.frgroup.UIComponents;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -636,6 +617,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.frgroup.UIComponents;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

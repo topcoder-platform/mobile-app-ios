@@ -100,7 +100,7 @@ class ConnectionsViewController: UIViewController {
     private func updateUI() {
         // TODO uncomment after issue with VCX initialization is fixed
 //        navigationItem.rightBarButtonItem?.isEnabled = AppDelegate.shared.sdkInited
-        navigationItem.rightBarButtonItem?.tintColor = AppDelegate.shared.sdkInited ? UIColor(named: "green")! : UIColor.red
+        navigationItem.rightBarButtonItem?.tintColor = VcxUtil.shared.sdkInited ? UIColor(named: "green")! : UIColor.red
     }
     
     private func initEmptyScreen() {

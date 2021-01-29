@@ -1,0 +1,35 @@
+{
+  "name": "MobileWallet",
+  "version": "0.0.11",
+  "summary": "Mobile Wallet framework",
+  "homepage": "https://github.com/topcoder-platform/mobile-wallet",
+  "license": {
+    "type": "MIT"
+  },
+  "authors": {
+    "Topcoder": "support@topcoder.com",
+    "seriyvolk83": "volk[at]frgroup.ru"
+  },
+  "requires_arc": true,
+  "swift_versions": "5.0",
+  "platforms": {
+    "ios": "13.0"
+  },
+  "source": {
+    "git": "https://github.com/topcoder-platform/mobile-wallet.git",
+    "tag": "0.0.11"
+  },
+  "source_files": "Source/*.swift",
+  "vendored_frameworks": "Libraries/vcx.framework",
+  "default_subspecs": "Core",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "Source/*.swift",
+      "xcconfig": {
+        "OTHER_LDFLAGS": "-ObjC"
+      }
+    }
+  ],
+  "swift_version": "5.0"
+}

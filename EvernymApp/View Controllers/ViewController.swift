@@ -9,9 +9,12 @@
 import UIKit
 import QRCodeScanner83
 import SwiftEx83
+import MobileWallet
 import SwiftyJSON
 import AVFoundation
 import Combine
+
+typealias VcxUtil = CMConfig
 
 class ViewController: UIViewController, CodeScannerViewControllerDelegate {
     
@@ -63,7 +66,7 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
         guard let serializedConnection = serializedConnection else { return }
         print("CHECKING CREDENTIALS...")
         
-        let util = VcxUtil()
+        let util = VcxUtil.shared
         var connectionHandle: Int!
         var credentialHandle: Int!
         let loadingIndicator = ActivityIndicator(parentView: nil).start()
@@ -140,9 +143,9 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
                 
                 let loadingIndicator = ActivityIndicator(parentView: nil).start()
                 var connectionHandle: Int!
-                let util = VcxUtil()
+                let util = VcxUtil.shared
                 // Creating a connection
-                self?.cancellable = util.connect(withInviteDetails: value)
+                self?.cancellable = util.connect(withInviteDetails: value.dictionaryObject ?? [:])
                     .flatMap({ handle -> Future<Void, Error> in
                         connectionHandle = handle
                         return util.connect(handle: handle)

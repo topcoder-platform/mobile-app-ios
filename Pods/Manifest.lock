@@ -6,6 +6,9 @@ PODS:
   - Keychain83 (0.0.1):
     - Keychain83/Core (= 0.0.1)
   - Keychain83/Core (0.0.1)
+  - MobileWallet (0.0.11):
+    - MobileWallet/Core (= 0.0.11)
+  - MobileWallet/Core (0.0.11)
   - "NSObject+Rx (5.1.0)":
     - RxSwift (~> 5.1)
   - QRCodeScanner83 (0.0.3):
@@ -22,14 +25,13 @@ PODS:
     - RxAlamofire (~> 5.0.0)
     - SwiftyJSON (~> 4.0)
   - SwiftyJSON (4.3.0)
-  - vcx (0.8.2)
 
 DEPENDENCIES:
   - AppCenter/Distribute
   - Keychain83 (= 0.0.1)
+  - MobileWallet (from `/Users/volk/TopCoder/34_Evernym/mobile-wallet`)
   - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
   - SwiftEx83/Int
-  - vcx
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -41,10 +43,10 @@ SPEC REPOS:
     - RxSwift
     - SwiftEx83
     - SwiftyJSON
-  https://github.com/sktston/Specs.git:
-    - vcx
 
 EXTERNAL SOURCES:
+  MobileWallet:
+    :path: "/Users/volk/TopCoder/34_Evernym/mobile-wallet"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
     :tag: 0.0.3
@@ -58,14 +60,14 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppCenter: 51351e0121e40ba75e28ecb7de5c2e69d480df5e
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
+  MobileWallet: 170f930dd11f6e2cd55898762a4cbb46600f5aa7
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SwiftEx83: 3416d9f6a3739b7d3011ea6d0bb92cdd23107b53
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
-  vcx: 29ddfbb180e3605e352666a1156562f4dab045bd
 
-PODFILE CHECKSUM: ea63f543620443604efe33f7a63f2c60bb66e8c3
+PODFILE CHECKSUM: bd2f311bb3ed607594f2e16a7de5d7f6097b9c37
 
 COCOAPODS: 1.10.0.rc.1
