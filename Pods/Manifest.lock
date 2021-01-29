@@ -6,9 +6,9 @@ PODS:
   - Keychain83 (0.0.1):
     - Keychain83/Core (= 0.0.1)
   - Keychain83/Core (0.0.1)
-  - MobileWallet (0.0.5):
-    - MobileWallet/Core (= 0.0.5)
-  - MobileWallet/Core (0.0.5)
+  - MobileWallet (0.0.11):
+    - MobileWallet/Core (= 0.0.11)
+  - MobileWallet/Core (0.0.11)
   - "NSObject+Rx (5.1.0)":
     - RxSwift (~> 5.1)
   - QRCodeScanner83 (0.0.3):
@@ -60,7 +60,7 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppCenter: 51351e0121e40ba75e28ecb7de5c2e69d480df5e
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
-  MobileWallet: edbbaa51d350728653328b7cf0735319f7dbc753
+  MobileWallet: 170f930dd11f6e2cd55898762a4cbb46600f5aa7
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
@@ -68,6 +68,6 @@ SPEC CHECKSUMS:
   SwiftEx83: 3416d9f6a3739b7d3011ea6d0bb92cdd23107b53
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: d7965221cbd3e3d6a334d18bb50c665b651e2151
+PODFILE CHECKSUM: bd2f311bb3ed607594f2e16a7de5d7f6097b9c37
 
 COCOAPODS: 1.10.0.rc.1
