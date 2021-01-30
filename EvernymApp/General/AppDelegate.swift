@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // VCX
         // Configure wallet (UNCOMMENT .staging or .demo)
+        // If you launched with another configuration, then use `CMConfig.shared.setupWallet(force: true)` to regenerate the wallet for another configuration.
         do { // .staging
             CMConfig.shared.environment = .staging
             CMConfig.shared.setupWallet()
