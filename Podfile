@@ -9,8 +9,8 @@ target 'EvernymApp' do
 
   # Pods for EvernymApp
   #pod 'vcx'
-  pod 'MobileWallet', :path => '/Users/volk/TopCoder/34_Evernym/mobile-wallet'
-  #pod 'MobileWallet', :git => 'git@github.com:seriyvolk83/mobile-wallet.git', :branch => 'seriyvolk_issue25'
+  #pod 'MobileWallet', :path => '/Users/volk/TopCoder/34_Evernym/mobile-wallet'
+  pod 'MobileWallet', :git => 'git@github.com:topcoder-platform/mobile-wallet.git', :branch => 'master'
   pod 'Keychain83', '0.0.1'
   pod 'SwiftEx83/Int'
   pod 'QRCodeScanner83', :git => 'https://github.com/seriyvolk83/QRCodeScanner.git', :tag => '0.0.3'
