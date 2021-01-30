@@ -16,6 +16,10 @@ typealias API = RestServiceApi
 enum UIEvents: String {
     case connectionUpdate, credentialUpdate
 }
+
+/// the file names
+let kFileConnections = "connections.json"
+
 extension RestServiceApi {
     
     static var cacheConnections: [Connection]?
@@ -68,9 +72,7 @@ extension RestServiceApi {
     
     static func getConnections() -> Observable<[Connection]> {
         if cacheConnections == nil {
-            cacheConnections = [
-               
-            ]
+            readFileConnections()
         }
         return Observable.just(cacheConnections!)
     }
@@ -78,6 +80,11 @@ extension RestServiceApi {
     static func add(connection: Connection) -> Observable<Void> {
         _ = getConnections()
         cacheConnections?.append(connection)
+        
+        // Store changes
+        do { try saveFileConnections() }
+        catch { return Observable.error(error) }
+        
         NotificationCenter.post(UIEvents.connectionUpdate)
         return Observable.just(())
     }
@@ -87,7 +94,34 @@ extension RestServiceApi {
         if let i = cacheConnections?.firstIndex(of: connection) {
             cacheConnections?.remove(at: i)
         }
+        
+        // Store changes
+        do { try saveFileConnections() }
+        catch { return Observable.error(error) }
+        
         NotificationCenter.post(UIEvents.connectionUpdate)
         return Observable.just(())
+    }
+    
+    // MARK: - Storing/restoring connections from persistent store
+    
+    private static func saveFileConnections() throws {
+        let json = try cacheConnections?.json()
+        _ = json?.saveFile(fileName: kFileConnections)
+    }
+    
+    private static func readFileConnections() {
+        if let json = JSON.contentOfFile(kFileConnections) {
+            do {
+                cacheConnections = try json.decodeIt()
+            }
+            catch {
+                print("\(error)")
+                cacheConnections = []
+            }
+        }
+        else {
+            cacheConnections = []
+        }
     }
 }

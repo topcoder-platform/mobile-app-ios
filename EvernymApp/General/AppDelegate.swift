@@ -46,6 +46,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         // VCX
+        // Configure wallet (UNCOMMENT .staging or .demo)
+        // If you launched with another configuration, then use `CMConfig.shared.setupWallet(force: true)` to regenerate the wallet for another configuration.
+        do { // .staging
+            CMConfig.shared.environment = .staging
+            CMConfig.shared.setupWallet()
+            CMConfig.shared.poolName = "7e96cbb3b0a1711f3b843af3cb28e31dcmpool"
+        }
+//        do { // .demo
+//            CMConfig.shared.environment = .demo
+//            CMConfig.shared.setupWallet()
+//        }
+        
+        
+        
+        /************ Configuration used for  for debugging (DONT UNCOMMENT IT) ************/
         // For use in MobilbeWalletExample
 //        do {
 //            CMConfig.shared.environment = .staging
@@ -55,17 +70,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
         // For use in the app
-        do {
-            CMConfig.shared.environment = .staging
-            CMConfig.shared.walletName = "Topcoder-Dev-Real-App"
-            CMConfig.shared.walletKey = "WM+k4d4XynyQ1bUQUt611MMimKFV9DJu9DTmIWt8srMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
-            CMConfig.shared.poolName = "7e96cbb3b0a1711f3b843af3cb28e31dcmpool"
-        }
+//        do {
+//            CMConfig.shared.environment = .staging
+//            CMConfig.shared.setup(walletName: "Topcoder-Dev-Real-App", walletKey: "WM+k4d4XynyQ1bUQUt611MMimKFV9DJu9DTmIWt8srMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
+//            CMConfig.shared.poolName = "7e96cbb3b0a1711f3b843af3cb28e31dcmpool"
+//        }
 //        do {
 //            CMConfig.shared.environment = .demo
-//            CMConfig.shared.walletName = "Topcoder-Dev-2"
-//            CMConfig.shared.walletKey = "nB5cs1+25cLeD5mbXcLWAiLTiHvVQKpE9Nb4IMD7J3IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+//            CMConfig.shared.setup(walletName: "Topcoder-Dev-2", walletKey: "nB5cs1+25cLeD5mbXcLWAiLTiHvVQKpE9Nb4IMD7J3IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=")
 //        }
+        /*\\\\\\\\\\\\\\\\\\\\\\\ Values for debugging //////////////// */
+        
+        
+                
+        // Initialize
         cancellable = CMConfig.shared.initialize()
             .sink(receiveCompletion: { completion in
             switch completion {

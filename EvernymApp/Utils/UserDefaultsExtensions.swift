@@ -28,6 +28,7 @@ extension UserDefaults {
         }
     }
     
+    /// true - if user selected to use Biometrics
     static public var useBiometrics: Bool {
         get {
             UserDefaults.standard.bool(forKey: Key.useBiometrics)

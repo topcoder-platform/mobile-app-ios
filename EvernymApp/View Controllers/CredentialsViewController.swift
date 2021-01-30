@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import SwiftEx83
+import MobileWallet
 
-class CredentialsViewController: UIViewController {
+class CredentialsViewController: AbstractViewController {
 
     /// outlets
     @IBOutlet weak var tableView: UITableView!
+    
+    private var initIndicator: ActivityIndicator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +29,8 @@ class CredentialsViewController: UIViewController {
         loadViewController(vc, self.view)
 //        table.noDataLabel = vc.view
     }
+    
+    // MARK: - Button actions
 
     @IBAction func simulateCredentialsAction(_ sender: Any) {
         guard let vc = create(IncomingRequestViewController.self) else { return }

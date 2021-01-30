@@ -11,10 +11,11 @@ import SwiftEx83
 import QRCodeScanner83
 import Combine
 import SwiftyJSON
+import MobileWallet
 
 var simulateConnectionAddedComplete = false
 
-class ConnectionsViewController: UIViewController {
+class ConnectionsViewController: AbstractViewController {
 
     /// outlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -23,7 +24,7 @@ class ConnectionsViewController: UIViewController {
     private var dataSource: CollectionDataModel<ConnectionCell>!
     
     private weak var noDataLabel: UIView!
-
+    
     /// Setup UI
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,18 +49,17 @@ class ConnectionsViewController: UIViewController {
         updateUI()
         
         NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: UIEvents.connectionUpdate)
-        NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: SdkEvent.ready)
-        
-        simulateConnectionAdded()
-        
+        loadData()
     }
+    
     /// Load data
     private func loadData() {
         API.getConnections()
             .subscribe(onNext: { [weak self] value in
                 DispatchQueue.main.async {
                     self?.dataSource.setItems(value)
-                    self?.noDataLabel?.isHidden = value.isEmpty
+                    self?.noDataLabel?.isHidden = !value.isEmpty
+                    self?.collectionView.isHidden = !(self?.noDataLabel?.isHidden ?? true)
                 }
                 return
             }, onError: { error in
@@ -68,6 +68,7 @@ class ConnectionsViewController: UIViewController {
             }).disposed(by: self.rx.disposeBag)
     }
     
+    // Simulate connection
     private func simulateConnectionAdded() {
         guard !simulateConnectionAddedComplete else { return }
         simulateConnectionAddedComplete = true
@@ -84,22 +85,21 @@ class ConnectionsViewController: UIViewController {
         }
     }
     
-    @objc func notificationHandler(_ notification: UIKit.Notification) {
-        if notification.name.rawValue == SdkEvent.ready.rawValue {
-            delay(0.1) { [weak self] in
-                self?.updateUI()
-            }
-        }
-        else if notification.name.rawValue == UIEvents.connectionUpdate.rawValue {
+    @objc override func notificationHandler(_ notification: UIKit.Notification) {
+        super.notificationHandler(notification)
+        if notification.name.rawValue == UIEvents.connectionUpdate.rawValue {
             DispatchQueue.main.async { [weak self] in
                 self?.loadData()
             }
         }
     }
     
+    override func initializationComplete() {
+        super.initializationComplete()
+        self.updateUI()
+    }
+    
     private func updateUI() {
-        // TODO uncomment after issue with VCX initialization is fixed
-//        navigationItem.rightBarButtonItem?.isEnabled = AppDelegate.shared.sdkInited
         navigationItem.rightBarButtonItem?.tintColor = VcxUtil.shared.sdkInited ? UIColor(named: "green")! : UIColor.red
     }
     
@@ -112,6 +112,10 @@ class ConnectionsViewController: UIViewController {
     }
     
     @IBAction func scanConnection(_ sender: Any) {
+        guard CMConfig.shared.sdkInited else {
+            showAlert("", "Initialization in progress. Please wait until it's completed.")
+            return
+        }
         // Open scanner
         guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CodeScannerViewController") as? CodeScannerViewController else {
             return
@@ -138,7 +142,7 @@ class ConnectionsViewController: UIViewController {
     /// - Parameter code: the code
     private func process(code: String) {
         print("SCANNED CODE: \(code)")
-        guard let url = URL(string: code) else { return }
+        guard let url = URL(string: code) else { showError(errorMessage: "Invalid invitation."); return }
         print("GETTING INVITATION...")
         RestServiceApi.getInvitation(url: url)
             .addActivityIndicator(on: UIViewController.getCurrentViewController() ?? self)

@@ -485,11 +485,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fin-LR-7VC" customClass="CameraPreviewView" customModule="QRCodeScanner83">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8o-Je-0Fm" userLabel="X">
-                                <rect key="frame" x="331" y="44" width="44" height="44"/>
+                                <rect key="frame" x="321" y="54" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="8DQ-4S-E7s"/>
                                     <constraint firstAttribute="height" constant="44" id="lbS-un-5iL"/>
@@ -502,12 +502,12 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Fin-LR-7VC" firstAttribute="leading" secondItem="7oC-c4-A1l" secondAttribute="leading" id="38z-Mr-6uK"/>
-                            <constraint firstItem="Y8o-Je-0Fm" firstAttribute="top" secondItem="7oC-c4-A1l" secondAttribute="top" id="PfS-2D-N8q"/>
-                            <constraint firstItem="7oC-c4-A1l" firstAttribute="trailing" secondItem="Fin-LR-7VC" secondAttribute="trailing" id="bHK-x4-5q4"/>
-                            <constraint firstItem="7oC-c4-A1l" firstAttribute="trailing" secondItem="Y8o-Je-0Fm" secondAttribute="trailing" id="cIv-Oi-vGT"/>
-                            <constraint firstItem="7oC-c4-A1l" firstAttribute="bottom" secondItem="Fin-LR-7VC" secondAttribute="bottom" id="cfO-lc-WnM"/>
-                            <constraint firstItem="Fin-LR-7VC" firstAttribute="top" secondItem="7oC-c4-A1l" secondAttribute="top" id="nez-O3-V5y"/>
+                            <constraint firstItem="Fin-LR-7VC" firstAttribute="leading" secondItem="p26-84-nl1" secondAttribute="leading" id="38z-Mr-6uK"/>
+                            <constraint firstItem="Y8o-Je-0Fm" firstAttribute="top" secondItem="7oC-c4-A1l" secondAttribute="top" constant="10" id="PfS-2D-N8q"/>
+                            <constraint firstAttribute="trailing" secondItem="Fin-LR-7VC" secondAttribute="trailing" id="bHK-x4-5q4"/>
+                            <constraint firstItem="7oC-c4-A1l" firstAttribute="trailing" secondItem="Y8o-Je-0Fm" secondAttribute="trailing" constant="10" id="cIv-Oi-vGT"/>
+                            <constraint firstAttribute="bottom" secondItem="Fin-LR-7VC" secondAttribute="bottom" id="cfO-lc-WnM"/>
+                            <constraint firstItem="Fin-LR-7VC" firstAttribute="top" secondItem="p26-84-nl1" secondAttribute="top" id="nez-O3-V5y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7oC-c4-A1l"/>
                     </view>
