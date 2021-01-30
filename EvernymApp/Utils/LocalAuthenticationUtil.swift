@@ -10,11 +10,11 @@ import Foundation
 import LocalAuthentication
 
 /// Utility used to login with Face ID or fingerprint
-
 class LocalAuthenticationUtil {
     
     static var shared = LocalAuthenticationUtil()
     
+    /// Setup Local Authentication. If `on=true`, then tries to authenticate user using biometricts; and in any case saves the flag to `UserDefaults.useBiometrics`.
     func setup(on: Bool, callback: @escaping (Bool, Error?)->()) {
         if on {
             authenticate(callback: { success, error in
@@ -32,6 +32,7 @@ class LocalAuthenticationUtil {
         }
     }
     
+    /// Authenticate user using biometrics (Face ID or Touch ID)
     func authenticate(callback: @escaping (Bool, Error?)->(), notSupported: (Error?)->()) {
         let context = LAContext()
         context.localizedFallbackTitle = "Use Passcode"

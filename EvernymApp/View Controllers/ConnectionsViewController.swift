@@ -88,6 +88,7 @@ class ConnectionsViewController: UIViewController {
         if notification.name.rawValue == SdkEvent.ready.rawValue {
             delay(0.1) { [weak self] in
                 self?.updateUI()
+                self?.showAlert("", "Initialization complete")
             }
         }
         else if notification.name.rawValue == UIEvents.connectionUpdate.rawValue {

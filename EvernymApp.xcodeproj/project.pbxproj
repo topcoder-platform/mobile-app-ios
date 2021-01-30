@@ -48,6 +48,7 @@
 		FDB5B6F9252A4B6D0035ADC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6F7252A4B6D0035ADC1 /* Main.storyboard */; };
 		FDB5B6FB252A4B700035ADC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6FA252A4B700035ADC1 /* Assets.xcassets */; };
 		FDB5B6FE252A4B700035ADC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6FC252A4B700035ADC1 /* LaunchScreen.storyboard */; };
+		FDB64B3225C56684005F1F16 /* CMConfig+Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB64B3125C56684005F1F16 /* CMConfig+Wallet.swift */; };
 		FDBDA6E3259740590013532C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBDA6E2259740580013532C /* HomeViewController.swift */; };
 		FDBDA6E52597408F0013532C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBDA6E42597408F0013532C /* Notification.swift */; };
 		FDD8621A259B254B00A88CE7 /* IncomingRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */; };
@@ -123,6 +124,7 @@
 		FDB5B6FA252A4B700035ADC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FDB5B6FD252A4B700035ADC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FDB5B6FF252A4B700035ADC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDB64B3125C56684005F1F16 /* CMConfig+Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMConfig+Wallet.swift"; sourceTree = "<group>"; };
 		FDBDA6E2259740580013532C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FDBDA6E42597408F0013532C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingRequestViewController.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				FD90364E2597889100C13C74 /* UserDefaultsExtensions.swift */,
 				FD90365225978CBE00C13C74 /* LocalAuthenticationUtil.swift */,
 				FD7F52DC2597479900AB4507 /* HelpFunctions.swift */,
+				FDB64B3125C56684005F1F16 /* CMConfig+Wallet.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				FD1B181E25990B9500FA7455 /* ConnectionDetailsViewController.swift in Sources */,
 				FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */,
 				FD1B180D25988A3F00FA7455 /* SettingsViewController.swift in Sources */,
+				FDB64B3225C56684005F1F16 /* CMConfig+Wallet.swift in Sources */,
 				FD90365325978CBE00C13C74 /* LocalAuthenticationUtil.swift in Sources */,
 				FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */,
 				FD7F52F725975C6600AB4507 /* MenuViewController.swift in Sources */,
