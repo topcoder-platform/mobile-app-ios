@@ -38,6 +38,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Will scan QR codes with invitation URLs</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Will authenticate without pincode.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -59,7 +61,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSFaceIDUsageDescription</key>
-	<string>Will authenticate without pincode.</string>
 </dict>
 </plist>
