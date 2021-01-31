@@ -51,6 +51,21 @@ class MenuViewController: UIViewController {
 
     @IBAction func buttonAction(_ sender: UIButton) {
         guard MenuSelectedIndex != sender.tag else { dismissMenu {}; return }
+        if sender.tag == 4 {
+            if AuthenticationUtil.isAuthenticated() {
+                self.showAlert("", "The app will logout you from Topcoder") { [weak self] in
+                    self?.tryLogout() {
+                        self?.dismissMenu {}
+                    }
+                }
+            }
+            else {
+                self.tryLogin() { [weak self] in
+                    self?.dismissMenu {}
+                }
+            }
+            return
+        }
         MenuSelectedIndex = sender.tag
         updateUI()
         dismissMenu { [weak self] in
@@ -70,7 +85,7 @@ class MenuViewController: UIViewController {
                 guard let vc = self?.create(SettingsViewController.self) else { return }
                 viewController = vc
             case 4:
-                self?.tryLogin()
+                break
             default: break
             }
             guard let vc = viewController else { return }
@@ -87,7 +102,7 @@ class MenuViewController: UIViewController {
         self.dismissViewControllerToSide(self, side: .left, callback)
     }
     
-    private func tryLogin() {
+    private func tryLogin(callback: @escaping ()->()) {
         Auth0
             .webAuth()
             .scope("openid profile")
@@ -104,18 +119,20 @@ class MenuViewController: UIViewController {
                     // Save credentials
                     print("Credentials: \(credentials)")
                     AuthenticationUtil.processCredentials(credentials: credentials)
-                    self?.showAlert("Success login", "Tokens are stored in Keychain")
+                    UIViewController.getCurrentViewController()?.showAlert("Success login", "Tokens are stored in Keychain")
                 }
+                callback()
         }
     }
     
-    private func tryLogout() {
+    private func tryLogout(callback: @escaping ()->()) {
         Auth0
             .webAuth()
             .clearSession(federated: false) { result in
                 if result {
-                    // Session cleared
+                    AuthenticationUtil.cleanUp()
                 }
+                callback()
         }
     }
 }

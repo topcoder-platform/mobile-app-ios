@@ -17,21 +17,20 @@ class AuthenticationUtil {
     
     static var keychain = Keychain(service: "EvernumApp")
     
-//    TODO for future
-//    static func isAuthenticated() -> Bool {
-//        return UserDefaults.isAuthenticated
-//    }
+    static func isAuthenticated() -> Bool {
+        return UserDefaults.isAuthenticated
+    }
     
     // save tokens
     static func processCredentials(credentials: Credentials) {
         keychain["credentials"] = credentials.toString()
-//        UserDefaults.isAuthenticated = true
+        UserDefaults.isAuthenticated = true
     }
     
     /// Clean credentials
     static func cleanUp() {
         keychain["credentials"] = nil
-//        UserDefaults.isAuthenticated = false
+        UserDefaults.isAuthenticated = false
     }
 }
 
