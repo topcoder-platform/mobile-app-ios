@@ -29,7 +29,7 @@ PODS:
 DEPENDENCIES:
   - AppCenter/Distribute
   - Keychain83 (= 0.0.1)
-  - MobileWallet (from `/Users/volk/TopCoder/34_Evernym/mobile-wallet`)
+  - "MobileWallet (from `git@github.com:topcoder-platform/mobile-wallet.git`, branch `master`)"
   - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
   - SwiftEx83/Int
 
@@ -46,12 +46,16 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   MobileWallet:
-    :path: "/Users/volk/TopCoder/34_Evernym/mobile-wallet"
+    :branch: master
+    :git: "git@github.com:topcoder-platform/mobile-wallet.git"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
     :tag: 0.0.3
 
 CHECKOUT OPTIONS:
+  MobileWallet:
+    :commit: 9372dd8420fa68acb305faee1cc1f2a3b94a90f5
+    :git: "git@github.com:topcoder-platform/mobile-wallet.git"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
     :tag: 0.0.3
@@ -68,6 +72,6 @@ SPEC CHECKSUMS:
   SwiftEx83: 3416d9f6a3739b7d3011ea6d0bb92cdd23107b53
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: bd2f311bb3ed607594f2e16a7de5d7f6097b9c37
+PODFILE CHECKSUM: ca4d0193a1c1a4604b75fbaa1b0f602bd9675831
 
-COCOAPODS: 1.10.0.rc.1
+COCOAPODS: 1.10.0

@@ -1,7 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/Keychain83/Keychain83.framework
-${PODS_ROOT}/../../mobile-wallet/Libraries/vcx.framework
+${PODS_ROOT}/MobileWallet/Libraries/vcx.framework
 ${BUILT_PRODUCTS_DIR}/MobileWallet/MobileWallet.framework
 ${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework
 ${BUILT_PRODUCTS_DIR}/QRCodeScanner83/QRCodeScanner83.framework
