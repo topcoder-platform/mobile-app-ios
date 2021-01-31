@@ -13,6 +13,7 @@ import Combine
 import AppCenter
 import AppCenterDistribute
 import MobileWallet
+import Auth0
 
 enum SdkEvent: String {
     case ready
@@ -94,6 +95,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }, receiveValue: { _ in })
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return Auth0.resumeAuth(url, options: options)
     }
 }
 

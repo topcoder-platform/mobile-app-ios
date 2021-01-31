@@ -3,6 +3,10 @@ PODS:
   - AppCenter/Core (4.0.0)
   - AppCenter/Distribute (4.0.0):
     - AppCenter/Core
+  - Auth0 (1.30.1):
+    - JWTDecode
+    - SimpleKeychain
+  - JWTDecode (2.5.0)
   - Keychain83 (0.0.1):
     - Keychain83/Core (= 0.0.1)
   - Keychain83/Core (0.0.1)
@@ -20,6 +24,7 @@ PODS:
     - Alamofire (~> 4.8)
     - RxSwift (~> 5.0)
   - RxSwift (5.1.1)
+  - SimpleKeychain (0.12.1)
   - SwiftEx83/Int (1.0.3):
     - "NSObject+Rx"
     - RxAlamofire (~> 5.0.0)
@@ -28,8 +33,9 @@ PODS:
 
 DEPENDENCIES:
   - AppCenter/Distribute
+  - Auth0 (~> 1.0)
   - Keychain83 (= 0.0.1)
-  - MobileWallet (from `/Users/volk/TopCoder/34_Evernym/mobile-wallet`)
+  - "MobileWallet (from `git@github.com:topcoder-platform/mobile-wallet.git`, branch `master`)"
   - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
   - SwiftEx83/Int
 
@@ -37,21 +43,28 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AppCenter
+    - Auth0
+    - JWTDecode
     - Keychain83
     - "NSObject+Rx"
     - RxAlamofire
     - RxSwift
+    - SimpleKeychain
     - SwiftEx83
     - SwiftyJSON
 
 EXTERNAL SOURCES:
   MobileWallet:
-    :path: "/Users/volk/TopCoder/34_Evernym/mobile-wallet"
+    :branch: master
+    :git: "git@github.com:topcoder-platform/mobile-wallet.git"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
     :tag: 0.0.3
 
 CHECKOUT OPTIONS:
+  MobileWallet:
+    :commit: 9372dd8420fa68acb305faee1cc1f2a3b94a90f5
+    :git: "git@github.com:topcoder-platform/mobile-wallet.git"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
     :tag: 0.0.3
@@ -59,15 +72,18 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AppCenter: 51351e0121e40ba75e28ecb7de5c2e69d480df5e
+  Auth0: 59bece5b578a93589bd321fafeed8a042429f9db
+  JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
   MobileWallet: 170f930dd11f6e2cd55898762a4cbb46600f5aa7
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SimpleKeychain: 77443015b0f29005c16f74bf858469a9e9fb05e8
   SwiftEx83: 3416d9f6a3739b7d3011ea6d0bb92cdd23107b53
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: bd2f311bb3ed607594f2e16a7de5d7f6097b9c37
+PODFILE CHECKSUM: e0fdbe6b8d8ee67fef718e189659b62d03429a4a
 
 COCOAPODS: 1.10.0.rc.1

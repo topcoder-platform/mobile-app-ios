@@ -9,6 +9,7 @@
 import UIKit
 import SwiftEx83
 import UIComponents
+import Auth0
 
 /// flag: true - menu is opened, false - else
 var MenuViewControllerOpened = false
@@ -68,6 +69,8 @@ class MenuViewController: UIViewController {
             case 3:
                 guard let vc = self?.create(SettingsViewController.self) else { return }
                 viewController = vc
+            case 4:
+                self?.tryLogin()
             default: break
             }
             guard let vc = viewController else { return }
@@ -82,5 +85,37 @@ class MenuViewController: UIViewController {
             self.view.backgroundColor = .clear
         }, completion: nil)
         self.dismissViewControllerToSide(self, side: .left, callback)
+    }
+    
+    private func tryLogin() {
+        Auth0
+            .webAuth()
+            .scope("openid profile")
+            .audience("https://topcoder-dev.auth0.com/userinfo")
+            .start { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    
+                    // Handle the error
+                    print("Error: \(error)")
+                    showError(errorMessage: error.localizedDescription)
+                case .success(let credentials):
+                    
+                    // Save credentials
+                    print("Credentials: \(credentials)")
+                    AuthenticationUtil.processCredentials(credentials: credentials)
+                    self?.showAlert("Success login", "Tokens are stored in Keychain")
+                }
+        }
+    }
+    
+    private func tryLogout() {
+        Auth0
+            .webAuth()
+            .clearSession(federated: false) { result in
+                if result {
+                    // Session cleared
+                }
+        }
     }
 }
