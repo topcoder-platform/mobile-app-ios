@@ -596,7 +596,7 @@
 					"@loader_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.ios.wallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.ios.wallet.uicomponents;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -628,7 +628,7 @@
 					"@loader_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.ios.wallet;
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.ios.wallet.uicomponents;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
