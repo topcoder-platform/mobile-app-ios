@@ -38,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static var shared: AppDelegate!
     
+    static var analyticsInitialized = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         AppDelegate.shared = self
@@ -102,6 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.add(plugin: AWSPinpointAnalyticsPlugin())
             try Amplify.configure()
+            AppDelegate.analyticsInitialized = true
             print("Amplify configured with Auth and Analytics plugins")
         } catch {
             print("Failed to initialize Amplify with \(error)")
@@ -132,5 +135,13 @@ extension JSON {
         }
         // reading the json
         return try? JSON(data: data)
+    }
+}
+
+extension AnalyticsCategory {
+    
+    func tryRecord(event: AnalyticsEvent) {
+        guard AppDelegate.analyticsInitialized else { return }
+        record(event: event)
     }
 }

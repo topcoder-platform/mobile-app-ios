@@ -123,7 +123,7 @@ class MenuViewController: UIViewController {
                     UIViewController.getCurrentViewController()?.showAlert("Success login", "Tokens are stored in Keychain")
                     
                     // Event
-                    Amplify.Analytics.record(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Login"]))
+                    Amplify.Analytics.tryRecord(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Login"]))
                 }
                 callback()
         }

@@ -53,7 +53,7 @@ class ConnectionsViewController: AbstractViewController {
         loadData()
         
         // Event
-        Amplify.Analytics.record(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Connections List open"]))
+        Amplify.Analytics.tryRecord(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Connections List open"]))
     }
     
     /// Load data
