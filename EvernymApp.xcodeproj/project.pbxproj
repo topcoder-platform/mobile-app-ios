@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		51C5EC339DA206B0A3FDAD9F /* Pods_EvernymApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A3DB3E306BD6728CF525EF /* Pods_EvernymApp.framework */; };
+		FD00264D25C6EDA900502B19 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD00264C25C6EDA900502B19 /* Auth0.plist */; };
+		FD00264F25C6F21800502B19 /* AuthenticaionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD00264E25C6F21800502B19 /* AuthenticaionUtil.swift */; };
 		FD1B180D25988A3F00FA7455 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B180C25988A3F00FA7455 /* SettingsViewController.swift */; };
 		FD1B180F2598ADEA00FA7455 /* ConnectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B180E2598ADEA00FA7455 /* ConnectionsViewController.swift */; };
 		FD1B18112598AE2300FA7455 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B18102598AE2300FA7455 /* Connection.swift */; };
@@ -83,6 +85,8 @@
 		1D037B6D26E3BCFB75EC8734 /* Pods-EvernymApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvernymApp.debug.xcconfig"; path = "Target Support Files/Pods-EvernymApp/Pods-EvernymApp.debug.xcconfig"; sourceTree = "<group>"; };
 		29A3DB3E306BD6728CF525EF /* Pods_EvernymApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EvernymApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38DDD2D1A84D97AE105F72A8 /* Pods-EvernymApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvernymApp.release.xcconfig"; path = "Target Support Files/Pods-EvernymApp/Pods-EvernymApp.release.xcconfig"; sourceTree = "<group>"; };
+		FD00264C25C6EDA900502B19 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Auth0.plist; sourceTree = "<group>"; };
+		FD00264E25C6F21800502B19 /* AuthenticaionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticaionUtil.swift; sourceTree = "<group>"; };
 		FD1B180C25988A3F00FA7455 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FD1B180E2598ADEA00FA7455 /* ConnectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsViewController.swift; sourceTree = "<group>"; };
 		FD1B18102598AE2300FA7455 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 				FDBDA6E6259742810013532C /* Data Source */,
 				FDEDA0C9256A5AC900E0FFE7 /* Utils */,
 				FDB5B6FF252A4B700035ADC1 /* Info.plist */,
+				FD00264C25C6EDA900502B19 /* Auth0.plist */,
 			);
 			path = EvernymApp;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				FD90365225978CBE00C13C74 /* LocalAuthenticationUtil.swift */,
 				FD7F52DC2597479900AB4507 /* HelpFunctions.swift */,
 				FDB64B3125C56684005F1F16 /* CMConfig+Wallet.swift */,
+				FD00264E25C6F21800502B19 /* AuthenticaionUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -431,6 +437,7 @@
 				FDB5B6FE252A4B700035ADC1 /* LaunchScreen.storyboard in Resources */,
 				FDA792D92583645C00F28CFB /* configuration.plist in Resources */,
 				FDB5B6FB252A4B700035ADC1 /* Assets.xcassets in Resources */,
+				FD00264D25C6EDA900502B19 /* Auth0.plist in Resources */,
 				FDA6575A25A5E3C500CC95DC /* Roboto-Regular.ttf in Resources */,
 				FDA6575625A5E12100CC95DC /* Roboto-Bold.ttf in Resources */,
 				FDA6576425A7738E00CC95DC /* ConnectionStateInfoSection.xib in Resources */,
@@ -533,6 +540,7 @@
 				FDA792D72583643700F28CFB /* Configuration.swift in Sources */,
 				FD1B18172598FEDE00FA7455 /* AppDelegate+Notifications.swift in Sources */,
 				FD1B180F2598ADEA00FA7455 /* ConnectionsViewController.swift in Sources */,
+				FD00264F25C6F21800502B19 /* AuthenticaionUtil.swift in Sources */,
 				FDBDA6E3259740590013532C /* HomeViewController.swift in Sources */,
 				FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */,
 				FD1B18152598FDDE00FA7455 /* AllowPushNotificationsViewController.swift in Sources */,

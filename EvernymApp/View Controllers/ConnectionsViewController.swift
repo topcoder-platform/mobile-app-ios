@@ -12,6 +12,7 @@ import QRCodeScanner83
 import Combine
 import SwiftyJSON
 import MobileWallet
+import Amplify
 
 var simulateConnectionAddedComplete = false
 
@@ -50,6 +51,9 @@ class ConnectionsViewController: AbstractViewController {
         
         NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: UIEvents.connectionUpdate)
         loadData()
+        
+        // Event
+        Amplify.Analytics.record(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Connections List open"]))
     }
     
     /// Load data

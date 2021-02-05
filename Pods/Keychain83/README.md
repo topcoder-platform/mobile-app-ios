@@ -1,8 +1,6 @@
-# Keychain83 🔐
+# Keychain83
 
-Simple utility for storing data in Apple's Keychain. 
-
-Once the data is stored in the keychain it's persistent and secure even after deleting the app.
+Simple utility for iOS apps to store data in the keychain.
 
 ## Installation
 
@@ -10,13 +8,7 @@ Once the data is stored in the keychain it's persistent and secure even after de
 
 You can use [CocoaPods](http://cocoapods.org/) to install `Keychain83` by adding it to your `Podfile`:
 
-Add the following line to your `Podfile`.
 ```
-pod 'Keychain83'
-```
-
-For example as follows:
-
 ```ruby
 platform :ios, '10.0'
 use_frameworks!
@@ -27,6 +19,8 @@ end
 ```
 
 You can provide direct path to the library:
+
+```
 
 ```ruby
 platform :ios, '10.0'
@@ -44,18 +38,12 @@ let keychainUtility = Keychain(service: "My Keychain")
 
 let key = "myAccount"
 
-// Adding 🔑
+// Adding
 keychainUtility[key] = "password123"
 
-// Updating 🗝
+// Updating
 keychainUtility[key] = "passwordABC"
 
-// Deleting 🤷🏻‍♂️
+// Deleting
 keychainUtility[key] = nil
 ```
-
-## Updates
-
-You can request the changes you need (e.g. support other Apple Keychain classes) and I will glad to help to implement it.
-
-Consider to donate a few $ using "♡ Sponsor" button.

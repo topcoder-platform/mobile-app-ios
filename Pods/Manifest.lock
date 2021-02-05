@@ -1,8 +1,43 @@
 PODS:
   - Alamofire (4.9.1)
-  - AppCenter/Core (4.0.0)
-  - AppCenter/Distribute (4.0.0):
+  - Amplify (1.5.5):
+    - Amplify/Default (= 1.5.5)
+  - Amplify/Default (1.5.5)
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.5.5):
+    - AWSAuthCore (~> 2.22.0)
+    - AWSCognitoIdentityProvider (~> 2.22.0)
+    - AWSCognitoIdentityProviderASF (~> 2.22.0)
+    - AWSCore (~> 2.22.0)
+    - AWSMobileClient (~> 2.22.0)
+    - AWSPluginsCore (= 1.5.5)
+  - AmplifyPlugins/AWSPinpointAnalyticsPlugin (1.5.5):
+    - AWSCore (~> 2.22.0)
+    - AWSPinpoint (~> 2.22.0)
+    - AWSPluginsCore (= 1.5.5)
+  - AppCenter/Core (4.1.0)
+  - AppCenter/Distribute (4.1.0):
     - AppCenter/Core
+  - Auth0 (1.30.1):
+    - JWTDecode
+    - SimpleKeychain
+  - AWSAuthCore (2.22.0):
+    - AWSCore (= 2.22.0)
+  - AWSCognitoIdentityProvider (2.22.0):
+    - AWSCognitoIdentityProviderASF (= 2.22.0)
+    - AWSCore (= 2.22.0)
+  - AWSCognitoIdentityProviderASF (2.22.0)
+  - AWSCore (2.22.0)
+  - AWSMobileClient (2.22.0):
+    - AWSAuthCore (= 2.22.0)
+    - AWSCognitoIdentityProvider (= 2.22.0)
+    - AWSCognitoIdentityProviderASF (= 2.22.0)
+    - AWSCore (= 2.22.0)
+  - AWSPinpoint (2.22.0):
+    - AWSCore (= 2.22.0)
+  - AWSPluginsCore (1.5.5):
+    - Amplify (= 1.5.5)
+    - AWSCore (~> 2.22.0)
+  - JWTDecode (2.5.0)
   - Keychain83 (0.0.1):
     - Keychain83/Core (= 0.0.1)
   - Keychain83/Core (0.0.1)
@@ -20,6 +55,7 @@ PODS:
     - Alamofire (~> 4.8)
     - RxSwift (~> 5.0)
   - RxSwift (5.1.1)
+  - SimpleKeychain (0.12.1)
   - SwiftEx83/Int (1.0.3):
     - "NSObject+Rx"
     - RxAlamofire (~> 5.0.0)
@@ -27,7 +63,11 @@ PODS:
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
+  - Amplify
+  - AmplifyPlugins/AWSCognitoAuthPlugin
+  - AmplifyPlugins/AWSPinpointAnalyticsPlugin
   - AppCenter/Distribute
+  - Auth0 (~> 1.0)
   - Keychain83 (= 0.0.1)
   - "MobileWallet (from `git@github.com:topcoder-platform/mobile-wallet.git`, branch `master`)"
   - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
@@ -36,11 +76,23 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - Amplify
+    - AmplifyPlugins
     - AppCenter
+    - Auth0
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSMobileClient
+    - AWSPinpoint
+    - AWSPluginsCore
+    - JWTDecode
     - Keychain83
     - "NSObject+Rx"
     - RxAlamofire
     - RxSwift
+    - SimpleKeychain
     - SwiftEx83
     - SwiftyJSON
 
@@ -62,16 +114,28 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  AppCenter: 51351e0121e40ba75e28ecb7de5c2e69d480df5e
+  Amplify: 975fe3981790cf06e605353d2e704fc0985a45f3
+  AmplifyPlugins: af57bc32df1e47386922f9966564cb0b954dca8f
+  AppCenter: 8832b158d17e54845c3b88a91076218f0b07174d
+  Auth0: 59bece5b578a93589bd321fafeed8a042429f9db
+  AWSAuthCore: b54e2008da479e5a6ffdb6b482821d8f5a9afaa4
+  AWSCognitoIdentityProvider: 32a91ad644e49e40235a408a8fbb96ea74891f19
+  AWSCognitoIdentityProviderASF: 8b92721c17f2951ecd5bcfb749d5534f2851c2c7
+  AWSCore: 8bd1def9cb0b6770c65b6d394f1c1cbc0a5562b7
+  AWSMobileClient: bba690cc09c6569cc1111141beaa4e2f789f536b
+  AWSPinpoint: b25b03fca987c4c5119e061dcd0f16ae40d9b504
+  AWSPluginsCore: 358365037f62d5bc995037d6eb687f39582d90d0
+  JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
   MobileWallet: 170f930dd11f6e2cd55898762a4cbb46600f5aa7
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SimpleKeychain: 77443015b0f29005c16f74bf858469a9e9fb05e8
   SwiftEx83: 3416d9f6a3739b7d3011ea6d0bb92cdd23107b53
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: ca4d0193a1c1a4604b75fbaa1b0f602bd9675831
+PODFILE CHECKSUM: 18e12912e6c23cd645fbc5d71062cae7ea468c4a
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.0.rc.1

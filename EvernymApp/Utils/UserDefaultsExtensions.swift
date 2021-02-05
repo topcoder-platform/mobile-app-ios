@@ -15,6 +15,18 @@ extension UserDefaults {
         public static let setupCompleted = "setupCompleted"
         public static let useBiometrics = "useBiometrics"
         public static let askedApn = "askedApn"
+        public static let isAuthenticated = "isAuthenticated"
+    }
+    
+    /// true - if authenticated
+    static public var isAuthenticated: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: Key.isAuthenticated)
+        }
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: Key.isAuthenticated)
+            UserDefaults.standard.synchronize()
+        }
     }
     
     /// true - if setup completed

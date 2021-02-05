@@ -13,6 +13,9 @@ import Combine
 import AppCenter
 import AppCenterDistribute
 import MobileWallet
+import Auth0
+import Amplify
+import AmplifyPlugins
 
 enum SdkEvent: String {
     case ready
@@ -93,7 +96,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 showError(errorMessage: error.localizedDescription)
             }
         }, receiveValue: { _ in })
+        
+        
+        do {
+            try Amplify.add(plugin: AWSCognitoAuthPlugin())
+            try Amplify.add(plugin: AWSPinpointAnalyticsPlugin())
+            try Amplify.configure()
+            print("Amplify configured with Auth and Analytics plugins")
+        } catch {
+            print("Failed to initialize Amplify with \(error)")
+        }
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return Auth0.resumeAuth(url, options: options)
     }
 }
 

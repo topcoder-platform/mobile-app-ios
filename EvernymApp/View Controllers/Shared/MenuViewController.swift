@@ -9,6 +9,8 @@
 import UIKit
 import SwiftEx83
 import UIComponents
+import Auth0
+import Amplify
 
 /// flag: true - menu is opened, false - else
 var MenuViewControllerOpened = false
@@ -50,6 +52,21 @@ class MenuViewController: UIViewController {
 
     @IBAction func buttonAction(_ sender: UIButton) {
         guard MenuSelectedIndex != sender.tag else { dismissMenu {}; return }
+        if sender.tag == 4 {
+            if AuthenticationUtil.isAuthenticated() {
+                self.showAlert("", "The app will logout you from Topcoder") { [weak self] in
+                    self?.tryLogout() {
+                        self?.dismissMenu {}
+                    }
+                }
+            }
+            else {
+                self.tryLogin() { [weak self] in
+                    self?.dismissMenu {}
+                }
+            }
+            return
+        }
         MenuSelectedIndex = sender.tag
         updateUI()
         dismissMenu { [weak self] in
@@ -68,6 +85,8 @@ class MenuViewController: UIViewController {
             case 3:
                 guard let vc = self?.create(SettingsViewController.self) else { return }
                 viewController = vc
+            case 4:
+                break
             default: break
             }
             guard let vc = viewController else { return }
@@ -82,5 +101,42 @@ class MenuViewController: UIViewController {
             self.view.backgroundColor = .clear
         }, completion: nil)
         self.dismissViewControllerToSide(self, side: .left, callback)
+    }
+    
+    private func tryLogin(callback: @escaping ()->()) {
+        Auth0
+            .webAuth()
+            .scope("openid profile")
+            .audience("https://topcoder-dev.auth0.com/userinfo")
+            .start { [weak self] result in
+                switch result {
+                case .failure(let error):
+                    
+                    // Handle the error
+                    print("Error: \(error)")
+                    showError(errorMessage: error.localizedDescription)
+                case .success(let credentials):
+                    
+                    // Save credentials
+                    print("Credentials: \(credentials)")
+                    AuthenticationUtil.processCredentials(credentials: credentials)
+                    UIViewController.getCurrentViewController()?.showAlert("Success login", "Tokens are stored in Keychain")
+                    
+                    // Event
+                    Amplify.Analytics.record(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Login"]))
+                }
+                callback()
+        }
+    }
+    
+    private func tryLogout(callback: @escaping ()->()) {
+        Auth0
+            .webAuth()
+            .clearSession(federated: false) { result in
+                if result {
+                    AuthenticationUtil.cleanUp()
+                }
+                callback()
+        }
     }
 }
