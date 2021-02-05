@@ -10,6 +10,7 @@ import UIKit
 import SwiftEx83
 import UIComponents
 import Auth0
+import Amplify
 
 /// flag: true - menu is opened, false - else
 var MenuViewControllerOpened = false
@@ -120,6 +121,9 @@ class MenuViewController: UIViewController {
                     print("Credentials: \(credentials)")
                     AuthenticationUtil.processCredentials(credentials: credentials)
                     UIViewController.getCurrentViewController()?.showAlert("Success login", "Tokens are stored in Keychain")
+                    
+                    // Event
+                    Amplify.Analytics.record(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Login"]))
                 }
                 callback()
         }
