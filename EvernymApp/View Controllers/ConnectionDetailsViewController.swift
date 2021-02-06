@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftEx83
+import Amplify
 
 struct ConnectionState {
     
@@ -49,6 +50,9 @@ class ConnectionDetailsViewController: UIViewController {
         table.bindData(to: tableView)
         updateUI()
         loadData()
+        
+        // Event
+        Amplify.Analytics.tryRecord(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Connection Details open"]))
     }
     
     private func updateUI() {

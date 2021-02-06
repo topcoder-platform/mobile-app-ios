@@ -13,6 +13,9 @@ import Combine
 import AppCenter
 import AppCenterDistribute
 import MobileWallet
+import Auth0
+import Amplify
+import AmplifyPlugins
 
 enum SdkEvent: String {
     case ready
@@ -34,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var tokenRequested = false
     
     static var shared: AppDelegate!
+    
+    static var analyticsInitialized = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -93,7 +98,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 showError(errorMessage: error.localizedDescription)
             }
         }, receiveValue: { _ in })
+        
+        
+        do {
+            try Amplify.add(plugin: AWSCognitoAuthPlugin())
+            try Amplify.add(plugin: AWSPinpointAnalyticsPlugin())
+            try Amplify.configure()
+            AppDelegate.analyticsInitialized = true
+            print("Amplify configured with Auth and Analytics plugins")
+        } catch {
+            print("Failed to initialize Amplify with \(error)")
+        }
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return Auth0.resumeAuth(url, options: options)
     }
 }
 
@@ -115,5 +135,13 @@ extension JSON {
         }
         // reading the json
         return try? JSON(data: data)
+    }
+}
+
+extension AnalyticsCategory {
+    
+    func tryRecord(event: AnalyticsEvent) {
+        guard AppDelegate.analyticsInitialized else { return }
+        record(event: event)
     }
 }
