@@ -49,7 +49,15 @@ extension UIViewController {
         guard let vc = create(MainNavigationViewController.self) else { return }
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .flipHorizontal
-        self.present(vc, animated: animated, completion: nil)
+        self.present(vc, animated: animated, completion: { [weak self] in
+            self?.tryShowTutorial()
+        })
+    }
+    
+    func tryShowTutorial() {
+        guard let vc = create(WelcomeViewController.self) else { return }
+        vc.modalPresentationStyle = .fullScreen
+        Current?.present(vc, animated: true, completion: nil)
     }
     
     func showInvitation(invitation: JSON) {

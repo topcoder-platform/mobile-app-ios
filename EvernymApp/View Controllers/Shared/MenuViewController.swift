@@ -11,16 +11,81 @@ import SwiftEx83
 import UIComponents
 import Auth0
 import Amplify
+import MobileWallet
 
 /// flag: true - menu is opened, false - else
 var MenuViewControllerOpened = false
 
 var MenuSelectedIndex = 0
 
+enum MenuItem: Int {
+    case home, wallet, topcoder,
+    myConnections, myCredentials, settings,
+    login, challenges
+    
+    var level: Int {
+        switch self {
+        case .home, .wallet, .topcoder: return 0
+        case .myConnections: fallthrough
+        case .myCredentials: fallthrough
+        case .settings: fallthrough
+        case .login: fallthrough
+        case .challenges: fallthrough
+        default: return 1
+        }
+    }
+    
+    var childrend: [MenuItem] {
+        switch self {
+        case .wallet: return [.myConnections, .myCredentials, .settings]
+        case .topcoder: return [.login, .challenges]
+        default: return []
+        }
+    }
+    
+    var hasChildren: Bool {
+        return !childrend.isEmpty
+    }
+    
+    var title: String {
+        switch self {
+        case .home: return NSLocalizedString("Home", comment: "Home")
+        case .wallet: return NSLocalizedString("Wallet", comment: "Wallet")
+            case .myConnections: return NSLocalizedString("My Connections", comment: "My Connections")
+            case .myCredentials: return NSLocalizedString("My Credentials", comment: "My Credentials")
+            case .settings: return NSLocalizedString("Settings", comment: "Settings")
+        case .topcoder: return NSLocalizedString("Topcoder", comment: "Topcoder")
+            case .login: return NSLocalizedString("Login", comment: "Login")
+            case .challenges: return NSLocalizedString("Challenges", comment: "Challenges")
+        }
+    }
+    
+    var icon: UIImage! {
+        switch self {
+        case .home: return UIImage(named: "m1")
+        case .wallet: return UIImage(named: "m2")
+        case .myConnections: return UIImage(named: "m2.1")
+        case .myCredentials: return UIImage(named: "m2.2")
+        case .settings: return UIImage(named: "m2.3")
+        case .topcoder: return UIImage(named: "m3")
+        case .login: return UIImage(systemName: "person")
+        case .challenges: return UIImage(named: "m3.2")
+        }
+    }
+}
+
 class MenuViewController: UIViewController {
 
-    @IBOutlet var buttons: [MenuButton]!
+    /// outlets
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var versionLabel: UILabel!
+    
+    /// the table model
+    private var table = InfiniteTableViewModel<MenuItem, MenuItemCell>()
+    
+    private var items = [MenuItem]()
+    
+    private var selectedIndex = MenuSelectedIndex
     
     /// Setup UI
     override func viewDidLoad() {
@@ -31,7 +96,72 @@ class MenuViewController: UIViewController {
                 self?.view.backgroundColor = UIColor.black.alpha(alpha: 0.5)
             }, completion: nil)
         }
+        setupMenu()
         updateUI()
+    }
+    
+    private func setupMenu() {
+        // Table
+        table.showLoadingIndicator = false
+        table.configureCell = { [weak self] indexPath, item, _, cell in
+            cell.configure(item, isSelected: item.rawValue == MenuSelectedIndex || item.rawValue == self?.selectedIndex || item.childrend.map({$0.rawValue}).contains(MenuSelectedIndex))
+        }
+        table.onSelect = { [weak self] _, item in
+            self?.handleMenuClick(item)
+        }
+        table.loadItems = { [weak self] callback, failure in
+            guard self != nil else { return }
+            callback(self?.items ?? [])
+        }
+        table.bindData(to: tableView)
+        
+        // Menu items
+        loadMenuItems(selected: MenuItem(rawValue: MenuSelectedIndex))
+    }
+    
+    private func loadMenuItems(selected: MenuItem?) {
+        items.removeAll()
+        items.append(.home)
+        items.append(.wallet)
+        let submenu1 = MenuItem.wallet.childrend
+        if submenu1.map({$0.rawValue}).contains(selectedIndex) || selectedIndex == MenuItem.wallet.rawValue {
+            items.append(contentsOf: submenu1)
+        }
+        items.append(.topcoder)
+        let submenu2 = MenuItem.topcoder.childrend
+        if submenu2.map({$0.rawValue}).contains(selectedIndex) || selectedIndex == MenuItem.topcoder.rawValue {
+            items.append(contentsOf: submenu2)
+        }
+        table.loadData()
+    }
+    
+    private func handleMenuClick(_ item: MenuItem) {
+        // Tap on selected
+        if MenuSelectedIndex == item.rawValue {
+            if item.hasChildren {
+                // collapse
+                loadMenuItems(selected: nil)
+            }
+            else {
+                dismissMenu {}
+            }
+        }
+        else {
+            if item.hasChildren {
+                
+                // Initialize wallet if tapped for the first time: https://github.com/topcoder-platform/evernym-tc-wallet/issues/33
+                if item == .wallet {
+                    CMConfig.shared.tryInitialize()
+                }
+                
+                selectedIndex = item.rawValue
+                // expand the menu
+                loadMenuItems(selected: item)
+            }
+            else {
+                openContent(for: item)
+            }
+        }
     }
     
     /// Update UI
@@ -40,19 +170,15 @@ class MenuViewController: UIViewController {
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
         
         versionLabel.text = "version \(version) (build \(build))"
-        
-        for button in buttons {
-            button.isSelected = button.tag == MenuSelectedIndex
-        }
     }
     
     @IBAction func swipeLeft(_ sender: Any) {
         self.dismissMenu({})
     }
 
-    @IBAction func buttonAction(_ sender: UIButton) {
-        guard MenuSelectedIndex != sender.tag else { dismissMenu {}; return }
-        if sender.tag == 4 {
+    private func openContent(for item: MenuItem) {
+        guard !item.hasChildren else { fatalError("Incorrect parameter openContent(\(item))") }
+        if item == .login {
             if AuthenticationUtil.isAuthenticated() {
                 self.showAlert("", "The app will logout you from Topcoder") { [weak self] in
                     self?.tryLogout() {
@@ -67,26 +193,30 @@ class MenuViewController: UIViewController {
             }
             return
         }
-        MenuSelectedIndex = sender.tag
+        MenuSelectedIndex = item.rawValue
+        selectedIndex = item.rawValue
         updateUI()
         dismissMenu { [weak self] in
             guard let navVc = Current as? UINavigationController else { return }
             var viewController: UIViewController?
-            switch sender.tag {
-            case 0:
+            switch item {
+            case .home:
                 guard let vc = self?.create(HomeViewController.self) else { return }
                 viewController = vc
-            case 1:
+            case .myConnections:
                 guard let vc = self?.create(ConnectionsViewController.self) else { return }
                 viewController = vc
-            case 2:
+            case .myCredentials:
                 guard let vc = self?.create(CredentialsViewController.self) else { return }
                 viewController = vc
-            case 3:
+            case .settings:
                 guard let vc = self?.create(SettingsViewController.self) else { return }
                 viewController = vc
-            case 4:
-                break
+            case .challenges:
+                guard let vc = self?.create(WebViewController.self) else { return }
+                vc.title = NSLocalizedString("Challenges", comment: "Challenges")
+                vc.urlString = Configuration.urlChallenges
+                viewController = vc
             default: break
             }
             guard let vc = viewController else { return }
@@ -108,7 +238,7 @@ class MenuViewController: UIViewController {
             .webAuth()
             .scope("openid profile")
             .audience("https://topcoder-dev.auth0.com/userinfo")
-            .start { [weak self] result in
+            .start { result in
                 switch result {
                 case .failure(let error):
                     
@@ -138,5 +268,37 @@ class MenuViewController: UIViewController {
                 }
                 callback()
         }
+    }
+}
+
+/// Cell for table in this view controller
+class MenuItemCell: ClearCell {
+    
+    /// outlets
+    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var collapseIcon: UIImageView!
+    
+    /// the related item
+    private var item: MenuItem!
+    
+    /// Setup UI
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        selectionStyle = .none
+    }
+    
+    /// Update UI with given data
+    ///
+    /// - Parameters:
+    ///   - item: the data to show in the cell
+    ///   - isSelected: true - if selected
+    func configure(_ item: MenuItem, isSelected: Bool) {
+        self.item = item
+        button.setTitle(item.title, for: .normal)
+        button.setImage(item.icon, for: .normal)
+        button.contentEdgeInsets.left = item.level == 0 ? 34 : 73
+        button.isSelected = isSelected && !item.hasChildren
+        collapseIcon.isHidden = !item.hasChildren
+        collapseIcon.image = isSelected ? #imageLiteral(resourceName: "arrowCollapse") : #imageLiteral(resourceName: "arrowExpand")
     }
 }

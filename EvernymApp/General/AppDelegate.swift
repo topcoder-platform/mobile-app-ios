@@ -29,7 +29,6 @@ enum SdkEvent: String {
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var cancellable: AnyCancellable?
     
     /// the device token for push notifications
     static var deviceToken: String?
@@ -88,17 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
                 
-        // Initialize
-        cancellable = CMConfig.shared.initialize()
-            .sink(receiveCompletion: { completion in
-            switch completion {
-            case .finished:
-                NotificationCenter.post(SdkEvent.ready)
-            case .failure(let error):
-                showError(errorMessage: error.localizedDescription)
-            }
-        }, receiveValue: { _ in })
-        
+        // Initialize CMConfig. Moved to lazy initialization when "Wallet" tapped. Check `CMConfig(?).tryInitialize() sage`
         
         do {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
