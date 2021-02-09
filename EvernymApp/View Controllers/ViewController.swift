@@ -16,6 +16,7 @@ import Combine
 
 typealias VcxUtil = CMConfig
 
+// TODO REMOVE. It's not used anymore.
 class ViewController: UIViewController, CodeScannerViewControllerDelegate {
     
     /// outlets

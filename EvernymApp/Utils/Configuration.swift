@@ -20,4 +20,10 @@ class Configuration {
     static var appCenterSecret: String {
         return shared.dict!["APP_CENTER_SECRET"] as! String
     }
+    
+    /// URL used to open challenges list
+    static var urlChallenges: String {
+        return shared.dict!["URL_CHALLENGES"] as! String
+    }
+    
 }

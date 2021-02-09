@@ -8,11 +8,32 @@
 
 import Foundation
 import MobileWallet
+import SwiftEx83
+import Combine
 
 let kWalletName = "walletName"
 let kWalletKey = "walletKey"
 
+// true - if initialization started or completed, false - init never called yet
+var CMConfigInitializationStarted = false
+var CMConfigInitCancellable: AnyCancellable?
+
 extension CMConfig {
+    
+    /// Initializes the wallet if not yet done
+    func tryInitialize() {
+        guard !CMConfigInitializationStarted else { return }
+        CMConfigInitializationStarted = true
+        CMConfigInitCancellable = CMConfig.shared.initialize()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    NotificationCenter.post(SdkEvent.ready)
+                case .failure(let error):
+                    showError(errorMessage: error.localizedDescription)
+                }
+            }, receiveValue: { _ in })
+    }
     
     /// Setup custom wallet name/key. Once `.initialize()` (or `.getAgencyConfig()`,  or `.getWalletKey()`) is called, the key will be stored in the keychain (internally), but not wallet name.
     /// - Parameters:

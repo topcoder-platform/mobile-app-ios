@@ -11,6 +11,7 @@ import SwiftEx83
 import UIComponents
 import Auth0
 import Amplify
+import MobileWallet
 
 /// flag: true - menu is opened, false - else
 var MenuViewControllerOpened = false
@@ -48,14 +49,14 @@ enum MenuItem: Int {
     
     var title: String {
         switch self {
-        case .home: return "Home"
-        case .wallet: return "Wallet"
-            case .myConnections: return "My Connections"
-            case .myCredentials: return "My Credentials"
-            case .settings: return "Settings"
-        case .topcoder: return "Topcoder"
-            case .login: return "Login"
-            case .challenges: return "Challenges"
+        case .home: return NSLocalizedString("Home", comment: "Home")
+        case .wallet: return NSLocalizedString("Wallet", comment: "Wallet")
+            case .myConnections: return NSLocalizedString("My Connections", comment: "My Connections")
+            case .myCredentials: return NSLocalizedString("My Credentials", comment: "My Credentials")
+            case .settings: return NSLocalizedString("Settings", comment: "Settings")
+        case .topcoder: return NSLocalizedString("Topcoder", comment: "Topcoder")
+            case .login: return NSLocalizedString("Login", comment: "Login")
+            case .challenges: return NSLocalizedString("Challenges", comment: "Challenges")
         }
     }
     
@@ -147,6 +148,12 @@ class MenuViewController: UIViewController {
         }
         else {
             if item.hasChildren {
+                
+                // Initialize wallet if tapped for the first time: https://github.com/topcoder-platform/evernym-tc-wallet/issues/33
+                if item == .wallet {
+                    CMConfig.shared.tryInitialize()
+                }
+                
                 selectedIndex = item.rawValue
                 // expand the menu
                 loadMenuItems(selected: item)
@@ -205,6 +212,11 @@ class MenuViewController: UIViewController {
             case .settings:
                 guard let vc = self?.create(SettingsViewController.self) else { return }
                 viewController = vc
+            case .challenges:
+                guard let vc = self?.create(WebViewController.self) else { return }
+                vc.title = NSLocalizedString("Challenges", comment: "Challenges")
+                vc.urlString = Configuration.urlChallenges
+                viewController = vc
             default: break
             }
             guard let vc = viewController else { return }
@@ -226,7 +238,7 @@ class MenuViewController: UIViewController {
             .webAuth()
             .scope("openid profile")
             .audience("https://topcoder-dev.auth0.com/userinfo")
-            .start { [weak self] result in
+            .start { result in
                 switch result {
                 case .failure(let error):
                     
