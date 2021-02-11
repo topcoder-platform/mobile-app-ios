@@ -12,6 +12,7 @@ import UIComponents
 import Auth0
 import Amplify
 import MobileWallet
+import Lock
 
 /// flag: true - menu is opened, false - else
 var MenuViewControllerOpened = false
@@ -55,7 +56,7 @@ enum MenuItem: Int {
             case .myCredentials: return NSLocalizedString("My Credentials", comment: "My Credentials")
             case .settings: return NSLocalizedString("Settings", comment: "Settings")
         case .topcoder: return NSLocalizedString("Topcoder", comment: "Topcoder")
-            case .login: return NSLocalizedString("Login", comment: "Login")
+        case .login: return AuthenticationUtil.isAuthenticated() ? NSLocalizedString("Logout", comment: "Logout") : NSLocalizedString("Login", comment: "Login")
             case .challenges: return NSLocalizedString("Challenges", comment: "Challenges")
         }
     }
@@ -142,6 +143,9 @@ class MenuViewController: UIViewController {
                 // collapse
                 loadMenuItems(selected: nil)
             }
+            else if item == .login {
+                openContent(for: item)
+            }
             else {
                 dismissMenu {}
             }
@@ -185,13 +189,13 @@ class MenuViewController: UIViewController {
                         self?.dismissMenu {}
                     }
                 }
+                return
             }
             else {
-                self.tryLogin() { [weak self] in
-                    self?.dismissMenu {}
-                }
+//                self.tryLogin() { [weak self] in
+//                    self?.dismissMenu {}
+//                }
             }
-            return
         }
         MenuSelectedIndex = item.rawValue
         selectedIndex = item.rawValue
@@ -200,6 +204,9 @@ class MenuViewController: UIViewController {
             guard let navVc = Current as? UINavigationController else { return }
             var viewController: UIViewController?
             switch item {
+            case .login:
+                assert(!AuthenticationUtil.isAuthenticated())
+                viewController = self?.getWebviewLoginViewController()
             case .home:
                 guard let vc = self?.create(HomeViewController.self) else { return }
                 viewController = vc
@@ -214,7 +221,7 @@ class MenuViewController: UIViewController {
                 viewController = vc
             case .challenges:
                 guard let vc = self?.create(WebViewController.self) else { return }
-                vc.title = NSLocalizedString("Challenges", comment: "Challenges")
+                vc.title = NSLocalizedString("Challenges", comment: "Challenges").uppercased()
                 vc.urlString = Configuration.urlChallenges
                 viewController = vc
             default: break
@@ -231,6 +238,41 @@ class MenuViewController: UIViewController {
             self.view.backgroundColor = .clear
         }, completion: nil)
         self.dismissViewControllerToSide(self, side: .left, callback)
+    }
+    
+    private func getWebviewLoginViewController() -> UIViewController {
+        let url = Configuration.urlLogin
+        let vc = self.create(WebViewController.self)!
+        vc.title = NSLocalizedString("Login", comment: "Login").uppercased()
+        vc.urlString = url
+        return vc
+    }
+    
+    private func getNativeLoginViewController() -> UIViewController {
+        var callback: ((Credentials)->())? = { creds in
+            
+            self.openContent(for: .challenges)
+        }
+        let vc = Lock
+            .classic()
+            .withOptions {
+                $0.oidcConformant = true
+                $0.autoClose = false
+                $0.audience = "https://topcoder-dev.auth0.com/userinfo"
+                $0.scope = "openid profile"
+        }
+        .onAuth { credentials in
+            guard let accessToken = credentials.accessToken else { return }
+            print("accessToken: \(accessToken)")
+            AuthenticationUtil.processCredentials(credentials: credentials)
+            
+            // Open challenges page
+            callback?(credentials)
+            callback = nil
+        }.controller
+        vc.title = NSLocalizedString("Login", comment: "Login").uppercased()
+        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-8"), style: .plain, target: self, action: #selector(menuAction(_:)))
+        return vc
     }
     
     private func tryLogin(callback: @escaping ()->()) {

@@ -18,11 +18,15 @@ class AuthenticationUtil {
     static var keychain = Keychain(service: "EvernumApp")
     
     static func isAuthenticated() -> Bool {
-        return UserDefaults.isAuthenticated
+        return UserDefaults.isAuthenticated && credentialsManager.hasValid()
     }
+    
+    // Create an instance of the credentials manager for storing credentials
+    static let credentialsManager = CredentialsManager(authentication: Auth0.authentication())
     
     // save tokens
     static func processCredentials(credentials: Credentials) {
+        credentialsManager.store(credentials: credentials)
         keychain["credentials"] = credentials.toString()
         UserDefaults.isAuthenticated = true
     }

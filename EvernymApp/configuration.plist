@@ -6,5 +6,7 @@
 	<string>1b25614b-e105-4740-88f4-b4d687fcb032</string>
 	<key>URL_CHALLENGES</key>
 	<string>https://www.topcoder.com/challenges</string>
+	<key>URL_LOGIN</key>
+	<string>https://accounts-auth0.topcoder.com/#!/member?retUrl=http://www.topcoder.com/</string>
 </dict>
 </plist>
