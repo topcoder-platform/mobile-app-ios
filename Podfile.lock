@@ -41,6 +41,11 @@ PODS:
   - Keychain83 (0.0.1):
     - Keychain83/Core (= 0.0.1)
   - Keychain83/Core (0.0.1)
+  - Lock (2.21.0):
+    - Auth0
+    - Lock/Classic (= 2.21.0)
+  - Lock/Classic (2.21.0):
+    - Auth0
   - MobileWallet (0.0.11):
     - MobileWallet/Core (= 0.0.11)
   - MobileWallet/Core (0.0.11)
@@ -69,6 +74,7 @@ DEPENDENCIES:
   - AppCenter/Distribute
   - Auth0 (~> 1.0)
   - Keychain83 (= 0.0.1)
+  - Lock (~> 2.0)
   - "MobileWallet (from `git@github.com:topcoder-platform/mobile-wallet.git`, branch `master`)"
   - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
   - SwiftEx83/Int
@@ -89,6 +95,7 @@ SPEC REPOS:
     - AWSPluginsCore
     - JWTDecode
     - Keychain83
+    - Lock
     - "NSObject+Rx"
     - RxAlamofire
     - RxSwift
@@ -127,6 +134,7 @@ SPEC CHECKSUMS:
   AWSPluginsCore: 358365037f62d5bc995037d6eb687f39582d90d0
   JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
+  Lock: f642866e3e417d59ebe6d7d6a445b82e76ea3bbe
   MobileWallet: 170f930dd11f6e2cd55898762a4cbb46600f5aa7
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
@@ -136,6 +144,6 @@ SPEC CHECKSUMS:
   SwiftEx83: 3416d9f6a3739b7d3011ea6d0bb92cdd23107b53
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 18e12912e6c23cd645fbc5d71062cae7ea468c4a
+PODFILE CHECKSUM: e377d214b0c70559e5a1231603abac1e35bbf614
 
 COCOAPODS: 1.10.0.rc.1

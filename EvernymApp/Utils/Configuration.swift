@@ -26,4 +26,8 @@ class Configuration {
         return shared.dict!["URL_CHALLENGES"] as! String
     }
     
+    /// URL used to open login form in embeded web view
+    static var urlLogin: String {
+        return shared.dict!["URL_LOGIN"] as! String
+    }
 }

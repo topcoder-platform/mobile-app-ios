@@ -20,6 +20,7 @@ target 'EvernymApp' do
   pod 'Amplify'
   pod 'AmplifyPlugins/AWSPinpointAnalyticsPlugin'
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
+  pod 'Lock', '~> 2.0'  #, :path => '/Users/volk/TopCoder/34_Evernym/TMP/Lock.swift'
 end
 
 post_install do |installer|
