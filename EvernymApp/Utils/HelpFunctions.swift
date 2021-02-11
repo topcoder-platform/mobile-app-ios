@@ -55,9 +55,17 @@ extension UIViewController {
     }
     
     func tryShowTutorial() {
+        // Check if tutorial was not shown
+        let isFirstTime = UserDefaults.standard.value(forKey: "firstTime") as? Bool ?? true
+        guard isFirstTime else { return }
+        
         guard let vc = create(WelcomeViewController.self) else { return }
         vc.modalPresentationStyle = .fullScreen
         Current?.present(vc, animated: true, completion: nil)
+        
+        // Save flag for not showing tutorial anymore
+        UserDefaults.standard.set(false, forKey: "firstTime")
+        UserDefaults.standard.synchronize()
     }
     
     func showInvitation(invitation: JSON) {
