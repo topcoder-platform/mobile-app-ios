@@ -7,6 +7,6 @@
 	<key>URL_CHALLENGES</key>
 	<string>https://www.topcoder.com/challenges</string>
 	<key>URL_LOGIN</key>
-	<string>&quot;https://accounts-auth0.topcoder.com/#!/member?retUrl=http://www.topcoder.com/&quot;</string>
+	<string>https://accounts-auth0.topcoder.com/#!/member?retUrl=http://www.topcoder.com/</string>
 </dict>
 </plist>
