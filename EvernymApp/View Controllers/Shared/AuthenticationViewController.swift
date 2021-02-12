@@ -11,9 +11,11 @@ import UIComponents
 import SwiftEx83
 
 /// Pincode screen
+/// AuthenticationViewController -> FirstSetupViewController -> 
 class AuthenticationViewController: UIViewController, UITextFieldDelegate {
 
     /// outlets
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet var fields: [PincodeField]!
     
     let n = 6
@@ -25,6 +27,15 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
     
     enum ScreenType {
         case login, settings
+        
+        var title: String {
+            switch self {
+            case .login:
+                return UserDefaults.setupCompleted ? NSLocalizedString("Enter your passcode to continue", comment: "Enter your passcode to continue").uppercased() : NSLocalizedString("SET A PASSCODE TO SECURE", comment: "SET A PASSCODE TO SECURE")
+            case .settings:
+                return NSLocalizedString("Enter new passcode", comment: "Enter new passcode").uppercased()
+            }
+        }
     }
     
     var type: ScreenType = .login
@@ -38,6 +49,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
             f.tintColor = .clear
             f.keyboardType = .numberPad
         }
+        titleLabel.text = self.type.title
         updateUI()
     }
     
