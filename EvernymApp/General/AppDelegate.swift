@@ -132,6 +132,7 @@ extension AnalyticsCategory {
     
     func tryRecord(event: AnalyticsEvent) {
         guard AppDelegate.analyticsInitialized else { return }
+        print("Amplify.Analytics.tryRecord: \(event.name), \(event.properties ?? [:])")
         record(event: event)
     }
 }
