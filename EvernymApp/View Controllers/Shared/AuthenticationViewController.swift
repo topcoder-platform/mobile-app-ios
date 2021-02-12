@@ -33,7 +33,7 @@ class AuthenticationViewController: UIViewController, UITextFieldDelegate {
             case .login:
                 return UserDefaults.setupCompleted ? NSLocalizedString("Enter your passcode to continue", comment: "Enter your passcode to continue").uppercased() : NSLocalizedString("SET A PASSCODE TO SECURE", comment: "SET A PASSCODE TO SECURE")
             case .settings:
-                return NSLocalizedString("Enter new passcode", comment: "Enter new passcode").uppercased()
+                return NSLocalizedString("Enter a new passcode", comment: "Enter new passcode").uppercased()
             }
         }
     }
