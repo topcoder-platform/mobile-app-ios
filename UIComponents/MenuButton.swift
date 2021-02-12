@@ -12,10 +12,10 @@ import UIKit
 @IBDesignable public class MenuButton: UIButton {
     
     /// the main color
-    @IBInspectable public var mainTextColor: UIColor = UIColor(0x2A2A2A) { didSet { self.setNeedsLayout() } }
-    @IBInspectable public var mainTintColor: UIColor = UIColor(0x2A2A2A) { didSet { self.setNeedsLayout() } }
-    @IBInspectable public var selectedBgColor: UIColor = UIColor(0xE9E9E9) { didSet { self.setNeedsLayout() } }
-    @IBInspectable public var selectedTextColor: UIColor = UIColor(0x2A2A2A) { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var mainTextColor: UIColor = UIColor.label.alpha(alpha: 0.84) { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var mainTintColor: UIColor = UIColor.clear { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var selectedBgColor: UIColor = UIColor.label.alpha(alpha: 0.09) { didSet { self.setNeedsLayout() } }
+    @IBInspectable public var selectedTextColor: UIColor = UIColor.label.alpha(alpha: 0.84)   { didSet { self.setNeedsLayout() } }
     @IBInspectable public var selectedTintColor: UIColor = UIColor(0x137D60) { didSet { self.setNeedsLayout() } }
     
     /// the border width
