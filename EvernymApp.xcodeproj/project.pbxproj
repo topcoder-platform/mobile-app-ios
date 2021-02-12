@@ -45,6 +45,8 @@
 		FDA6576425A7738E00CC95DC /* ConnectionStateInfoSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDA6576325A7738E00CC95DC /* ConnectionStateInfoSection.xib */; };
 		FDA792D72583643700F28CFB /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA792D62583643700F28CFB /* Configuration.swift */; };
 		FDA792D92583645C00F28CFB /* configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDA792D82583645C00F28CFB /* configuration.plist */; };
+		FDA8878025D675CA000ECA39 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = FDA8877E25D675CA000ECA39 /* awsconfiguration.json */; };
+		FDA8878125D675CA000ECA39 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = FDA8877F25D675CA000ECA39 /* amplifyconfiguration.json */; };
 		FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */; };
 		FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */; };
 		FDB5B6F9252A4B6D0035ADC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDB5B6F7252A4B6D0035ADC1 /* Main.storyboard */; };
@@ -126,6 +128,8 @@
 		FDA6576325A7738E00CC95DC /* ConnectionStateInfoSection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConnectionStateInfoSection.xib; sourceTree = "<group>"; };
 		FDA792D62583643700F28CFB /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		FDA792D82583645C00F28CFB /* configuration.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = configuration.plist; sourceTree = "<group>"; };
+		FDA8877E25D675CA000ECA39 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = SOURCE_ROOT; };
+		FDA8877F25D675CA000ECA39 /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = SOURCE_ROOT; };
 		FDB5B6EE252A4B6D0035ADC1 /* EvernymApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EvernymApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDB5B6F1252A4B6D0035ADC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDB5B6F5252A4B6D0035ADC1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +234,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		FDA8877D25D675B5000ECA39 /* AmplifyConfigs */ = {
+			isa = PBXGroup;
+			children = (
+				FDA8877F25D675CA000ECA39 /* amplifyconfiguration.json */,
+				FDA8877E25D675CA000ECA39 /* awsconfiguration.json */,
+			);
+			name = AmplifyConfigs;
+			sourceTree = "<group>";
+		};
 		FDB5B6E5252A4B6D0035ADC1 = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +266,7 @@
 		FDB5B6F0252A4B6D0035ADC1 /* EvernymApp */ = {
 			isa = PBXGroup;
 			children = (
+				FDA8877D25D675B5000ECA39 /* AmplifyConfigs */,
 				FDEDA0C6256A5AA500E0FFE7 /* General */,
 				FDEDA0C5256A5A9E00E0FFE7 /* Model */,
 				FDEDA0C8256A5ABC00E0FFE7 /* XIBs */,
@@ -465,7 +479,9 @@
 				FDB5B6FE252A4B700035ADC1 /* LaunchScreen.storyboard in Resources */,
 				FDDBD5A325D2F1D900ED6E12 /* welcome.json in Resources */,
 				FDA792D92583645C00F28CFB /* configuration.plist in Resources */,
+				FDA8878125D675CA000ECA39 /* amplifyconfiguration.json in Resources */,
 				FDB5B6FB252A4B700035ADC1 /* Assets.xcassets in Resources */,
+				FDA8878025D675CA000ECA39 /* awsconfiguration.json in Resources */,
 				FD00264D25C6EDA900502B19 /* Auth0.plist in Resources */,
 				FDA6575A25A5E3C500CC95DC /* Roboto-Regular.ttf in Resources */,
 				FDA6575625A5E12100CC95DC /* Roboto-Bold.ttf in Resources */,

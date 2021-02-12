@@ -90,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize CMConfig. Moved to lazy initialization when "Wallet" tapped. Check `CMConfig(?).tryInitialize() sage`
         
         do {
+            Amplify.Logging.logLevel = .verbose
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.add(plugin: AWSPinpointAnalyticsPlugin())
             try Amplify.configure()
