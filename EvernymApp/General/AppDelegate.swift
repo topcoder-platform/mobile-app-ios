@@ -90,6 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize CMConfig. Moved to lazy initialization when "Wallet" tapped. Check `CMConfig(?).tryInitialize() sage`
         
         do {
+            Amplify.Logging.logLevel = .verbose
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.add(plugin: AWSPinpointAnalyticsPlugin())
             try Amplify.configure()
@@ -131,6 +132,7 @@ extension AnalyticsCategory {
     
     func tryRecord(event: AnalyticsEvent) {
         guard AppDelegate.analyticsInitialized else { return }
+        print("Amplify.Analytics.tryRecord: \(event.name), \(event.properties ?? [:])")
         record(event: event)
     }
 }
