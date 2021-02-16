@@ -404,6 +404,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDB5B702252A4B700035ADC1 /* Build configuration list for PBXNativeTarget "EvernymApp" */;
 			buildPhases = (
+				FDA7D2D525DBB5D300FF3546 /* Amplify AppCenter script */,
 				4E8814B005B3B637EAAB1128 /* [CP] Check Pods Manifest.lock */,
 				FDB5B6EA252A4B6D0035ADC1 /* Sources */,
 				FDB5B6EB252A4B6D0035ADC1 /* Frameworks */,
@@ -548,6 +549,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EvernymApp/Pods-EvernymApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		FDA7D2D525DBB5D300FF3546 /* Amplify AppCenter script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Amplify AppCenter script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n./amplify_appcenter.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
