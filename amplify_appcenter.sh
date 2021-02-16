@@ -11,11 +11,17 @@ AWSCONFIG="{\
 }"
 
 AMPLIFY="{\
-\"envName\":\"${AMPLIFY_ENV}\"\
+\"envName\":\"${AMPLIFY_ENV}\",\
+\"appId\":\"${AMPLIFY_APP_ID}\",\
+\"defaultEditor\":\"none\"\
 }"
 
 PROVIDERS="{\
 \"awscloudformation\":${AWSCONFIG}\
+}"
+
+FRONTEND="{\
+\"frontend\":\"ios\"\
 }"
 
 CODEGEN="{\
@@ -23,13 +29,17 @@ CODEGEN="{\
 \"generateDocs\":false\
 }"
 
-echo "Amplify initialization ..."
-amplify init --amplify ${AMPLIFY} --providers ${PROVIDERS} --codegen ${CODEGEN} --yes
+echo "Amplify pull ..."
+amplify pull \
+--amplify $AMPLIFY \
+--frontend $FRONTEND \
+--providers $PROVIDERS \
+--yes
 
 echo "Amplify status ..."
 amplify status
 
-echo "Amplify push ..."
-amplify push --codegen $CODEGEN --yes
+#echo "Amplify push ..."
+#amplify push --codegen $CODEGEN --yes
 
 echo "Amplify DONE"

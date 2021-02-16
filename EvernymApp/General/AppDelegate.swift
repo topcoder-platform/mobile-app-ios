@@ -95,9 +95,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             try Amplify.add(plugin: AWSPinpointAnalyticsPlugin())
             try Amplify.configure()
             AppDelegate.analyticsInitialized = true
+            // Temporary added messages
+            delay(0) {
+                Current?.showAlert("SUCCESS", "Amplify initialized")
+            }
             print("Amplify configured with Auth and Analytics plugins")
         } catch {
             print("Failed to initialize Amplify with \(error)")
+            // Temporary added messages
+            delay(0) {
+                Current?.showAlert("ERROR", "Failed to initialize Amplify with \(error)")
+            }
         }
         return true
     }
