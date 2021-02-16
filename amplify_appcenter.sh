@@ -29,8 +29,8 @@ CODEGEN="{\
 \"generateDocs\":false\
 }"
 
-echo "Amplify pull ..."
-amplify pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
+echo "Amplify pull: amplify pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS -y"
+amplify pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS -y
 
 echo "Amplify status ..."
 amplify status
