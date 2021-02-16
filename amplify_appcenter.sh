@@ -30,11 +30,7 @@ CODEGEN="{\
 }"
 
 echo "Amplify pull ..."
-amplify pull \
---amplify $AMPLIFY \
---frontend $FRONTEND \
---providers $PROVIDERS \
---yes
+amplify pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
 
 echo "Amplify status ..."
 amplify status
