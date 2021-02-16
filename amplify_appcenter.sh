@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 echo "Checking AMPLIFY_ENV=${AMPLIFY_ENV}"
 
@@ -29,11 +29,11 @@ CODEGEN="{\
 \"generateDocs\":false\
 }"
 
-echo "Amplify pull: amplify pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS -y"
-amplify pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS -y
+echo "Amplify pull: amplify pull --amplify "${AMPLIFY}" --frontend "${FRONTEND}" --providers "${PROVIDERS}" -y"
+amplify pull --amplify "${AMPLIFY}" --frontend "${FRONTEND}" --providers "${PROVIDERS}" -y
 
-echo "Amplify status ..."
-amplify status
+#echo "Amplify status ..."
+#amplify status
 
 #echo "Amplify push ..."
 #amplify push --codegen $CODEGEN --yes
