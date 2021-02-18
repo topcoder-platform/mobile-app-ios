@@ -5,6 +5,9 @@ echo "Checking AMPLIFY_ENV=${AMPLIFY_ENV}"
 npm install -g @aws-amplify/cli
 
 AWSCONFIG="{\
+\"configLevel\":\"project\",\
+\"userProfile\":false,\
+\"profileName\":\"default\",\
 \"accessKeyId\":\"${AWS_ACCESS_KEY_ID}\",\
 \"secretAccessKey\":\"${AWS_SECRET_ACCESS_KEY}\",\
 \"region\":\"${AWS_REGION}\"\
@@ -13,8 +16,7 @@ AWSCONFIG="{\
 AMPLIFY="{\
 \"envName\":\"${AMPLIFY_ENV}\",\
 \"appId\":\"${AMPLIFY_APP_ID}\",\
-\"defaultEditor\":\"none\",\
-\"configLevel\":\"project\"\
+\"defaultEditor\":\"none\"\
 }"
 
 PROVIDERS="{\
