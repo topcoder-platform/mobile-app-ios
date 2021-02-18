@@ -14,7 +14,7 @@ AMPLIFY="{\
 \"envName\":\"${AMPLIFY_ENV}\",\
 \"appId\":\"${AMPLIFY_APP_ID}\",\
 \"defaultEditor\":\"none\",\
-\"configLevel\":\"project\"
+\"configLevel\":\"project\"\
 }"
 
 PROVIDERS="{\
@@ -30,8 +30,8 @@ CODEGEN="{\
 \"generateDocs\":false\
 }"
 
-echo "Amplify pull: amplify pull --amplify "${AMPLIFY}" --frontend "${FRONTEND}" --providers "${PROVIDERS}" -y"
-amplify pull --amplify "${AMPLIFY}" --frontend "${FRONTEND}" --providers "${PROVIDERS}" --yes
+echo "Amplify pull: amplify pull --amplify '${AMPLIFY}' --frontend '${FRONTEND}' --providers '${PROVIDERS}' --yes"
+amplify pull --amplify $AMPLIFY --frontend $FRONTEND --providers $PROVIDERS --yes
 
 #echo "Amplify status ..."
 #amplify status
