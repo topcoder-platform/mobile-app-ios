@@ -13,7 +13,7 @@ import MobileWallet
 /// Parent view controller for screens using the library
 class AbstractViewController: UIViewController {
 
-    private var initIndicator: ActivityIndicator?
+    internal var initIndicator: ActivityIndicator?
 
     override func viewDidLoad() {
         NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: SdkEvent.ready)
@@ -31,7 +31,7 @@ class AbstractViewController: UIViewController {
     }
     
     internal func initializationComplete() {
-        self.showAlert("", "Initialization complete.")
+//        self.showAlert("", "Initialization complete.")
         self.initIndicator?.stop()
         self.initIndicator = nil
     }

@@ -29,7 +29,9 @@ xcuserdata/
 
 #Pods
 
-amplify
+amplify_appcenter_local_test.sh
+
+#amplify
 amplify/\#current-cloud-backend
 amplify/.config/local-*
 amplify/mock-data
@@ -44,4 +46,3 @@ amplifyconfiguration.json
 amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
-amplify_appcenter_local_test.sh
