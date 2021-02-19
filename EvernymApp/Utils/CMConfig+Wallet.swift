@@ -68,4 +68,26 @@ extension CMConfig {
             }
         }
     }
+    
+    public func getCredentials(credentialHandle: Int) -> Future<String?, Error> {
+        return Future { promise in
+            let sdkApi = CMConfig.sdkApi
+            sdkApi.getCredential(credentialHandle) { error, creds in
+                guard !CMConfig.printError(label: "getCredentials", error, promise: promise) else { return }
+                print("getCredential was successful!")
+                promise(.success(creds))
+            }
+        }
+    }
+    
+    public func credentialGetState(credentialHandle: Int) -> Future<Int, Error> {
+        return Future { promise in
+            let sdkApi = CMConfig.sdkApi
+            sdkApi.credentialGetState(credentialHandle) { error, state in
+                guard !CMConfig.printError(label: "credentialGetState", error, promise: promise) else { return }
+                print("credentialGetState was successful!")
+                promise(.success(state))
+            }
+        }
+    }
 }
