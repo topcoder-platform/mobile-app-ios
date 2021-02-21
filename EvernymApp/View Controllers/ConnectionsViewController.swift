@@ -177,8 +177,8 @@ class ConnectionCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel?
     
     /// the related item
-    private var item: Connection!
-    
+    private var connection: Connection?
+    internal var credentials: CredentialsInfo?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -190,7 +190,7 @@ class ConnectionCell: UICollectionViewCell {
     /// - Parameters:
     ///   - item: the data to show in the cell
     func configure(_ item: Connection) {
-        self.item = item
+        self.connection = item
         titleLabel?.text = item.relation
         iconView?.image = item.type.icon
         iconView.backgroundColor = item.type.color
