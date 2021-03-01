@@ -90,4 +90,15 @@ extension CMConfig {
             }
         }
     }
+    
+    public func credentialSerialize(credentialHandle: Int) -> Future<String?, Error> {
+        return Future { promise in
+            let sdkApi = CMConfig.sdkApi
+            sdkApi.credentialSerialize(credentialHandle) { error, serializedCredentials in
+                guard !CMConfig.printError(label: "credentialSerialize", error, promise: promise) else { return }
+                print("credentialSerialize was successful!")
+                promise(.success(serializedCredentials))
+            }
+        }
+    }
 }

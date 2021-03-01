@@ -160,6 +160,7 @@ class IncomingRequestViewController: UIViewController {
         let util = VcxUtil.shared
         var connectionHandle: Int!
         var credentialHandle: Int!
+        var credentialInfo: CredentialsInfo!
         
         let loadingIndicator = ActivityIndicator(parentView: nil).start()
         
@@ -198,27 +199,54 @@ class IncomingRequestViewController: UIViewController {
             print("Get credential state (2)...")
             return util.credentialGetState(credentialHandle: credentialHandle)
         })
-//        .map { creds in
-//                print("Credentials: \(creds)")
-//                // Release vcx objects from memory
-//                _ = util.connectionRelease(handle: connectionHandle)
-//                _ = util.credentialRelease(credentialHandle: credentialHandle)
-//        }
-        .map { state in
+        .flatMap({ state -> Future<String?, Error> in
             print("Credentials State AFTER: \(state)") // should be 2
-            // Release vcx objects from memory
-            _ = util.connectionRelease(handle: connectionHandle)
-            _ = util.credentialRelease(credentialHandle: credentialHandle)
+            
+//            print("Getting credentials...")
+//            return util.getCredentials(credentialHandle: credentialHandle)
+//        })
+//        .flatMap({ creds -> Future<String?, Error> in
+//            print("Credentials: \(String(describing: creds))")
+//            credentialsObject = creds
+            print("Serializing credentials...")
+            return util.credentialSerialize(credentialHandle: credentialHandle)
+        })
+        .map { serializedCredentials in
+            print("Serialized Credentials: \(String(describing: serializedCredentials))")
+            credentialInfo = CredentialsInfo(title: offer.getTitle() ?? "-",
+                                             serializedCredentials: serializedCredentials)
+                // Release vcx objects from memory
+                _ = util.connectionRelease(handle: connectionHandle)
+                _ = util.credentialRelease(credentialHandle: credentialHandle)
         }
+//        .map { state in
+//            print("Credentials State AFTER: \(state)") // should be 2
+//            // Release vcx objects from memory
+//            _ = util.connectionRelease(handle: connectionHandle)
+//            _ = util.credentialRelease(credentialHandle: credentialHandle)
+//        }
         .sink(receiveCompletion: { [weak self] completion in
-            loadingIndicator.stop()
+            guard self != nil else { return }
             
             switch completion {
             case .finished:
-                self?.showAlert("Success", "Credential offer accepted") {
-                    self?.closeDialog()
-                }
-            case .failure(let error): showError(errorMessage: error.localizedDescription)
+                
+                // Store credentials
+                API.add(credentials: credentialInfo)
+                    .subscribe(onNext: { [weak self] value in
+                        loadingIndicator.stop()
+                        
+                        self?.showAlert("Success", "Credential offer accepted") {
+                            self?.closeDialog()
+                        }
+                        
+                        return
+                        }, onError: { _ in
+                    }).disposed(by: self!.rx.disposeBag)
+                
+            case .failure(let error):
+                loadingIndicator.stop()
+                showError(errorMessage: error.localizedDescription)
             }
             }, receiveValue: { _ in })
         self.cancellable = cancellable

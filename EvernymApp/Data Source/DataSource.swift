@@ -19,10 +19,12 @@ enum UIEvents: String {
 
 /// the file names
 let kFileConnections = "connections.json"
+let kFileCredentials = "credentials1.json"
 
 extension RestServiceApi {
     
     static var cacheConnections: [Connection]?
+    static var cacheCredentials: [CredentialsInfo]?
     
     // Keychain utility used to store `walletKey` and `vcxConfig`
     static var keychain: Keychain = {
@@ -103,6 +105,27 @@ extension RestServiceApi {
         return Observable.just(())
     }
     
+    // MARK: - Credentials
+    
+    static func getCredentials() -> Observable<[CredentialsInfo]> {
+        if cacheCredentials == nil {
+            readFileCredentials()
+        }
+        return Observable.just(cacheCredentials!)
+    }
+    
+    static func add(credentials: CredentialsInfo) -> Observable<Void> {
+        _ = getCredentials()
+        cacheCredentials?.append(credentials)
+        
+        // Store changes
+        do { try saveFileCredentials() }
+        catch { return Observable.error(error) }
+        
+        NotificationCenter.post(UIEvents.credentialUpdate)
+        return Observable.just(())
+    }
+    
     // MARK: - Storing/restoring connections from persistent store
     
     private static func saveFileConnections() throws {
@@ -122,6 +145,26 @@ extension RestServiceApi {
         }
         else {
             cacheConnections = []
+        }
+    }
+    
+    private static func saveFileCredentials() throws {
+        let json = try cacheCredentials?.json()
+        _ = json?.saveFile(fileName: kFileCredentials)
+    }
+    
+    private static func readFileCredentials() {
+        if let json = JSON.contentOfFile(kFileCredentials) {
+            do {
+                cacheCredentials = try json.decodeIt()
+            }
+            catch {
+                print("\(error)")
+                cacheCredentials = []
+            }
+        }
+        else {
+            cacheCredentials = []
         }
     }
 }
