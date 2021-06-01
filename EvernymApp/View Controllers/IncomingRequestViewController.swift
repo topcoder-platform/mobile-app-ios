@@ -213,10 +213,11 @@ class IncomingRequestViewController: UIViewController {
         })
         .map { serializedCredentials in
             print("Serialized Credentials: \(String(describing: serializedCredentials))")
-            credentialInfo = CredentialsInfo(title: offer.getTitle() ?? "-",
-                                             serializedCredentials: serializedCredentials)
+            credentialInfo = CredentialsInfo(offer: offer,
+                                             serializedCredentials: serializedCredentials,
+                                             connection: connection)
                 // Release vcx objects from memory
-                _ = util.connectionRelease(handle: connectionHandle)
+                    util.connectionRelease(handle: connectionHandle)
                 _ = util.credentialRelease(credentialHandle: credentialHandle)
         }
 //        .map { state in

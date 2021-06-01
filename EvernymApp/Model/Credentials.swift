@@ -10,12 +10,22 @@ import Foundation
 
 class CredentialsInfo: Codable, Hashable {
     
-    let title: String
+    let offer: Offer
     let serializedCredentials: String?
+    let connection: Connection
     
-    init(title: String, serializedCredentials: String?) {
-        self.title = title
+    var title: String {
+        offer.getTitle() ?? "-"
+    }
+    
+    var cellTitle: String {
+        offer.getCellTitle() ?? "-"
+    }
+    
+    init(offer: Offer, serializedCredentials: String?, connection: Connection) {
+        self.offer = offer
         self.serializedCredentials = serializedCredentials
+        self.connection = connection
     }
     
     func hash(into hasher: inout Hasher) {

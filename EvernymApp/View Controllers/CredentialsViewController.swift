@@ -44,10 +44,11 @@ class CredentialsViewController: AbstractViewController {
         dataSource.calculateCellSize = { [weak self]  item, _ -> CGSize in
             guard self != nil else { return .zero }
             let width = self!.collectionView.cellWidth(forColumns: 2)
-            let height = width + 26
+            let height = width
             return CGSize(width: width, height: height)
         }
         dataSource.selected = { [weak self] item, indexPath in
+            self?.openDetails(item as! CredentialsInfo)
         }
         
         NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: UIEvents.credentialUpdate)
@@ -193,6 +194,13 @@ class CredentialsViewController: AbstractViewController {
             }, receiveValue: { _ in })
         return cancellable
     }
+    
+    fileprivate func openDetails(_ item: CredentialsInfo) {
+        guard let vc = create(CredentialDetailsViewController.self) else { return }
+        vc.item = item
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // MARK: - Button actions
 
     @IBAction func simulateCredentialsAction(_ sender: Any) {
@@ -249,6 +257,7 @@ extension ConnectionCell {
     func configure(credentials: CredentialsInfo) {
         self.credentials = credentials
         titleLabel?.text = credentials.title
+        title2Label?.text = credentials.cellTitle
         iconView?.image = Connection.ConnectionType.topcoder.icon
         iconView.backgroundColor = Connection.ConnectionType.topcoder.color
     }
