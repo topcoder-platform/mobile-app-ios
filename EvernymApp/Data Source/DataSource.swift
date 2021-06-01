@@ -19,7 +19,7 @@ enum UIEvents: String {
 
 /// the file names
 let kFileConnections = "connections.json"
-let kFileCredentials = "credentials1.json"
+let kFileCredentials = "credentials2.json"
 
 extension RestServiceApi {
     

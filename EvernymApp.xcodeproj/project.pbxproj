@@ -19,6 +19,7 @@
 		FD1B18192599050300FA7455 /* NewConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B18182599050300FA7455 /* NewConnectionViewController.swift */; };
 		FD1B181C259909E800FA7455 /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B181B259909E800FA7455 /* CredentialsViewController.swift */; };
 		FD1B181E25990B9500FA7455 /* ConnectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B181D25990B9500FA7455 /* ConnectionDetailsViewController.swift */; };
+		FD2E2C4D26663D42004B70AA /* CredentialDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2E2C4C26663D42004B70AA /* CredentialDetailsViewController.swift */; };
 		FD7F52DD2597479900AB4507 /* HelpFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F52DC2597479900AB4507 /* HelpFunctions.swift */; };
 		FD7F52DF25974A2200AB4507 /* EmptyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7F52DE25974A2200AB4507 /* EmptyInfoViewController.swift */; };
 		FD7F52E9259759D800AB4507 /* UIComponents.h in Headers */ = {isa = PBXBuildFile; fileRef = FD7F52E7259759D800AB4507 /* UIComponents.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -104,6 +105,7 @@
 		FD1B18182599050300FA7455 /* NewConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConnectionViewController.swift; sourceTree = "<group>"; };
 		FD1B181B259909E800FA7455 /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		FD1B181D25990B9500FA7455 /* ConnectionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetailsViewController.swift; sourceTree = "<group>"; };
+		FD2E2C4C26663D42004B70AA /* CredentialDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialDetailsViewController.swift; sourceTree = "<group>"; };
 		FD7F52DC2597479900AB4507 /* HelpFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpFunctions.swift; sourceTree = "<group>"; };
 		FD7F52DE25974A2200AB4507 /* EmptyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInfoViewController.swift; sourceTree = "<group>"; };
 		FD7F52E5259759D800AB4507 /* UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +348,7 @@
 				FD1B180E2598ADEA00FA7455 /* ConnectionsViewController.swift */,
 				FD1B181D25990B9500FA7455 /* ConnectionDetailsViewController.swift */,
 				FD1B181B259909E800FA7455 /* CredentialsViewController.swift */,
+				FD2E2C4C26663D42004B70AA /* CredentialDetailsViewController.swift */,
 				FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */,
 				FDA6575D25A7692900CC95DC /* ConnectionInfoViewController.swift */,
 			);
@@ -600,6 +603,7 @@
 				FD1B181C259909E800FA7455 /* CredentialsViewController.swift in Sources */,
 				FD1B181E25990B9500FA7455 /* ConnectionDetailsViewController.swift in Sources */,
 				FDDBD5A025D2EB7B00ED6E12 /* WelcomeInfoViewController.swift in Sources */,
+				FD2E2C4D26663D42004B70AA /* CredentialDetailsViewController.swift in Sources */,
 				FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */,
 				FD1B180D25988A3F00FA7455 /* SettingsViewController.swift in Sources */,
 				FDB64B3425C5B76A005F1F16 /* AbstractViewController.swift in Sources */,

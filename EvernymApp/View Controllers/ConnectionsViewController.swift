@@ -175,6 +175,7 @@ class ConnectionCell: UICollectionViewCell {
     /// outlets
     @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel?
+    @IBOutlet weak var title2Label: UILabel?
     
     /// the related item
     private var connection: Connection?
