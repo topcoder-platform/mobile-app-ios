@@ -21,8 +21,12 @@ extension Offer {
     
     // Title used in the cell
     func getCellTitle() -> String? {
-        let attrName = (self.arrayValue.first?["credential_attrs"]["name"].string ?? "")
-        let attrDegree = (self.arrayValue.first?["credential_attrs"]["degree"].string ?? "")
-        return "name: \(attrName)\ndegree: \(attrDegree)"
+        var strings = [String]()
+        if let attrs = self.arrayValue.first?["credential_attrs"].dictionaryValue {
+            for (k,v) in attrs {
+                strings.append("\(k): \(v.stringValue)")
+            }
+        }
+        return strings.joined(separator: "\n")
     }
 }
