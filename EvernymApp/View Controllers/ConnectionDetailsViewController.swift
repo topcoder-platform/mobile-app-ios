@@ -56,11 +56,11 @@ class ConnectionDetailsViewController: UIViewController {
     }
     
     private func updateUI() {
-        title = item.relation.uppercased()
+        title = item.name.uppercased()
     }
     
     private func loadData() {
-        items = [ConnectionState(title: item.relation, subtitle: item.info, date: item.date, inProgress: true)]
+        items = [ConnectionState(title: item.name, subtitle: item.info, date: item.date, inProgress: true)]
         table.loadData()
     }
     

@@ -144,15 +144,11 @@ install_xcframework() {
     mkdir -p "$destination"
   fi
 
-  if [[ "$package_type" == "library" ]]; then
-    # Libraries can contain headers, module maps, and a binary, so we'll copy everything in the folder over
-    copy_dir "$source/" "$destination"
-  elif [[ "$package_type" == "framework" ]]; then
-    copy_dir "$source" "$destination"
-  fi
+  copy_dir "$source/" "$destination"
+
   echo "Copied $source to $destination"
 }
 
-install_xcframework "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework" "AppCenter" "framework" "ios-arm64_arm64e_armv7_armv7s/AppCenter.framework" "ios-arm64_x86_64-maccatalyst/AppCenter.framework" "ios-arm64_i386_x86_64-simulator/AppCenter.framework"
-install_xcframework "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterDistribute.xcframework" "AppCenterDistribute" "framework" "ios-arm64_i386_x86_64-simulator/AppCenterDistribute.framework" "ios-arm64_arm64e_armv7_armv7s/AppCenterDistribute.framework"
+install_xcframework "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenter.xcframework" "AppCenter" "framework" "ios-arm64_arm64e_armv7_armv7s" "ios-arm64_x86_64-maccatalyst" "ios-arm64_i386_x86_64-simulator"
+install_xcframework "${PODS_ROOT}/AppCenter/AppCenter-SDK-Apple/AppCenterDistribute.xcframework" "AppCenterDistribute" "framework" "ios-arm64_i386_x86_64-simulator" "ios-arm64_arm64e_armv7_armv7s"
 

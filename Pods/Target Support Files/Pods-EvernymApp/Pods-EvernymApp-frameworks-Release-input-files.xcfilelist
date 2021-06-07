@@ -13,7 +13,7 @@ ${BUILT_PRODUCTS_DIR}/Auth0/Auth0.framework
 ${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework
 ${BUILT_PRODUCTS_DIR}/Keychain83/Keychain83.framework
 ${BUILT_PRODUCTS_DIR}/Lock/Lock.framework
-${PODS_ROOT}/MobileWallet/Libraries/vcx.framework
+${PODS_ROOT}/../../mobile-wallet/Libraries/vcx.framework
 ${BUILT_PRODUCTS_DIR}/MobileWallet/MobileWallet.framework
 ${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework
 ${BUILT_PRODUCTS_DIR}/QRCodeScanner83/QRCodeScanner83.framework

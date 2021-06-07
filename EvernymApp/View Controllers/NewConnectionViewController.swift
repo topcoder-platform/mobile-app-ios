@@ -31,7 +31,7 @@ class NewConnectionViewController: UIViewController {
     
     /// Update UI
     private func updateUI() {
-        messageLabel.text = connection.relation
+        messageLabel.text = connection.name
         messageLabel.textColor = connection.type.color
         remoteImage.image = connection.type.icon
         remoteImage.backgroundColor = connection.type.color

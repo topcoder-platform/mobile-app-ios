@@ -46,9 +46,9 @@ PODS:
     - Lock/Classic (= 2.21.0)
   - Lock/Classic (2.21.0):
     - Auth0
-  - MobileWallet (0.0.11):
-    - MobileWallet/Core (= 0.0.11)
-  - MobileWallet/Core (0.0.11)
+  - MobileWallet (0.1.0):
+    - MobileWallet/Core (= 0.1.0)
+  - MobileWallet/Core (0.1.0)
   - "NSObject+Rx (5.1.0)":
     - RxSwift (~> 5.1)
   - QRCodeScanner83 (0.0.3):
@@ -75,7 +75,7 @@ DEPENDENCIES:
   - Auth0 (~> 1.0)
   - Keychain83 (= 0.0.1)
   - Lock (~> 2.0)
-  - "MobileWallet (from `git@github.com:topcoder-platform/mobile-wallet.git`, branch `master`)"
+  - MobileWallet (from `/Users/volk/TopCoder/104_Evernym/mobile-wallet`)
   - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
   - SwiftEx83/Int
 
@@ -105,16 +105,12 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   MobileWallet:
-    :branch: master
-    :git: "git@github.com:topcoder-platform/mobile-wallet.git"
+    :path: "/Users/volk/TopCoder/104_Evernym/mobile-wallet"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
     :tag: 0.0.3
 
 CHECKOUT OPTIONS:
-  MobileWallet:
-    :commit: 9372dd8420fa68acb305faee1cc1f2a3b94a90f5
-    :git: "git@github.com:topcoder-platform/mobile-wallet.git"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
     :tag: 0.0.3
@@ -135,7 +131,7 @@ SPEC CHECKSUMS:
   JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
   Lock: f642866e3e417d59ebe6d7d6a445b82e76ea3bbe
-  MobileWallet: 170f930dd11f6e2cd55898762a4cbb46600f5aa7
+  MobileWallet: c2f5defb564aa30da2554981f87924cb19a1a9e1
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
@@ -144,6 +140,6 @@ SPEC CHECKSUMS:
   SwiftEx83: 3416d9f6a3739b7d3011ea6d0bb92cdd23107b53
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: e377d214b0c70559e5a1231603abac1e35bbf614
+PODFILE CHECKSUM: e483ab61e331ef434b7e9170681a56044c1dd633
 
-COCOAPODS: 1.10.0.rc.1
+COCOAPODS: 1.10.1

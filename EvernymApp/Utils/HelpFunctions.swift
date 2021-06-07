@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import SwiftEx83
 import Combine
+import MobileWallet
 
 extension Date {
     
@@ -82,8 +83,8 @@ extension UIViewController {
     
     func showInvitation(invitation: JSON) {
         guard let vc = create(NewConnectionViewController.self) else { return }
-        let name = invitation["label"].string ?? "-"
-        let connection = Connection(relation: name, info: "You connected with \(name).", date: Date(), serializedConnection: nil)
+        let name = invitation.connectionName
+        let connection = Connection(id: invitation.connectionID, name: name, info: "You connected with \(name).", date: Date(), serializedConnection: nil)
         vc.connection = connection
         vc.callback = { [weak self] in
             self?.connect(withInvitation: invitation)
@@ -118,9 +119,10 @@ extension UIViewController {
                 guard self != nil else { return }
                 
                 // Save connection
-                let connectionName = invitation["label"].string ?? "-"
+                let connectionId = invitation.connectionID
+                let connectionName = invitation.connectionName
                 let didRemote = invitation["recipientKeys"].arrayValue.first?.string ?? "-"
-                let connection = Connection(relation: connectionName, info: "You connected with \(connectionName).", date: Date(), serializedConnection: serializedConnection)
+                let connection = Connection(id: connectionId, name: connectionName, info: "You connected with \(connectionName).", date: Date(), serializedConnection: serializedConnection)
                 connection.didRemote = didRemote
                 self?.addConnection(connection: connection)
         }
@@ -148,13 +150,14 @@ extension UIViewController {
         guard let serializedConnection = connection.serializedConnection else { return }
         print("Getting dids...")
         cancellableDids = util.connectionDeserialize(serializedConnection: serializedConnection)
-            .flatMap({ handle in
-                util.connectionDids(handle: handle)
-            })
-            .map({ (pwdid, theirdid) in
-                print("pwdid=\(pwdid) theirdid=\(theirdid)")
-                connection.didCurrent = pwdid
-            })
+            // TODO remove commented. Used with old version of vcx.
+//            .flatMap({ handle in
+//                util.connectionDids(handle: handle)
+//            })
+//            .map({ (pwdid, theirdid) in
+//                print("pwdid=\(pwdid) theirdid=\(theirdid)")
+//                connection.didCurrent = pwdid
+//            })
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished: break
@@ -174,5 +177,18 @@ extension UIViewController {
         setupNavigationBar(bgColor: UIColor(0x2a2a2a))
         let f = UIFont(name: "Barlow-SemiBold", size: 24)!
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white, .font: f]
+    }
+}
+
+extension JSON {
+    
+    /// Get connection name from invitation Dictionary
+    var connectionName: String {
+        return dictionaryObject?.connectionName ?? "-"
+    }
+    
+    /// The connection ID used to connect with invite
+    var connectionID: String {
+        return dictionaryObject?.connectionID ?? connectionName
     }
 }

@@ -35,7 +35,7 @@ class ConnectionInfoViewController: UIViewController {
         remoteIconView.image = item.type.icon
         remoteIconView.backgroundColor = item.type.color
         remoteDidLabel.text = item.didRemote ?? "<not defined>"
-        currentDidLabel.text = item.didCurrent ?? "<not defined>"
+        currentDidLabel.text = item.didCurrent ?? item.id
     }
     
     @IBAction func cancelAction(_ sender: Any) {

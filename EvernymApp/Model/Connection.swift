@@ -10,14 +10,15 @@ import UIKit
 
 class Connection: Codable, Hashable {
  
-    let relation: String
+    let id: String
+    let name: String
     let info: String
     let date: Date
     let serializedConnection: String?
     let type: ConnectionType
     
     var didRemote: String?
-    var didCurrent: String? // TODO not sure what these DIDs mean
+    var didCurrent: String? // TODO not sure what these DIDs mean. Seems the same as `pw_did` (connection id)
     
     
     enum ConnectionType: String, Codable {
@@ -42,16 +43,17 @@ class Connection: Codable, Hashable {
         }
     }
     
-    init(relation: String, info: String, date: Date, serializedConnection: String?) {
-        self.relation = relation
+    init(id: String, name: String, info: String, date: Date, serializedConnection: String?) {
+        self.id = id
+        self.name = name
         self.info = info
         self.date = date
         self.serializedConnection = serializedConnection
-        self.type = relation.lowercased().contains("phone") ? .phone : .topcoder
+        self.type = name.lowercased().contains("phone") ? .phone : .topcoder
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(relation)
+        hasher.combine(name)
     }
     
     static func == (lhs: Connection, rhs: Connection) -> Bool {
