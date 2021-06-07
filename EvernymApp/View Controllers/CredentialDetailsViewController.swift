@@ -71,7 +71,7 @@ class CredentialDetailsViewController: UIViewController {
     
     /// Update UI
     private func updateUI() {
-        nameLabel.text = item.connection.relation
+        nameLabel.text = item.connection.name
         actionLabel.text = self.type.by
         infoLabel.text = item.offer.arrayValue.first?["comment"].stringValue
         infoLabel?.superview?.isHidden = (infoLabel.text ?? "").isEmpty

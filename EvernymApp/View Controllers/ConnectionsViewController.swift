@@ -80,9 +80,9 @@ class ConnectionsViewController: AbstractViewController {
             self?.showAlert("", "Connection creation will be simulated in a second") { [weak self] in
                 
                 guard let vc = self?.create(NewConnectionViewController.self) else { return }
-                vc.connection = Connection(relation: "justin_phone", info: "", date: Date(), serializedConnection: nil)
+                vc.connection = Connection(id: "0", name: "justin_phone", info: "", date: Date(), serializedConnection: nil)
                 vc.callback = { [weak self] in
-                    self?.addConnection(connection: Connection(relation: "justin_phone", info: "You shared proof01 with justin_phone.", date: Date(), serializedConnection: nil))
+                    self?.addConnection(connection: Connection(id: "0", name: "justin_phone", info: "You shared proof01 with justin_phone.", date: Date(), serializedConnection: nil))
                 }
                 self?.present(vc, animated: true, completion: nil)
             }
@@ -192,7 +192,7 @@ class ConnectionCell: UICollectionViewCell {
     ///   - item: the data to show in the cell
     func configure(_ item: Connection) {
         self.connection = item
-        titleLabel?.text = item.relation
+        titleLabel?.text = item.name
         iconView?.image = item.type.icon
         iconView.backgroundColor = item.type.color
     }

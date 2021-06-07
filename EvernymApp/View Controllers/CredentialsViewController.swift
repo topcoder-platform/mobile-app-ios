@@ -178,6 +178,7 @@ class CredentialsViewController: AbstractViewController {
         })
         .map { offers -> String in
             let json = JSON(parseJSON: offers) // Parse offers
+            print("serializedConnection: ", serializedConnection)
             print("Credential offers: ", json)
             callback(json.arrayValue)
             return ""

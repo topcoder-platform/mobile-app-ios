@@ -128,7 +128,7 @@ class IncomingRequestViewController: UIViewController {
     /// Update UI
     private func updateUI() {
         titleLabel.text = type.title.uppercased()
-        nameLabel.text = connection.relation
+        nameLabel.text = connection.name
         actionLabel.text = type.by
         infoLabel.text = json.arrayValue.first?["comment"].stringValue
         infoLabel?.superview?.isHidden = (infoLabel.text ?? "").isEmpty

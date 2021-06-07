@@ -413,8 +413,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDB5B702252A4B700035ADC1 /* Build configuration list for PBXNativeTarget "EvernymApp" */;
 			buildPhases = (
-				FDA7D2D525DBB5D300FF3546 /* Amplify AppCenter script */,
 				4E8814B005B3B637EAAB1128 /* [CP] Check Pods Manifest.lock */,
+				FDA7D2D525DBB5D300FF3546 /* Amplify AppCenter script */,
 				FDB5B6EA252A4B6D0035ADC1 /* Sources */,
 				FDB5B6EB252A4B6D0035ADC1 /* Frameworks */,
 				FDB5B6EC252A4B6D0035ADC1 /* Resources */,

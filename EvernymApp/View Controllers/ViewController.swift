@@ -149,7 +149,7 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
                 self?.cancellable = util.connect(withInviteDetails: value.dictionaryObject ?? [:])
                     .flatMap({ handle -> Future<Void, Error> in
                         connectionHandle = handle
-                        return util.connect(handle: handle)
+                        return util.connect(handle: handle, connectionType: .qr)
                     })
                     .map { _ in
                         sleep(4)
@@ -157,7 +157,8 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
                 .flatMap({ handle in
                     util.connectionGetState(handle: connectionHandle)
                 })
-                    .flatMap({ handle in
+                    .flatMap({ state in
+                        // TODO call update only `if(state != 4) {`
                         util.connectionUpdateState(handle: connectionHandle)
                     })
                     .flatMap({ _ in

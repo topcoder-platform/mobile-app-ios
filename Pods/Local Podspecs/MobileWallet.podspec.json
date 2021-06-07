@@ -1,6 +1,6 @@
 {
   "name": "MobileWallet",
-  "version": "0.0.11",
+  "version": "0.1.0",
   "summary": "Mobile Wallet framework",
   "homepage": "https://github.com/topcoder-platform/mobile-wallet",
   "license": {
@@ -17,7 +17,7 @@
   },
   "source": {
     "git": "https://github.com/topcoder-platform/mobile-wallet.git",
-    "tag": "0.0.11"
+    "tag": "0.1.0"
   },
   "source_files": "Source/*.swift",
   "vendored_frameworks": "Libraries/vcx.framework",
