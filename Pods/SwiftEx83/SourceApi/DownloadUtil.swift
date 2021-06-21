@@ -6,7 +6,12 @@
 //
 
 import Foundation
-
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+#if canImport(SwiftEx)
+import SwiftEx // required for swift package
+#endif
 // Download utility
 /*
 let g = DispatchGroup()

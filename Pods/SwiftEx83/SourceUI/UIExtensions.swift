@@ -168,7 +168,7 @@ extension UIViewController {
         }
         toView.frame = frame
 
-        self.addChildViewController(viewController)
+        self.addChild(viewController)
         containerView.addSubview(toView)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0,
                        initialSpringVelocity: 1.0, options: .curveEaseOut, animations: { () -> Void in
@@ -181,7 +181,7 @@ extension UIViewController {
                         }
                         toView.frame = frame
         }) { (fin: Bool) -> Void in
-            viewController.didMove(toParentViewController: self)
+            viewController.didMove(toParent: self)
             callback?()
         }
     }
@@ -310,18 +310,18 @@ extension UIViewController {
         childView?.frame = bounds
 
         // Adding new VC and its view to container VC
-        self.addChildViewController(childVC)
+        self.addChild(childVC)
         containerView.addSubview(childView!)
 
         // Finally notify the child view
-        childVC.didMove(toParentViewController: self)
+        childVC.didMove(toParent: self)
     }
 
     /// Remove view controller and view from their parents
     public func remove() {
-        self.willMove(toParentViewController: nil)
+        self.willMove(toParent: nil)
         self.view.removeFromSuperview()
-        self.removeFromParentViewController()
+        self.removeFromParent()
     }
 
     /**
@@ -448,9 +448,9 @@ extension UIViewController {
     public func debugCheckDeallocation(afterDelay delay: TimeInterval = 2.0) {
         let rootParentViewController = debugRootParentViewController
     
-        if isMovingFromParentViewController || rootParentViewController.isBeingDismissed {
+        if isMovingFromParent || rootParentViewController.isBeingDismissed {
             let typeClass = type(of: self)
-            let disappearanceSource: String = isMovingFromParentViewController ? "removed from its parent" : "dismissed"
+            let disappearanceSource: String = isMovingFromParent ? "removed from its parent" : "dismissed"
             DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { [weak self] in
                 assert(self == nil, "\(typeClass) not deallocated after being \(disappearanceSource)")
             })
@@ -576,12 +576,12 @@ public class ActivityIndicator: UIView {
         self.addConstraint(NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: activityIndicator, attribute: .centerX, multiplier: 1, constant: 0))
         self.addConstraint(NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: activityIndicator, attribute: .centerY, multiplier: 1, constant: 0))
         if isDark {
-            activityIndicator.activityIndicatorViewStyle = .white
+            activityIndicator.color = .white
             activityIndicator.tintColor = .white
             self.backgroundColor = UIColor(white: 0.0, alpha: 0.7)
         }
         else {
-            activityIndicator.activityIndicatorViewStyle = .gray
+            activityIndicator.color = .gray
             activityIndicator.tintColor = .gray
             self.backgroundColor = UIColor.clear
         }
@@ -616,7 +616,14 @@ public class ActivityIndicator: UIView {
                 view.addConstraint(NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
                 return self
             }
-            UIApplication.shared.delegate!.window!?.addSubview(self)
+            if #available(iOS 13.0, *) {
+                (UIApplication.shared.delegate?.window
+                    ??
+                    (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first)?
+                    .addSubview(self)
+            } else {
+                UIApplication.shared.delegate?.window!?.addSubview(self)
+            }
         }
         return self
     }

@@ -8,5 +8,7 @@
 	<string>https://www.topcoder.com/challenges</string>
 	<key>URL_LOGIN</key>
 	<string>https://accounts-auth0.topcoder.com/#!/member?retUrl=http://www.topcoder.com/</string>
+	<key>APN_ENDPOINT</key>
+	<string>https://verifiable-credentials-api-stg.herokuapp.com/api/v1/</string>
 </dict>
 </plist>

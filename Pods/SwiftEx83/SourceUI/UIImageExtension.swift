@@ -86,7 +86,7 @@ extension UIImage {
     /// - Returns: the data
     public func toData() -> Data? {
 
-        if let data = UIImagePNGRepresentation(self) {
+        if let data = self.pngData() {
             return data
         }
         return nil

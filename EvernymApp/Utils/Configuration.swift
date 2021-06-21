@@ -30,4 +30,9 @@ class Configuration {
     static var urlLogin: String {
         return shared.dict!["URL_LOGIN"] as! String
     }
+    
+    /// the endpoint for APN token
+    static var apnEndpoint: String {
+        return shared.dict!["APN_ENDPOINT"] as! String
+    }
 }

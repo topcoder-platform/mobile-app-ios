@@ -106,6 +106,7 @@
 		FD1B181B259909E800FA7455 /* CredentialsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		FD1B181D25990B9500FA7455 /* ConnectionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetailsViewController.swift; sourceTree = "<group>"; };
 		FD2E2C4C26663D42004B70AA /* CredentialDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialDetailsViewController.swift; sourceTree = "<group>"; };
+		FD59A2BE2680BFB300D07728 /* EvernymApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EvernymApp.entitlements; sourceTree = "<group>"; };
 		FD7F52DC2597479900AB4507 /* HelpFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpFunctions.swift; sourceTree = "<group>"; };
 		FD7F52DE25974A2200AB4507 /* EmptyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyInfoViewController.swift; sourceTree = "<group>"; };
 		FD7F52E5259759D800AB4507 /* UIComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,6 +273,7 @@
 		FDB5B6F0252A4B6D0035ADC1 /* EvernymApp */ = {
 			isa = PBXGroup;
 			children = (
+				FD59A2BE2680BFB300D07728 /* EvernymApp.entitlements */,
 				FDA8877D25D675B5000ECA39 /* AmplifyConfigs */,
 				FDEDA0C6256A5AA500E0FFE7 /* General */,
 				FDEDA0C5256A5A9E00E0FFE7 /* Model */,
@@ -575,7 +577,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n./amplify_appcenter.sh\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#./amplify_appcenter.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -845,6 +847,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EvernymApp/EvernymApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4LPM7QKY6W;
 				ENABLE_BITCODE = NO;
@@ -867,6 +870,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = EvernymApp/EvernymApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4LPM7QKY6W;
 				ENABLE_BITCODE = NO;
