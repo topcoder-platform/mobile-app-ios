@@ -126,6 +126,24 @@ extension RestServiceApi {
         return Observable.just(())
     }
     
+    // MARK: - APN
+    struct Empty: Codable {
+    }
+    
+    static func registerApn(token: String) -> Observable<Empty> {
+        var url = Configuration.apnEndpoint
+        if !url.hasSuffix("/") {
+            url += "/"
+        }
+        url += "notifications/subscriber"
+        let parameters = [
+            "handle": "jmgasper",
+            "token": token,
+            "deviceType": "ios"
+        ]
+        return post(url: url, parameters: parameters)
+    }
+    
     // MARK: - Storing/restoring connections from persistent store
     
     private static func saveFileConnections() throws {

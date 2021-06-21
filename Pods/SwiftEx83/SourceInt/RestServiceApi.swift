@@ -35,7 +35,10 @@ open class RestServiceApi {
     
     /// The key and values in JSON response to check for UNAUTHORIZED case. In some cases backend returns 40X code with some error meaning UNAUTHORIZED. It can be used instead of updated UNAUTHORIZED_CODES when 403 may change the meaning depending on the code. When this values found in response, `callback401` will be called.
     public static var UNAUTHORIZED_JSON_ERROR: (String, [String])?
-
+    
+    /// true - will log all HTTP response readers, false - will log only HTTP code
+    public static var LOG_RESPONSE_HEADERS = false
+    
     /// Get request
     ///
     /// - Parameter url: URL
@@ -351,9 +354,14 @@ open class RestServiceApi {
         let hash = "[H\(request.hashValue)]"
         var info: String = "\(Date())<----------------------------------------------------------[RESPONSE]\(hash):\n"
         if let response = response as? HTTPURLResponse {
-            info += "HTTP \(response.statusCode); headers:\n"
-            for (k,v) in response.allHeaderFields {
-                info += "\t\(k): \(v)\n"
+            if LOG_RESPONSE_HEADERS {
+                info += "HTTP \(response.statusCode); headers:\n"
+                for (k,v) in response.allHeaderFields {
+                    info += "\t\(k): \(v)\n"
+                }
+            }
+            else {
+                info += "HTTP \(response.statusCode);\n"
             }
         }
         else {
@@ -405,5 +413,107 @@ extension ObservableType {
             }
             return Disposables.create()
         })
+    }
+}
+
+extension RestServiceApi {
+    
+    /// POST request
+    ///
+    /// - Parameter url: URL
+    /// - Returns: the observable
+    public static func postVoid(url: URLConvertible, parameters: [String: Any]) -> Observable<Void> {
+        return requestString(.post, url: url, parameters: parameters)
+            .void()
+    }
+    
+    /// Upload image
+    /// Modified version of https://github.com/RxSwiftCommunity/RxAlamofire/issues/65
+    ///
+    /// - Parameters:
+    ///   - image: the image data
+    ///   - url: URL
+    ///   - parameters: the parameters
+    ///   - headers: the headers
+    /// - Returns: sequence
+    public static func upload(image imageData: Data, to url: URLConvertible, parameters: [String: String]? = nil, headers: [String: String] = [:]) ->  Observable<JSON> {
+        var headers = headers
+        for (k,v) in RestServiceApi.headers {
+            headers[k] = v
+        }
+        return Observable<JSON>.create({observer in
+            Alamofire.upload(multipartFormData: { multipartFormData in
+                                multipartFormData.append(imageData, withName: "file", fileName: "file.jpg", mimeType: "image/jpg")
+                                
+                                for (key, value) in parameters ?? [:] {
+                                    multipartFormData.append((value.data(using: .utf8))!, withName: key)
+                                }}, to: url, method: .post, headers: headers,
+                             encodingCompletion: { encodingResult in
+                                switch encodingResult {
+                                case .success(let upload, _, _):
+                                    upload.responseJSON { response in
+                                        guard response.result.error == nil else {
+                                            observer.onError(response.result.error!)
+                                            return
+                                        }
+                                        if let value = response.result.value {
+                                            observer.onNext(JSON(value))
+                                        }
+                                        else {
+                                            observer.onNext(JSON.null)
+                                        }
+                                        observer.onCompleted()
+                                    }
+                                case .failure(let encodingError):
+                                    observer.onError(encodingError)
+                                }
+                             })
+            return Disposables.create();
+        })
+    }
+    
+    /// Request to API with URLEncoding encoding
+    ///
+    /// - Parameters:
+    ///   - method: the method
+    ///   - url: the URL
+    ///   - parameters: the parameters
+    ///   - headers: the headers
+    ///   - encoding: the encoding
+    /// - Returns: the observable
+    public static func requestString(_ method: HTTPMethod,
+                                     url: URLConvertible,
+                                     parameters: [String: Any]? = nil,
+                                     headers: [String: String] = [:],
+                                     encoding: ParameterEncoding = URLEncoding.default) -> Observable<Data> {
+        var headers = headers
+        for (k,v) in RestServiceApi.headers {
+            headers[k] = v
+        }
+        var sendRequest: URLRequest!
+        return RxAlamofire
+            .request(method, url, parameters: parameters, encoding: encoding, headers: headers)
+            .observeOn(ConcurrentDispatchQueueScheduler.init(qos: .default))
+            .do(onNext: { (request) in
+                if let request = request.request {
+                    sendRequest = request
+                    logRequest(request)
+                }
+            })
+            .responseData()
+            .flatMap { (response: HTTPURLResponse, data: Data) -> Observable<Data> in
+                logResponse(data as AnyObject, forRequest: sendRequest, response: response)
+                
+                if UNAUTHORIZED_CODES.contains(response.statusCode) {
+                    if let callback401 = callback401 { DispatchQueue.main.async { callback401() } }
+                    return Observable.error(NSLocalizedString("Unauthorized", comment: "Unauthorized"))
+                }
+                else if response.statusCode >= 400 {
+                    let error: Error? = JSON(data)["message"].stringValue
+                    checkResponseForUnauthorizedErrors(data: data)
+                    return Observable.error(error as? String ?? NSLocalizedString("Unknown error", comment: "Unknown error"))
+                }
+                return Observable.just(data)
+            }
     }
 }

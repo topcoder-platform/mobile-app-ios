@@ -31,7 +31,7 @@ extension RestServiceApi {
         }
         return Observable<JSON>.create({observer in
             Alamofire.upload(multipartFormData: { multipartFormData in
-                if let imageData = UIImageJPEGRepresentation(image, 0.9) {
+                if let imageData = image.jpegData(compressionQuality: 0.9) {
                     multipartFormData.append(imageData, withName: "file", fileName: "file.jpg", mimeType: "image/jpg")
                 }
                 

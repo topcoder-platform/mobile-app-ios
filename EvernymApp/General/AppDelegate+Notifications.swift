@@ -44,6 +44,14 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         print("application: didRegisterForRemoteNotificationsWithDeviceToken: \(token)")
         AppDelegate.deviceToken = token
         AppDelegate.tokenRequested = false
+        
+        API.registerApn(token: token)
+            .subscribe(onNext: { _ in
+                print("Token registered")
+                return
+            }, onError: { error in
+                showError(errorMessage: error.localizedDescription)
+            }).disposed(by: rx.disposeBag)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

@@ -96,7 +96,7 @@ open class InfiniteCollectionDataModel<T, C: UICollectionViewCell, S: Equatable,
     private func merge(newItems items: [[T]], newSections: [S]) {
         for i in 0..<newSections.count {
             let title = newSections[i]
-            if let index = sections.index(of: title) {
+            if let index = sections.firstIndex(of: title) {
                 self.sectionItems[index].append(contentsOf: items[i])
             }
             else {

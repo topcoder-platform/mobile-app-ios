@@ -1009,7 +1009,7 @@
                                         <rect key="frame" x="-20" y="0.0" width="415" height="734"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="??Make Your Digital Wallet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdx-zf-K37">
-                                        <rect key="frame" x="20" y="582" width="335" height="28"/>
+                                        <rect key="frame" x="20" y="580.66666666666663" width="335" height="29"/>
                                         <fontDescription key="fontDescription" name="Barlow-SemiBold" family="Barlow" pointSize="24"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1034,7 +1034,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="??/You can use your face or finger to unlock this app. Your passcode will still be required if biometrics fail." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBw-xT-vMN">
-                                        <rect key="frame" x="40" y="634" width="295" height="56"/>
+                                        <rect key="frame" x="40" y="633.66666666666663" width="295" height="56.333333333333371"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
