@@ -1,6 +1,6 @@
 //
 //  CMConfig.swift
-//  EvernymApp
+// TopcoderMobileApp
 //
 //  Created by Volkov Alexander on 11/22/20.
 //  Copyright © 2020 Volkov Alexander. All rights reserved.
