@@ -11,6 +11,10 @@ import SwiftEx83
 
 class AllowPushNotificationsViewController: UIViewController {
 
+    var dismissNormally: Bool = false
+    /// called when the screen is dismissed
+    var completion: (()->())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.darkGray.alpha(alpha: 0.5)
@@ -29,7 +33,12 @@ class AllowPushNotificationsViewController: UIViewController {
     }
     
     private func closeModal() {
-        self.dismissViewControllerToSide(self, side: .bottom, nil)
+        if dismissNormally {
+            self.dismiss(animated: true, completion: completion)
+        }
+        else {
+            self.dismissViewControllerToSide(self, side: .bottom, completion)
+        }
     }
     
 }

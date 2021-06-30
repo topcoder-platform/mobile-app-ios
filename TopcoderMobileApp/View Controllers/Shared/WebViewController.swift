@@ -99,18 +99,18 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
         }
         
         /// If success login. TODO check if correct way to check that.
-        if url.contains("auth.topcoder.com/authorize") {
-            let params = URL(string: url)?.queryParameters ?? [:]
-            if params["response_type"] == "code" {
-                loginCompleted()
-            }
-        }
-//        if url.contains("accounts-auth0.topcoder.com") {
+//        if url.contains("auth.topcoder.com/authorize") {
 //            let params = URL(string: url)?.queryParameters ?? [:]
-//            if let _ = params["code"] {
-//                self.loginCompleted()
+//            if params["response_type"] == "code" {
+//               // loginCompleted()
 //            }
 //        }
+        if url.contains("accounts-auth0.topcoder.com") {
+            let params = URL(string: url)?.queryParameters ?? [:]
+            if let _ = params["code"] {
+                self.loginCompleted()
+            }
+        }
 
         decisionHandler(.allow, preferences)
     }
@@ -136,6 +136,13 @@ class WebViewController: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     /// Login completed
     private func loginCompleted() {
-        openCodeEnterScreen()
+        guard !UserDefaults.askedApn else { return }
+        guard let vc = create(AllowPushNotificationsViewController.self) else { return }
+        vc.modalPresentationStyle = .fullScreen
+        vc.dismissNormally = true
+        vc.completion = { [weak self] in
+            self?.openCodeEnterScreen()
+        }
+        self.present(vc, animated: true, completion: nil)
     }
 }
