@@ -3,11 +3,11 @@ platform :ios, '13.0'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/sktston/Specs.git'
 
-target 'EvernymApp' do
+target 'TopcoderMobileApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for EvernymApp
+  # Pods for TopcoderMobileApp
   #pod 'vcx'
   #pod 'MobileWallet', :path => '/Users/volk/TopCoder/34_Evernym/mobile-wallet'
   pod 'MobileWallet', :git => 'git@github.com:topcoder-platform/mobile-wallet.git', :branch => 'master'
