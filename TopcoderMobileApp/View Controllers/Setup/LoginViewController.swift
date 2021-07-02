@@ -23,6 +23,7 @@ class LoginViewController: UIViewController {
             
             // If setup completed, then move to Pin Code enter.
             if UserDefaults.setupCompleted {
+                print("Continue with: \(AuthenticationUtil.handle ?? "<no handle>")")
                 openCodeEnterScreen()
             }
             else {
