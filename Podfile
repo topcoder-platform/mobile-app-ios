@@ -21,6 +21,7 @@ target 'TopcoderMobileApp' do
   pod 'AmplifyPlugins/AWSPinpointAnalyticsPlugin'
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
   pod 'Lock', '~> 2.0'  #, :path => '/Users/volk/TopCoder/34_Evernym/TMP/Lock.swift'
+  pod 'SwiftJWT'
 end
 
 post_install do |installer|

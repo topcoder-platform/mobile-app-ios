@@ -35,6 +35,7 @@
 		FD90365325978CBE00C13C74 /* LocalAuthenticationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD90365225978CBE00C13C74 /* LocalAuthenticationUtil.swift */; };
 		FD90365525978F1F00C13C74 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD90365425978F1F00C13C74 /* AuthenticationViewController.swift */; };
 		FD9036572597923000C13C74 /* PincodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9036562597923000C13C74 /* PincodeField.swift */; };
+		FDA2A2DA268F58A10091C4EC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDA2A2D9268F58A10091C4EC /* LoginViewController.swift */; };
 		FDA6575225A5E07800CC95DC /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6575125A5DCD700CC95DC /* Barlow-SemiBold.ttf */; };
 		FDA6575325A5E07A00CC95DC /* BarlowCondensed-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6574F25A5DCCF00CC95DC /* BarlowCondensed-Medium.ttf */; };
 		FDA6575425A5E07D00CC95DC /* BarlowCondensed-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDA6575025A5DCD000CC95DC /* BarlowCondensed-SemiBold.ttf */; };
@@ -124,6 +125,7 @@
 		FD90365225978CBE00C13C74 /* LocalAuthenticationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthenticationUtil.swift; sourceTree = "<group>"; };
 		FD90365425978F1F00C13C74 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		FD9036562597923000C13C74 /* PincodeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PincodeField.swift; sourceTree = "<group>"; };
+		FDA2A2D9268F58A10091C4EC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FDA6574F25A5DCCF00CC95DC /* BarlowCondensed-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowCondensed-Medium.ttf"; sourceTree = "<group>"; };
 		FDA6575025A5DCD000CC95DC /* BarlowCondensed-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BarlowCondensed-SemiBold.ttf"; sourceTree = "<group>"; };
 		FDA6575125A5DCD700CC95DC /* Barlow-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				FD90364C2597884D00C13C74 /* FirstSetupViewController.swift */,
 				FD90365025978B8B00C13C74 /* BiometricsViewController.swift */,
 				FD1B18142598FDDE00FA7455 /* AllowPushNotificationsViewController.swift */,
+				FDA2A2D9268F58A10091C4EC /* LoginViewController.swift */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				FD1B18192599050300FA7455 /* NewConnectionViewController.swift in Sources */,
 				FDBDA6E52597408F0013532C /* Notification.swift in Sources */,
 				FD90365525978F1F00C13C74 /* AuthenticationViewController.swift in Sources */,
+				FDA2A2DA268F58A10091C4EC /* LoginViewController.swift in Sources */,
 				FD7F52DF25974A2200AB4507 /* EmptyInfoViewController.swift in Sources */,
 				FD90364F2597889100C13C74 /* UserDefaultsExtensions.swift in Sources */,
 				FDA6575E25A7692900CC95DC /* ConnectionInfoViewController.swift in Sources */,
@@ -861,7 +865,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.SampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.ios.wallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -884,7 +888,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.SampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.topcoder.ios.wallet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
