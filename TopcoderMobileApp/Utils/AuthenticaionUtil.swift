@@ -11,11 +11,26 @@ import Keychain83
 import Auth0
 import SwiftEx83
 import SwiftyJSON
+import JWTDecode
 
 /// Utility that helps handle authentication and store credentials (will be in future; current just stores the differences between the user roles)
 class AuthenticationUtil {
     
     static var keychain = Keychain(service: "EvernumApp")
+    
+    /// cached `handle`
+    private static var _handle: String?
+    
+    static var handle: String? {
+        get {
+            if let string = _handle { return string }
+            if let string = keychain["credentials"] {
+                let credentials: Credentials = Credentials.from(string: string)
+                _handle = credentials.handle
+            }
+            return _handle
+        }
+    }
     
     static func isAuthenticated() -> Bool {
         return UserDefaults.isAuthenticated && credentialsManager.hasValid()
@@ -26,8 +41,9 @@ class AuthenticationUtil {
     
     // save tokens
     static func processCredentials(credentials: Credentials) {
-        credentialsManager.store(credentials: credentials)
+        _ = credentialsManager.store(credentials: credentials)
         keychain["credentials"] = credentials.toString()
+        _handle = credentials.handle
         UserDefaults.isAuthenticated = true
     }
     
@@ -35,6 +51,7 @@ class AuthenticationUtil {
     static func cleanUp() {
         keychain["credentials"] = nil
         UserDefaults.isAuthenticated = false
+        _handle = nil
     }
 }
 
@@ -63,5 +80,18 @@ extension Credentials {
         let idToken = json["idToken"].string
         let scope = json["scope"].string
         return Credentials(accessToken: accessToken, tokenType: tokenType, idToken: idToken, refreshToken: refreshToken, expiresIn: expiresIn, scope: scope)
+    }
+    
+    var handle: String? {
+        do {
+            let jwt: JWT = try decode(jwt: self.idToken ?? "")
+            if let handle = jwt.body["https://topcoder-dev-test.com/claims/handle"] as? String {
+                return handle
+            }
+        }
+        catch {
+            print("ERROR: \(error)")
+        }
+        return nil
     }
 }

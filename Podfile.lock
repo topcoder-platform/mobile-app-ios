@@ -37,15 +37,23 @@ PODS:
   - AWSPluginsCore (1.5.5):
     - Amplify (= 1.5.5)
     - AWSCore (~> 2.22.0)
+  - BlueCryptor (1.0.32)
+  - BlueECC (1.2.5)
+  - BlueRSA (1.0.34)
   - JWTDecode (2.5.0)
   - Keychain83 (0.0.1):
     - Keychain83/Core (= 0.0.1)
   - Keychain83/Core (0.0.1)
+  - KituraContracts (1.2.1):
+    - LoggerAPI (~> 1.7)
   - Lock (2.21.0):
     - Auth0
     - Lock/Classic (= 2.21.0)
   - Lock/Classic (2.21.0):
     - Auth0
+  - LoggerAPI (1.9.200):
+    - Logging (~> 1.1)
+  - Logging (1.4.0)
   - MobileWallet (0.1.1):
     - MobileWallet/Core (= 0.1.1)
   - MobileWallet/Core (0.1.1)
@@ -65,6 +73,12 @@ PODS:
     - "NSObject+Rx"
     - RxAlamofire (~> 5.0.0)
     - SwiftyJSON (~> 4.0)
+  - SwiftJWT (3.6.200):
+    - BlueCryptor (~> 1.0)
+    - BlueECC (~> 1.1)
+    - BlueRSA (~> 1.0)
+    - KituraContracts (~> 1.2)
+    - LoggerAPI (~> 1.7)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -78,6 +92,7 @@ DEPENDENCIES:
   - "MobileWallet (from `git@github.com:topcoder-platform/mobile-wallet.git`, branch `master`)"
   - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
   - "SwiftEx83/Int (from `git@gitlab.com:seriyvolk83/SwiftEx.git`, tag `1.1.11`)"
+  - SwiftJWT
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -93,13 +108,20 @@ SPEC REPOS:
     - AWSMobileClient
     - AWSPinpoint
     - AWSPluginsCore
+    - BlueCryptor
+    - BlueECC
+    - BlueRSA
     - JWTDecode
     - Keychain83
+    - KituraContracts
     - Lock
+    - LoggerAPI
+    - Logging
     - "NSObject+Rx"
     - RxAlamofire
     - RxSwift
     - SimpleKeychain
+    - SwiftJWT
     - SwiftyJSON
 
 EXTERNAL SOURCES:
@@ -137,9 +159,15 @@ SPEC CHECKSUMS:
   AWSMobileClient: bba690cc09c6569cc1111141beaa4e2f789f536b
   AWSPinpoint: b25b03fca987c4c5119e061dcd0f16ae40d9b504
   AWSPluginsCore: 358365037f62d5bc995037d6eb687f39582d90d0
+  BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
+  BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
+  BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
   JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
+  KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
   Lock: f642866e3e417d59ebe6d7d6a445b82e76ea3bbe
+  LoggerAPI: ad9c4a6f1e32f518fdb43a1347ac14d765ab5e3d
+  Logging: beeb016c9c80cf77042d62e83495816847ef108b
   MobileWallet: 4e01b1d8ded30682ca76aa68e3974e2ffe54070a
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
@@ -147,8 +175,9 @@ SPEC CHECKSUMS:
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SimpleKeychain: 77443015b0f29005c16f74bf858469a9e9fb05e8
   SwiftEx83: a5fbbfb5b4d0c4ce1a6c02c7eb6288d3661116e8
+  SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 2750410186564a89716fb9a34821e5467e21b198
+PODFILE CHECKSUM: 76b5845e2e2011ccb945881938f5ad6be4e759d1
 
 COCOAPODS: 1.10.1

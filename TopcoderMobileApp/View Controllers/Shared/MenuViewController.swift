@@ -185,14 +185,14 @@ class MenuViewController: UIViewController {
         if item == .login {
             if AuthenticationUtil.isAuthenticated() {
                 self.showAlert("", "The app will logout you from Topcoder") { [weak self] in
-                    self?.tryLogout() {
+                    LoginViewController.tryLogout() {
                         self?.dismissMenu {}
                     }
                 }
                 return
             }
             else {
-//                self.tryLogin() { [weak self] in
+//                LoginViewController.tryLogin() { [weak self] in
 //                    self?.dismissMenu {}
 //                }
             }
@@ -275,42 +275,7 @@ class MenuViewController: UIViewController {
         return vc
     }
     
-    private func tryLogin(callback: @escaping ()->()) {
-        Auth0
-            .webAuth()
-            .scope("openid profile")
-            .audience("https://topcoder-dev.auth0.com/userinfo")
-            .start { result in
-                switch result {
-                case .failure(let error):
-                    
-                    // Handle the error
-                    print("Error: \(error)")
-                    showError(errorMessage: error.localizedDescription)
-                case .success(let credentials):
-                    
-                    // Save credentials
-                    print("Credentials: \(credentials)")
-                    AuthenticationUtil.processCredentials(credentials: credentials)
-                    UIViewController.getCurrentViewController()?.showAlert("Success login", "Tokens are stored in Keychain")
-                    
-                    // Event
-                    Amplify.Analytics.tryRecord(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Login"]))
-                }
-                callback()
-        }
-    }
     
-    private func tryLogout(callback: @escaping ()->()) {
-        Auth0
-            .webAuth()
-            .clearSession(federated: false) { result in
-                if result {
-                    AuthenticationUtil.cleanUp()
-                }
-                callback()
-        }
-    }
 }
 
 /// Cell for table in this view controller
