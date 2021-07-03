@@ -144,6 +144,20 @@ extension RestServiceApi {
         return post(url: url, parameters: parameters)
     }
     
+    /// Get profile image URL
+    /// - Parameter handle: the handle
+    static func getProfileImage(handle: String) -> Observable<String?> {
+        let url = "https://api.topcoder.com/v5/members/\(handle)"
+        struct ProfileJson: Decodable {
+            let userId: Int
+            let handle: String
+            let photoURL: String?
+        }
+        return get(url: url).map { (profile: ProfileJson) -> String? in
+            return profile.photoURL
+        }
+    }
+    
     // MARK: - Storing/restoring connections from persistent store
     
     private static func saveFileConnections() throws {

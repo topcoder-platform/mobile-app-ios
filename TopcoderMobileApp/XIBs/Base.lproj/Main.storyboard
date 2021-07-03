@@ -347,7 +347,7 @@
                                             <constraint firstAttribute="height" constant="28" id="sOr-Oz-VyH"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="dID-hg-Kfm">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImage" translatesAutoresizingMaskIntoConstraints="NO" id="dID-hg-Kfm">
                                         <rect key="frame" x="32" y="48" width="80" height="80"/>
                                         <color key="tintColor" name="green"/>
                                         <constraints>
@@ -459,6 +459,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="profileIconView" destination="dID-hg-Kfm" id="1Nj-i6-ATO"/>
                         <outlet property="tableView" destination="adX-qd-cub" id="jsd-bB-EAv"/>
                         <outlet property="versionLabel" destination="Svk-hj-Pd3" id="KlO-1u-bUX"/>
                     </connections>

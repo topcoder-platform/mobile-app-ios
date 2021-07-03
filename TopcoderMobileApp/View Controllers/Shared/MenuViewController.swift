@@ -80,6 +80,7 @@ class MenuViewController: UIViewController {
     /// outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var profileIconView: UIImageView!
     
     /// the table model
     private var table = InfiniteTableViewModel<MenuItem, MenuItemCell>()
@@ -97,8 +98,10 @@ class MenuViewController: UIViewController {
                 self?.view.backgroundColor = UIColor.black.alpha(alpha: 0.5)
             }, completion: nil)
         }
+        profileIconView.round()
         setupMenu()
         updateUI()
+        loadProfile()
     }
     
     private func setupMenu() {
@@ -174,6 +177,24 @@ class MenuViewController: UIViewController {
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
         
         versionLabel.text = "version \(version) (build \(build))"
+    }
+    
+    /// Load profile image
+    private func loadProfile() {
+        guard let handle = AuthenticationUtil.handle else { return }
+        API.getProfileImage(handle: handle)
+            .subscribe(onNext: { [weak self] value in
+                
+                // Load image
+                UIImage.load(value) { (image) in
+                    if let image = image {
+                        self?.profileIconView.image = image
+                    }
+                }
+                return
+            }, onError: { e in
+                showError(errorMessage: e.localizedDescription)
+            }).disposed(by: rx.disposeBag)
     }
     
     @IBAction func swipeLeft(_ sender: Any) {
