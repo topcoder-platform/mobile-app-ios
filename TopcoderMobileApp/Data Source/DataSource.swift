@@ -137,7 +137,7 @@ extension RestServiceApi {
         }
         url += "notifications/subscriber"
         let parameters = [
-            "handle": "jmgasper",
+            "handle": AuthenticationUtil.handle ?? "-",
             "token": token,
             "deviceType": "ios"
         ]
