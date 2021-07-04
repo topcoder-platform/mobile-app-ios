@@ -24,7 +24,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                     return
                 }
                 if granted {
-                    if UIApplication.shared.applicationState == .active && !AppDelegate.tokenRequested && AppDelegate.deviceToken == nil {
+                    if !AppDelegate.tokenRequested && AppDelegate.deviceToken == nil { // UIApplication.shared.applicationState == .active - for some reason the app is not "active" when just started
                         AppDelegate.tokenRequested = true
                         UIApplication.shared.registerForRemoteNotifications()
                     }

@@ -78,17 +78,11 @@ class LoginViewController: UIViewController {
     
     /// Login completed
     private func loginCompleted() {
-        
-        // TMP dodo
-        //        let url = URL(string: "https://accounts-auth0.topcoder.com/userinfo")!
-        //        webView.load(URLRequest(url: url))
-        //
-        
         openApnRequestScreen()
     }
     
     private func openApnRequestScreen() {
-        guard !UserDefaults.askedApn else { return }
+        guard !UserDefaults.askedApn else { self.openCodeEnterScreen(); return }
         guard let vc = create(AllowPushNotificationsViewController.self) else { return }
         vc.modalPresentationStyle = .fullScreen
         vc.dismissNormally = true
