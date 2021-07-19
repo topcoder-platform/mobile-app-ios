@@ -79,7 +79,7 @@ open class SectionCollectionModel<T, C: UICollectionViewCell, S, H: UICollection
     }
 
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader && useSectionHeaders {
+        if kind == UICollectionView.elementKindSectionHeader && useSectionHeaders {
             let className = NSStringFromClass(H.self).components(separatedBy: ".").last!
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: className, for: indexPath) as! H
             let item = sections[indexPath.section]

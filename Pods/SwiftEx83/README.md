@@ -23,7 +23,7 @@ target 'MyApp' do
 end
 ```
 
-You can use any of the versions depending on what API you need: SwiftEx/Data, SwiftEx/UI, SwiftEx/Api, SwiftEx/Int
+You can use any of the versions depending on what API you need: SwiftEx83/Data ☾ SwiftEx83/UI ☾ SwiftEx83/Api ☾ SwiftEx83/Int; SwiftEx83/ARKit
 
 ```ruby
 platform :ios, '10.0'
@@ -39,20 +39,44 @@ end
 You can use [The Swift Package Manager](https://swift.org/package-manager) to install `SwiftEx` by adding the proper description to your `Package.swift` file:
 
 ```swift
-// swift-tools-version:4.0
+// swift-tools-version:5.2
+
 import PackageDescription
 
 let package = Package(
     name: "YOUR_PROJECT_NAME",
+    products: [
+        .executable(name: "YOUR_PROJECT_NAME", targets: ["YOUR_PROJECT_NAME"])
+    ],
     dependencies: [
-        .package(url: "https://gitlab.com/seriyvolk83/SwiftEx.git", from: "0.3.30"),
-    ]
+        .package(url: "https://gitlab.com/seriyvolk83/SwiftEx.git", from: "1.1.10"),
+    ],
     targets: [
-        .target(name: "YOUR_PROJECT_NAME", dependencies: ["SwiftEx/Data"]) // You can use "SwiftEx" or "SwiftEx/Data"
+        .target(name: "SampleServer", dependencies: [
+            .product(name: "SwiftExData", package: "SwiftEx") // You can use one of the following: "SwiftEx","SwiftExData", "SwiftExData", "SwiftExApi",
+        ]) 
     ]
 )
 ```
 Then run `swift build` whenever you get prepared.
+
+If you change the version or `SwiftExInt` to `SwiftExData`, then you may have problems with rebuilding. If so, then delete the following:
+```
+rm -rf .build/
+rm -rf .swiftpm/
+rm Package.resolved
+```
+or 
+```
+swift package clean
+rm -rf .build
+```
+then, open the project again.
+
+Note: you can use the following command to create xcode project for "Swift-packaged" project:
+```
+swift package generate-xcodeproj
+```
 
 #### Manually (iOS 10+)
 
@@ -147,5 +171,21 @@ let map = a.hasharrayWithKey{$0.id} // [1: [Item(id: 1, title: "one"), Item(id: 
 
 ## REST API base implementation
 
+## ARKit extensions
+
+Provides helpful methods for working with 3D objects in SceneKit and ARKit.
+
+Check `SourceARKit/!Test3D_objects.playground` for different methods usage. 
+
+### How to use?
+
+```ruby
+platform :ios, '10.0'
+use_frameworks!
+
+target 'MyApp' do
+pod 'SwiftEx83/ARKit', :git => 'https://gitlab.com/seriyvolk83/SwiftEx.git'
+end
+```
 
 TODO

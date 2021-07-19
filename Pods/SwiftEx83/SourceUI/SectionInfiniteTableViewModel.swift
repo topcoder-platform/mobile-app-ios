@@ -146,7 +146,7 @@ open class SectionInfiniteTableViewModel<T, C: UITableViewCell, S: UITableViewHe
     private func merge(newItems items: [[T]], titles: [String]) {
         for i in 0..<titles.count {
             let title = titles[i]
-            if let index = sectionTitles.index(of: title) {
+            if let index = sectionTitles.firstIndex(of: title) {
                 self.sectionItems[index].append(contentsOf: items[i])
             }
             else {

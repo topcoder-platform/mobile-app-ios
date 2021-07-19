@@ -372,7 +372,7 @@ open class InfiniteTableViewModel<T, C: UITableViewCell>: NSObject, UITableViewD
     }
     
     /// Delete row
-    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
        if editingStyle == .delete {
             if let deleteAction = deleteAction {
                 deleteAction(indexPath, getItem(indexPath: indexPath))

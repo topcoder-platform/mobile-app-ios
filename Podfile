@@ -3,16 +3,16 @@ platform :ios, '13.0'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'https://github.com/sktston/Specs.git'
 
-target 'EvernymApp' do
+target 'TopcoderMobileApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for EvernymApp
+  # Pods for TopcoderMobileApp
   #pod 'vcx'
   #pod 'MobileWallet', :path => '/Users/volk/TopCoder/34_Evernym/mobile-wallet'
   pod 'MobileWallet', :git => 'git@github.com:topcoder-platform/mobile-wallet.git', :branch => 'master'
   pod 'Keychain83', '0.0.1'
-  pod 'SwiftEx83/Int'
+  pod 'SwiftEx83/Int', :git => 'git@gitlab.com:seriyvolk83/SwiftEx.git', :tag => '1.1.11'
   pod 'QRCodeScanner83', :git => 'https://github.com/seriyvolk83/QRCodeScanner.git', :tag => '0.0.3'
 
   pod 'AppCenter/Distribute'
@@ -21,6 +21,7 @@ target 'EvernymApp' do
   pod 'AmplifyPlugins/AWSPinpointAnalyticsPlugin'
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
   pod 'Lock', '~> 2.0'  #, :path => '/Users/volk/TopCoder/34_Evernym/TMP/Lock.swift'
+  pod 'SwiftJWT'
 end
 
 post_install do |installer|

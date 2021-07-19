@@ -1,6 +1,6 @@
 //
 //  DemoPoolTxnGenesis.swift
-//  EvernymApp
+// TopcoderMobileApp
 //
 //  Created by Volkov Alexander on 12/23/20.
 //  Copyright © 2020 Volkov Alexander. All rights reserved.

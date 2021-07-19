@@ -15,6 +15,7 @@ import NetworkExtension
 
 
 /// Utility to fetch network info
+@available(iOS 9.0, macCatalyst 14.0, *)
 public class NetworkUtil {
 
     /// Current network SSID

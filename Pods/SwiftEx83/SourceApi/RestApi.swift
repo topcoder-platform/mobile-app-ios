@@ -7,7 +7,13 @@
 //
 
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 import SwiftyJSON
+#if canImport(SwiftEx)
+import SwiftEx // required for swift package
+#endif
 
 /// option: true - will print HTTP requests and responses in console, false - else
 public var OPTION_PRINT_REST_API_LOGS = true

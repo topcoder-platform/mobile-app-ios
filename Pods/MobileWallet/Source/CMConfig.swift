@@ -1,6 +1,6 @@
 //
 //  CMConfig.swift
-//  EvernymApp
+// TopcoderMobileApp
 //
 //  Created by Volkov Alexander on 11/22/20.
 //  Copyright © 2020 Volkov Alexander. All rights reserved.
@@ -296,6 +296,16 @@ open class CMConfig {
     public static func printError<O>(label: String, _ error: Error?, promise: Future<O, Error>.Promise) -> Bool {
         if error != nil && (error as NSError?)?.code != 0 { print("ERROR [\(label)]: \(String(describing: error))"); promise(.failure(error!));return true }
         return false
+    }
+    
+    /// Get error code from given error
+    /// - Parameter error: the error
+    /// - Returns: error code (if not zero) or nil
+    public static func getErrorCode(from error: Error?) -> Int? {
+        if let _ = error, let code = (error as NSError?)?.code, code != 0 {
+            return code
+        }
+        return nil
     }
 }
 

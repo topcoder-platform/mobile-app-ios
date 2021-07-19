@@ -9,10 +9,10 @@ import Foundation
 import CoreLocation
 
 /// Util that provides current device locations (single, or as a sequence)
-public class LocationUtil: NSObject, CLLocationManagerDelegate {
+open class LocationUtil: NSObject, CLLocationManagerDelegate {
 
     public static var shared = LocationUtil()
-    private var manager: CLLocationManager?
+    public var manager: CLLocationManager?
     private var callback: ((CLLocation)->())?
     private var singleCallback: ((CLLocation)->())?
 

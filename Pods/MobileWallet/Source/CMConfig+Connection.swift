@@ -1,6 +1,6 @@
 //
 //  CMConfig.swift
-//  EvernymApp
+// TopcoderMobileApp
 //
 //  Created by Volkov Alexander on 11/22/20.
 //  Copyright © 2020 Volkov Alexander. All rights reserved.
@@ -9,6 +9,20 @@
 import Foundation
 import vcx
 import Combine
+
+/// Connection types
+public enum CMConnectionType: String {
+    case qr = "QR", sms = "SMS"
+    
+    func connectionTypeString(phone: String? = nil) -> String {
+        switch self {
+        case .qr:
+            return "{\"connection_type\":\"\(self.rawValue)\",\"phone\":\"\"}"
+        case .sms:
+            return "{\"connection_type\":\"\(self.rawValue)\",\"phone\":\"\(phone ?? "")\"}"
+        }
+    }
+}
 
 /// Connections
 extension CMConfig {
@@ -19,15 +33,29 @@ extension CMConfig {
     public func connect(withInviteDetails inviteDetails: Dictionary<String, Any>) -> Future<Int, Error> {
         return Future { promise in
             let sdkApi = CMConfig.sdkApi
-            let inviteLabel = inviteDetails["label"] as? String ?? ""
+            let inviteId = inviteDetails.connectionID
             do {
                 let detailsString = try inviteDetails.toJson()
                 // Create connection
-                sdkApi.connectionCreate(withInvite: inviteLabel, inviteDetails: detailsString) { (error, connectionHandle) in
-                    guard !CMConfig.printError(label: "connectionCreate:withInvite", error, promise: promise) else { return }
+                sdkApi.connectionCreate(withInvite: inviteId, inviteDetails: detailsString) { (error, connectionHandle) in
+                    // Check if 1010 error and call resuse in this case. If any other error, then fail
+                    if let code = CMConfig.getErrorCode(from: error) {
+                        if code != 1010 {
+                            guard !CMConfig.printError(label: "connectionCreate:withInvite", error, promise: promise) else { return }
+                        }
+                        else {
+                            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
+                            sdkApi.connectionSendReuse(handle, invite: detailsString) { (error) in
+                                guard !CMConfig.printError(label: "connectionSendReuse:", error, promise: promise) else { return }
+                                print("connectionSendReuse was successful!")
+                                print("connectionHandle: \(connectionHandle)")
+                                promise(.success(connectionHandle))
+                            }
+                        }
+                        return
+                    }
                     print("connectionCreate:inviteDetails was successful!")
                     print("connectionHandle: \(connectionHandle)")
-                    //            let handle = VcxHandle(truncatingIfNeeded: connectionHandle)
                     promise(.success(connectionHandle))
                 }
             }
@@ -36,27 +64,36 @@ extension CMConfig {
             }
         }
     }
+
+    // TODO remove it. Used with old vcx version.
+//    public func connectionTheirPwDid(handle: Int) -> Future<(String), Error> {
+//        return Future { promise in
+//            let sdkApi = CMConfig.sdkApi
+//            //            let handle = VcxHandle(truncatingIfNeeded: handle)
+//            sdkApi.connectionGetPwDid(handle) { (error, pwdid) in
+//                guard !CMConfig.printError(label: "connectionGetPwDid", error, promise: promise) else { return }
+//
+//                sdkApi.connectionGetTheirPwDid(handle) { (error, theidDid) in
+//                    guard !CMConfig.printError(label: "connectionGetPwDid", error, promise: promise) else { return }
+//                    promise(.success(((pwdid ?? "-"), (theidDid ?? "-"))))
+//                }
+//            }
+//        }
+//    }
     
-    public func connectionDids(handle: Int) -> Future<(String, String), Error> {
-        return Future { promise in
-            let sdkApi = CMConfig.sdkApi
-            //            let handle = VcxHandle(truncatingIfNeeded: handle)
-            sdkApi.connectionGetPwDid(handle) { (error, pwdid) in
-                guard !CMConfig.printError(label: "connectionGetPwDid", error, promise: promise) else { return }
-                
-                sdkApi.connectionGetTheirPwDid(handle) { (error, theidDid) in
-                    guard !CMConfig.printError(label: "connectionGetPwDid", error, promise: promise) else { return }
-                    promise(.success(((pwdid ?? "-"), (theidDid ?? "-"))))
-                }
-            }
-        }
+    /// Need to wait >4 seconds after connection is established
+    /// - Parameters:
+    ///   - handle: the handle
+    ///   - connectionType: connection type
+    ///   - phone: the phone number for `.sms` type or nil for `.qr`
+    public func connect(handle: Int, connectionType: CMConnectionType, phone: String? = nil) -> Future<Void, Error> {
+        return connect(handle: handle, connectionTypeString: connectionType.connectionTypeString(phone: phone))
     }
     
     /// Need to wait >4 seconds after connection is established
     /// - Parameters:
     ///   - handle: the handle
-    ///   - callback: the callback to call when connection is done/fails
-    public func connect(handle: Int) -> Future<Void, Error> {
+    public func connect(handle: Int, connectionTypeString: String = "{\"use_public_did\":true}") -> Future<Void, Error> {
         return Future { promise in
             let sdkApi = CMConfig.sdkApi
             // Connect
@@ -115,5 +152,31 @@ extension CMConfig {
     
     public func connectionRelease(handle: Int) {
         CMConfig.sdkApi.connectionRelease(handle)
+    }
+}
+
+extension Dictionary where Key == String, Value == Any {
+    
+    /// Get connection name from invitation Dictionary
+    // line 173: https://github.com/topcoder-platform/mobile-sdk/blob/master/examples/ios/VCXHelpers/CMConnection.m
+    public var connectionName: String {
+        if let a = self["s"] as? Dictionary {
+            if let n = a["n"] as? String {
+                return n
+            }
+        }
+        return self["label"] as? String ?? "-"
+    }
+    
+    /// The connection ID used to connect with invite, aka `getPwDid()` (`pw_did`)
+    // line 154: https://github.com/topcoder-platform/mobile-sdk/blob/master/examples/ios/VCXHelpers/CMConnection.m
+    public var connectionID: String {
+        // invitation
+        if let id = self["id"] as? String { return id }
+        if let id = self["@id"] as? String { return id }
+        // serialized connection
+        if let data = self["data"] as? Dictionary, let id = data["pw_did"] as? String { return id }
+        // previous version used in this app
+        return connectionName
     }
 }

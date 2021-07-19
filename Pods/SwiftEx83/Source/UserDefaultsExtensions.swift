@@ -18,7 +18,7 @@ extension UserDefaults {
         if let value = object {
             do {
                 let data = try JSONEncoder().encode(value)
-                UserDefaults.standard.setValue(data, forKey: forKey)
+                UserDefaults.standard.set(data, forKey: forKey)
             }
             catch {
                 print("ERROR: \(error)")
@@ -34,7 +34,7 @@ extension UserDefaults {
     /// - Parameter forKey: the key
     /// - Returns: the decoded object
     public func get<T: Decodable>(forKey: String) -> T? {
-        if let data = UserDefaults.standard.value(forKey: forKey) as? Data {
+        if let data = UserDefaults.standard.object(forKey: forKey) as? Data {
             do {
                 return try JSONDecoder().decode(T.self, from: data)
             }
