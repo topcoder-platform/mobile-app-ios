@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         do { // .demo
             CMConfig.shared.environment = .demo
-            CMConfig.shared.setupWallet(force: true)
+            CMConfig.shared.setupWallet()
         }
         
         
