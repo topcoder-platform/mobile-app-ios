@@ -147,7 +147,7 @@ extension RestServiceApi {
     /// Get profile image URL
     /// - Parameter handle: the handle
     static func getProfileImage(handle: String) -> Observable<String?> {
-        let url = "https://api.topcoder.com/v5/members/\(handle)"
+        let url = "https://api.topcoder-dev.com/v5/members/\(handle)"
         struct ProfileJson: Decodable {
             let userId: Int
             let handle: String
