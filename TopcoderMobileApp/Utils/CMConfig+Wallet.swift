@@ -21,10 +21,10 @@ var CMConfigInitCancellable: AnyCancellable?
 extension CMConfig {
     
     /// Initializes the wallet if not yet done
-    func tryInitialize() {
+    func tryInitialize(deviceToken:String, handle:String) {
         guard !CMConfigInitializationStarted else { return }
         CMConfigInitializationStarted = true
-        CMConfigInitCancellable = CMConfig.shared.initialize()
+        CMConfigInitCancellable = CMConfig.shared.initialize(deviceToken: deviceToken, handle:handle)
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:
