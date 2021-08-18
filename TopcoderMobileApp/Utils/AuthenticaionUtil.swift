@@ -45,12 +45,16 @@ class AuthenticationUtil {
         keychain["credentials"] = credentials.toString()
         _handle = credentials.handle
         UserDefaults.isAuthenticated = true
+        if let accessToken = credentials.accessToken {
+            API.headers = ["Authorization": "Bearer \(accessToken)"]
+        }
     }
     
     /// Clean credentials
     static func cleanUp() {
         keychain["credentials"] = nil
         UserDefaults.isAuthenticated = false
+        API.headers = [:]
         _handle = nil
     }
 }

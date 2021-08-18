@@ -6,7 +6,11 @@
 //
 
 import Amplify
+#if COCOAPODS
 import AWSMobileClient
+#else
+import AWSMobileClientXCF
+#endif
 
 extension SignInResult {
 
@@ -16,11 +20,11 @@ extension SignInResult {
             return .done
         case .smsMFA:
             let deliveryDetails = AuthCodeDeliveryDetails(destination: .sms(codeDetails?.destination))
-            return .confirmSignInWithSMSMFACode(deliveryDetails, nil)
+            return .confirmSignInWithSMSMFACode(deliveryDetails, parameters)
         case .customChallenge:
-            return .confirmSignInWithCustomChallenge(nil)
+            return .confirmSignInWithCustomChallenge(parameters)
         case .newPasswordRequired:
-            return .confirmSignInWithNewPassword(nil)
+            return .confirmSignInWithNewPassword(parameters)
         default:
             throw (AuthError.unknown("AWSMobileClient auth state is not handled"))
         }

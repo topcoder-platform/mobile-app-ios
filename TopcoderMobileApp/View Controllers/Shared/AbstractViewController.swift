@@ -18,8 +18,19 @@ class AbstractViewController: UIViewController {
     override func viewDidLoad() {
         NotificationCenter.add(observer: self, selector: #selector(notificationHandler(_:)), name: SdkEvent.ready)
         if !CMConfig.shared.sdkInited {
-            initIndicator = ActivityIndicator(parentView: self.view).start()
+            showInitIndicator()
         }
+    }
+    
+    /// Show SDK initialization indicator
+    internal func showInitIndicator() {
+        initIndicator = ActivityIndicator(parentView: self.view).start()
+    }
+    
+    /// Hide SDK initialization indicator
+    internal func hideInitIndicator() {
+        self.initIndicator?.stop()
+        self.initIndicator = nil
     }
     
     @objc func notificationHandler(_ notification: UIKit.Notification) {
@@ -30,9 +41,8 @@ class AbstractViewController: UIViewController {
         }
     }
     
+    /// Process initialization completion
     internal func initializationComplete() {
-//        self.showAlert("", "Initialization complete.")
-        self.initIndicator?.stop()
-        self.initIndicator = nil
+        hideInitIndicator()
     }
 }

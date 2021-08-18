@@ -330,7 +330,7 @@ static const NSString * AWSCognitoIdentityUserUserAttributePrefix = @"userAttrib
                                                password:(NSString *) password
                                          validationData:(NSArray<AWSCognitoIdentityUserAttributeType*>*) validationData
                                isInitialCustomChallenge:(BOOL) isInitialCustomChallenge {
-    return [self getSession:username password:password validationData:validationData clientMetaData:nil];
+    return [self getSession:username password:password validationData:validationData clientMetaData:nil isInitialCustomChallenge:isInitialCustomChallenge];
 }
 
 /**
@@ -1486,6 +1486,24 @@ static const NSString * AWSCognitoIdentityUserUserAttributePrefix = @"userAttrib
     NSString * keyChainNamespace = [self keyChainNamespaceClientId];
     NSString * refreshToken = [self refreshTokenFromKeyChain:keyChainNamespace];
     return refreshToken != nil;
+}
+
+-(BOOL) isSessionRevocable {
+    NSString * keyChainNamespace = [self keyChainNamespaceClientId];
+    NSString * accessTokenKey = [self keyChainKey:keyChainNamespace key:AWSCognitoIdentityUserAccessToken];
+    NSString * accessTokenString = self.pool.keychain[accessTokenKey];
+    AWSCognitoIdentityUserSessionToken * accessToken = [[AWSCognitoIdentityUserSessionToken alloc] initWithToken:accessTokenString];
+    return [accessToken.tokenClaims objectForKey:@"origin_jti"];
+}
+
+- (AWSTask<AWSCognitoIdentityProviderRevokeTokenResponse *> *) revokeToken {
+    NSString * keyChainNamespace = [self keyChainNamespaceClientId];
+    AWSCognitoIdentityProviderRevokeTokenRequest *request = [AWSCognitoIdentityProviderRevokeTokenRequest new];
+    NSString * refreshToken = [self refreshTokenFromKeyChain:keyChainNamespace];
+    request.token = refreshToken;
+    request.clientId = self.pool.userPoolConfiguration.clientId;
+    request.clientSecret = self.pool.userPoolConfiguration.clientSecret;
+    return [self.pool.client revokeToken:request];
 }
 
 - (AWSTask<AWSCognitoIdentityUserGlobalSignOutResponse *> *) globalSignOut {

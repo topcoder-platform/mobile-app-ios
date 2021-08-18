@@ -127,8 +127,12 @@ extern void VcxWrapperCommonNumberStringCallback(vcx_command_handle_t xcommand_h
 ///                                         Note: Nodes not specified will be placed randomly.
 ///                                 "number_read_nodes": int (optional) - the number of nodes to send read requests (2 by default)
 ///                                         By default Libindy sends a read requests to 2 nodes in the pool.
-///    }
+///                     }
+///                     network: Optional[string] - Network identifier used for fully-qualified DIDs.
 ///                 }
+///
+///                 Note: You can also pass a list of network configs.
+///                       In this case library will connect to multiple ledger networks and will look up public data in each of them.
 ///
 ///
 /// cb: Callback that provides no value
@@ -692,12 +696,9 @@ extern void VcxWrapperCommonNumberStringCallback(vcx_command_handle_t xcommand_h
                      invite:(NSString *)invite
              withCompletion:(void (^)(NSError *error))completion;
 
-/// Send answer on received question message according to Aries question-answer protocol.
+/// Send answer on received question message according to Aries question-answer or committedanswer protocols.
 ///
-/// The related protocol can be found here: https://github.com/hyperledger/aries-rfcs/tree/master/features/0113-question-answer
-///
-/// Note that this function works in case `aries` communication method is used.
-///     In other cases it returns ActionNotSupported error.
+/// The related Aries question-answer protocol can be found here: https://github.com/hyperledger/aries-rfcs/tree/master/features/0113-question-answer
 ///
 /// #params
 ///
@@ -712,23 +713,48 @@ extern void VcxWrapperCommonNumberStringCallback(vcx_command_handle_t xcommand_h
 /// cb: Callback that provides success or failure of request
 ///
 /// # Examples
-/// question ->
-///     {
-///         "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/questionanswer/1.0/question",
-///         "@id": "518be002-de8e-456e-b3d5-8fe472477a86",
-///         "question_text": "Alice, are you on the phone with Bob from Faber Bank right now?",
-///         "question_detail": "This is optional fine-print giving context to the question and its various answers.",
-///         "nonce": "<valid_nonce>",
-///         "signature_required": true,
-///         "valid_responses" : [
-///             {"text": "Yes, it's me"},
-///             {"text": "No, that's not me!"}],
-///         "~timing": {
-///             "expires_time": "2018-12-13T17:29:06+0000"
+/// Aries question-answer:
+///     question ->
+///         {
+///             "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/questionanswer/1.0/question",
+///             "@id": "518be002-de8e-456e-b3d5-8fe472477a86",
+///             "question_text": "Alice, are you on the phone with Bob from Faber Bank right now?",
+///             "question_detail": "This is optional fine-print giving context to the question and its various answers.",
+///             "nonce": "<valid_nonce>",
+///             "signature_required": true,
+///             "valid_responses" : [
+///                 {"text": "Yes, it's me"},
+///                 {"text": "No, that's not me!"}],
+///             "~timing": {
+///             "   expires_time": "2018-12-13T17:29:06+0000"
+///             }
 ///         }
-///     }
-/// answer ->
-///     {"text": "Yes, it's me"}
+///     answer ->
+///         {"text": "Yes, it's me"}
+/// committedanswer:
+///     question ->
+///         {
+///            '@type': 'did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/committedanswer/1.0/question',
+///            '@id': '518be002-de8e-456e-b3d5-8fe472477a86',
+///            'question_text': 'Alice, are you on the phone with Bob from Faber Bank right now?',
+///            'question_detail': 'This is optional fine-print giving context to the question and its various answers.',
+///            'valid_responses': [
+///                {'text': 'Yes, it is me', 'nonce': '<unique_identifier_a+2018-12-13T17:00:00+0000>'},
+///                {'text': 'No, that is not me!', 'nonce': '<unique_identifier_b+2018-12-13T17:00:00+0000'},
+///                {'text': 'Hi!', 'nonce': '<unique_identifier_c+2018-12-13T17:00:00+0000'}],
+///            '@timing': {
+///                'expires_time': future
+///            },
+///            'external_links': [
+///                {
+///                    'text': 'Some external link with so many characters that it can go outside of two lines range from here onwards',
+///                    'src': '1'},
+///                {
+///                    'src': 'Some external link with so many characters that it can go outside of two lines range from here onwards'},
+///            ]
+///        }
+///     answer ->
+///         {'text': 'Yes, it is me', 'nonce': '<unique_identifier_a+2018-12-13T17:00:00+0000>'}
 ///
 /// #Returns
 /// Error code as a u32
@@ -979,7 +1005,7 @@ extern void VcxWrapperCommonNumberStringCallback(vcx_command_handle_t xcommand_h
 ///
 /// #Returns
 /// Error code as a u32
-- (void)getCredential:(NSInteger )credentailHandle
+- (void)getCredential:(NSInteger )credentialHandle
            completion:(void (^)(NSError *error, NSString *credential))completion;
 
 /// Delete a Credential associated with the state object from the Wallet and release handle of the state object.
@@ -1018,7 +1044,7 @@ extern void VcxWrapperCommonNumberStringCallback(vcx_command_handle_t xcommand_h
 /// Error code as a u32
 - (void)credentialCreateWithOffer:(NSString *)sourceId
                             offer:(NSString *)credentialOffer
-                       completion:(void (^)(NSError *error, NSInteger credentailHandle))completion;
+                       completion:(void (^)(NSError *error, NSInteger credentialHandle))completion;
 
 /// Create a Credential object based off of a known message id for a given connection.
 ///
@@ -1159,7 +1185,7 @@ extern void VcxWrapperCommonNumberStringCallback(vcx_command_handle_t xcommand_h
 ///
 /// #Returns
 /// Error code as a u32
-- (void)credentialUpdateState:(NSInteger )credentailHandle
+- (void)credentialUpdateState:(NSInteger )credentialHandle
                 completion:(void (^)(NSError *error, NSInteger state))completion;
 
 /// Update the state of the credential based on the given message.
@@ -1281,6 +1307,29 @@ extern void VcxWrapperCommonNumberStringCallback(vcx_command_handle_t xcommand_h
 /// #Returns
 /// Error code as a u32
 - (void)credentialGetProblemReport:(NSInteger) credentialHandle
+                        completion:(void (^)(NSError *error, NSString *message))completion;
+
+/// Retrieve information about a stored credential.
+///
+/// #Params
+/// command_handle: command handle to map callback to user context.
+///
+/// credential_handle: credential handle that was provided during creation. Used to identify credential object
+///
+/// cb: Callback that provides error status of api call, or returns the credential information in json format.
+/// {
+///     "referent": string, // cred_id in the wallet
+///     "attrs": {"key1":"raw_value1", "key2":"raw_value2"},
+///     "schema_id": string,
+///     "cred_def_id": string,
+///     "rev_reg_id": Optional<string>,
+///     "cred_rev_id": Optional<string>
+/// }
+///
+///
+/// #Returns
+/// Error code as a u32
+- (void)credentialGetInfo:(NSInteger) credentialHandle
                         completion:(void (^)(NSError *error, NSString *message))completion;
 
 /// Releases the credential object by de-allocating memory
@@ -2585,6 +2634,120 @@ withConnectionHandle:(vcx_connection_handle_t)connection_handle
 ///         "agent_vk": string,
 ///     }
 - (void) createPairwiseAgent:(void (^)(NSError *error, NSString *agentInfo))completion;
+
+/// Adds tags to a record in the wallet.
+/// Assumes there is an open wallet and that a record with specified type and id pair already exists.
+///
+/// #Params
+/// recordType: type of record. (e.g. 'data', 'string', 'foobar', 'image')
+///
+/// recordId: the id ("key") of the record.
+///
+/// recordTags: Tags for the record with the associated id and type.
+///
+/// #Returns
+/// Null
+- (void)walletAddRecordTags:(NSString *)recordType
+                   recordId:(NSString *)recordId
+                 recordTags:(NSString *)recordTags
+                 completion:(void (^)(NSError *error))completion;
+
+/// Updates tags of a record in the wallet.
+/// Assumes there is an open wallet and that a record with specified type and id pair already exists.
+///
+/// #Params
+/// recordType: type of record. (e.g. 'data', 'string', 'foobar', 'image')
+///
+/// recordId the id ("key") of the record.
+///
+/// recordTags: New tags for the record with the associated id and type.
+///
+/// #Returns
+/// Null
+- (void)walletUpdateRecordTags:(NSString *)recordType
+                      recordId:(NSString *)recordId
+                    recordTags:(NSString *)recordTags
+                    completion:(void (^)(NSError *error))completion;
+
+/// Deletes tags from a record in the wallet.
+/// Assumes there is an open wallet and that a type and id pair already exists.
+///
+/// #Params
+/// recordType: type of record. (e.g. 'data', 'string', 'foobar', 'image')
+///
+/// recordId: the id ("key") of the record.
+///
+/// recordTags: Tags names as JSON array to remove from the record with the associated id and type.
+///
+/// #Returns
+/// Null
+- (void)walletDeleteRecordTags:(NSString *)recordType
+                      recordId:(NSString *)recordId
+                    recordTags:(NSString *)recordTags
+                    completion:(void (^)(NSError *error))completion;
+
+/// Search for records in the wallet.
+///
+/// #Params
+/// type: type of record. (e.g. 'data', 'string', 'foobar', 'image')
+///
+/// query: MongoDB style query to wallet record tags:
+///  {
+///    "tagName": "tagValue",
+///    $or: {
+///      "tagName2": { $regex: 'pattern' },
+///      "tagName3": { $gte: 123 },
+///    },
+///  }
+/// options:
+///  {
+///    retrieveRecords: (optional, true by default) If false only "counts" will be calculated,
+///    retrieveTotalCount: (optional, false by default) Calculate total count,
+///    retrieveType: (optional, false by default) Retrieve record type,
+///    retrieveValue: (optional, true by default) Retrieve record value,
+///    retrieveTags: (optional, true by default) Retrieve record tags,
+///  }
+///
+/// #Returns
+/// Handle pointing to the opened search
+- (void)walletOpenSearch:(NSString *)type
+                   query:(NSString *)query
+                 options:(NSString *)options
+              completion:(void (^)(NSError *error, NSInteger searchHandle)) completion;
+
+/// Fetch next records for wallet search.
+///
+/// Not if there are no records this call returns WalletNoRecords Indy error.
+///
+/// #Params
+/// searchHandle: wallet search handle (returned by walletOpenSearch)
+///
+/// count: Count of records to fetch
+///
+/// #Returns
+/// Found wallet records:
+/// {
+///   totalCount: <int>, // present only if retrieveTotalCount set to true
+///   records: [{ // present only if retrieveRecords set to true
+///       id: "Some id",
+///       type: "Some type", // present only if retrieveType set to true
+///       value: "Some value", // present only if retrieveValue set to true
+///       tags: <tags json>, // present only if retrieveTags set to true
+///   }],
+/// }
+- (void) walletSearchNextRecords:(NSInteger)searchHandle
+                           count:(NSInteger)count
+                      completion:(void (^)(NSError *error, NSString *records))completion;
+
+/// Close a search
+///
+/// #Params
+/// search_handle: wallet search handle
+///
+/// #Returns
+/// Null
+- (void) walletCloseSearch:(NSInteger)searchHandle
+                completion:(void (^)(NSError *error))completion;
 
 @end
 

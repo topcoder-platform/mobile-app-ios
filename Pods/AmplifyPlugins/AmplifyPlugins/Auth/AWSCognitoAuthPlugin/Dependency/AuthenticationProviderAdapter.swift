@@ -6,14 +6,22 @@
 //
 
 import Amplify
+#if COCOAPODS
 import AWSMobileClient
+#else
+import AWSMobileClientXCF
+#endif
 
 class AuthenticationProviderAdapter: AuthenticationProviderBehavior {
 
     let awsMobileClient: AWSMobileClientBehavior
 
-    init(awsMobileClient: AWSMobileClientBehavior) {
+    let userdefaults: AWSCognitoAuthPluginUserDefaultsBehavior
+
+    init(awsMobileClient: AWSMobileClientBehavior,
+         userdefaults: AWSCognitoAuthPluginUserDefaultsBehavior = AWSCognitoAuthPluginUserDefaults()) {
         self.awsMobileClient = awsMobileClient
+        self.userdefaults = userdefaults
     }
 
     func getCurrentUser() -> AuthUser? {

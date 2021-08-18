@@ -37,6 +37,19 @@ public protocol CodeScannerViewControllerDelegate {
     /// Update flash button state (if is)
     /// - Parameter mode: the flash mode
     func codeScannerUpdateUIFlashButton(mode: AVCaptureDevice.FlashMode)
+    
+}
+
+/// CodeScannerViewController delegate for rendering corners
+public protocol CodeScannerViewControllerCornersDelegate {
+    
+    /// Update corners
+    /// - Parameters:
+    ///   - x1: x - of left top corner
+    ///   - y1: y - of left top corner
+    ///   - x2: x - of right bottom corner
+    ///   - y2: x - of right bottom corner
+    func codeScannerUpdateCorners(x1: CGFloat, y1: CGFloat, x2: CGFloat, y2: CGFloat)
 }
 
 /**
@@ -64,10 +77,10 @@ public protocol CodeScannerViewControllerDelegate {
  self.present(vc, animated: true, completion: nil)
  ```
  */
-public class CodeScannerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCaptureMetadataOutputObjectsDelegate, AVCapturePhotoCaptureDelegate {
+open class CodeScannerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCaptureMetadataOutputObjectsDelegate, AVCapturePhotoCaptureDelegate {
     
     /// preview views
-    @IBOutlet weak var previewView: CameraPreviewView!
+    @IBOutlet public weak var previewView: CameraPreviewView!
     @IBOutlet weak var photoPreviewView: UIImageView?
     
     /// Camera types on iOS device
@@ -81,6 +94,7 @@ public class CodeScannerViewController: UIViewController, UIImagePickerControlle
     public var callbackCodeScanned: ((String)->())?
     
     public var delegate: CodeScannerViewControllerDelegate?
+    public var cornersDelegate: CodeScannerViewControllerCornersDelegate?
     
     /// the supported code types
     public var codeTypes: [AVMetadataObject.ObjectType] = [.qr, .code39, .code93, .code128, .code39Mod43]
@@ -115,7 +129,7 @@ public class CodeScannerViewController: UIViewController, UIImagePickerControlle
     // MARK: - Camera initialization
     
     /// Initializes AVCaptureSession and configures camera
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         session = AVCaptureSession()
         
@@ -199,7 +213,7 @@ public class CodeScannerViewController: UIViewController, UIImagePickerControlle
     /// Turn on camera.
     ///
     /// - Parameter animated: the animation flag
-    public override func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         viewAppear = true
         if accessVerifiedAndAllowed {
             session?.startRunning()
@@ -510,9 +524,8 @@ public class CodeScannerViewController: UIViewController, UIImagePickerControlle
                 x2 = x2 * self.previewView.bounds.height
                 y1 = y1 * self.previewView.bounds.width
                 y2 = y2 * self.previewView.bounds.width
-//                let height = x2 - x1
-//                let width = y2 - y1
-                // TODO delegate corner rendering
+                // delegate corner rendering
+                cornersDelegate?.codeScannerUpdateCorners(x1: x1, y1: y1, x2: x2, y2: y2)
             }
             if callDelegate {
                 // TODO delegate scan completion animation and call delegate after that.

@@ -1,62 +1,62 @@
 PODS:
   - Alamofire (4.9.1)
-  - Amplify (1.5.5):
-    - Amplify/Default (= 1.5.5)
-  - Amplify/Default (1.5.5)
-  - AmplifyPlugins/AWSCognitoAuthPlugin (1.5.5):
-    - AWSAuthCore (~> 2.22.0)
-    - AWSCognitoIdentityProvider (~> 2.22.0)
-    - AWSCognitoIdentityProviderASF (~> 2.22.0)
-    - AWSCore (~> 2.22.0)
-    - AWSMobileClient (~> 2.22.0)
-    - AWSPluginsCore (= 1.5.5)
-  - AmplifyPlugins/AWSPinpointAnalyticsPlugin (1.5.5):
-    - AWSCore (~> 2.22.0)
-    - AWSPinpoint (~> 2.22.0)
-    - AWSPluginsCore (= 1.5.5)
-  - AppCenter/Core (4.1.0)
-  - AppCenter/Distribute (4.1.0):
+  - Amplify (1.13.3):
+    - Amplify/Default (= 1.13.3)
+  - Amplify/Default (1.13.3)
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.13.3):
+    - AWSAuthCore (~> 2.24.0)
+    - AWSCognitoIdentityProvider (~> 2.24.0)
+    - AWSCognitoIdentityProviderASF (~> 2.24.0)
+    - AWSCore (~> 2.24.0)
+    - AWSMobileClient (~> 2.24.0)
+    - AWSPluginsCore (= 1.13.3)
+  - AmplifyPlugins/AWSPinpointAnalyticsPlugin (1.13.3):
+    - AWSCore (~> 2.24.0)
+    - AWSPinpoint (~> 2.24.0)
+    - AWSPluginsCore (= 1.13.3)
+  - AppCenter/Core (4.2.0)
+  - AppCenter/Distribute (4.2.0):
     - AppCenter/Core
-  - Auth0 (1.30.1):
+  - Auth0 (1.35.0):
     - JWTDecode
     - SimpleKeychain
-  - AWSAuthCore (2.22.0):
-    - AWSCore (= 2.22.0)
-  - AWSCognitoIdentityProvider (2.22.0):
-    - AWSCognitoIdentityProviderASF (= 2.22.0)
-    - AWSCore (= 2.22.0)
-  - AWSCognitoIdentityProviderASF (2.22.0)
-  - AWSCore (2.22.0)
-  - AWSMobileClient (2.22.0):
-    - AWSAuthCore (= 2.22.0)
-    - AWSCognitoIdentityProvider (= 2.22.0)
-    - AWSCognitoIdentityProviderASF (= 2.22.0)
-    - AWSCore (= 2.22.0)
-  - AWSPinpoint (2.22.0):
-    - AWSCore (= 2.22.0)
-  - AWSPluginsCore (1.5.5):
-    - Amplify (= 1.5.5)
-    - AWSCore (~> 2.22.0)
+  - AWSAuthCore (2.24.5):
+    - AWSCore (= 2.24.5)
+  - AWSCognitoIdentityProvider (2.24.5):
+    - AWSCognitoIdentityProviderASF (= 2.24.5)
+    - AWSCore (= 2.24.5)
+  - AWSCognitoIdentityProviderASF (2.24.5)
+  - AWSCore (2.24.5)
+  - AWSMobileClient (2.24.5):
+    - AWSAuthCore (= 2.24.5)
+    - AWSCognitoIdentityProvider (= 2.24.5)
+    - AWSCognitoIdentityProviderASF (= 2.24.5)
+    - AWSCore (= 2.24.5)
+  - AWSPinpoint (2.24.5):
+    - AWSCore (= 2.24.5)
+  - AWSPluginsCore (1.13.3):
+    - Amplify (= 1.13.3)
+    - AWSCore (~> 2.24.0)
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
   - BlueRSA (1.0.34)
-  - JWTDecode (2.5.0)
+  - JWTDecode (2.6.1)
   - Keychain83 (0.0.1):
     - Keychain83/Core (= 0.0.1)
   - Keychain83/Core (0.0.1)
   - KituraContracts (1.2.1):
     - LoggerAPI (~> 1.7)
-  - Lock (2.21.0):
-    - Auth0
-    - Lock/Classic (= 2.21.0)
-  - Lock/Classic (2.21.0):
-    - Auth0
+  - Lock (2.23.0):
+    - Auth0 (~> 1.31)
+    - Lock/Classic (= 2.23.0)
+  - Lock/Classic (2.23.0):
+    - Auth0 (~> 1.31)
   - LoggerAPI (1.9.200):
     - Logging (~> 1.1)
   - Logging (1.4.0)
-  - MobileWallet (0.1.1):
-    - MobileWallet/Core (= 0.1.1)
-  - MobileWallet/Core (0.1.1)
+  - MobileWallet (0.1.5):
+    - MobileWallet/Core (= 0.1.5)
+  - MobileWallet/Core (0.1.5)
   - "NSObject+Rx (5.1.0)":
     - RxSwift (~> 5.1)
   - QRCodeScanner83 (0.0.3):
@@ -67,8 +67,8 @@ PODS:
   - RxAlamofire/Core (5.0.0):
     - Alamofire (~> 4.8)
     - RxSwift (~> 5.0)
-  - RxSwift (5.1.1)
-  - SimpleKeychain (0.12.1)
+  - RxSwift (5.1.3)
+  - SimpleKeychain (0.12.3)
   - SwiftEx83/Int (1.1.11):
     - "NSObject+Rx"
     - RxAlamofire (~> 5.0.0)
@@ -137,7 +137,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   MobileWallet:
-    :commit: c4112a89d5ddd218428e779a0d1c7fec19445091
+    :commit: b402cbf31428685a24015fda43d08e1ae837705f
     :git: "git@github.com:topcoder-platform/mobile-wallet.git"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
@@ -148,32 +148,32 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  Amplify: 975fe3981790cf06e605353d2e704fc0985a45f3
-  AmplifyPlugins: af57bc32df1e47386922f9966564cb0b954dca8f
-  AppCenter: 8832b158d17e54845c3b88a91076218f0b07174d
-  Auth0: 59bece5b578a93589bd321fafeed8a042429f9db
-  AWSAuthCore: b54e2008da479e5a6ffdb6b482821d8f5a9afaa4
-  AWSCognitoIdentityProvider: 32a91ad644e49e40235a408a8fbb96ea74891f19
-  AWSCognitoIdentityProviderASF: 8b92721c17f2951ecd5bcfb749d5534f2851c2c7
-  AWSCore: 8bd1def9cb0b6770c65b6d394f1c1cbc0a5562b7
-  AWSMobileClient: bba690cc09c6569cc1111141beaa4e2f789f536b
-  AWSPinpoint: b25b03fca987c4c5119e061dcd0f16ae40d9b504
-  AWSPluginsCore: 358365037f62d5bc995037d6eb687f39582d90d0
+  Amplify: 533d502d872cf91c09861720d59f5ec916cc1c33
+  AmplifyPlugins: 1b62bc69051dec11c8c9a44676090d4e390551f1
+  AppCenter: 87ef6eefd8ade4df59e88951288587429f3dd2a5
+  Auth0: 185a5f83dbcea58fc4b37c4785108fcb54026000
+  AWSAuthCore: 73f2e518d32f094b656fea905651bc3288ef05c0
+  AWSCognitoIdentityProvider: d32ff306a4d3aafcdc42ce40bd36e44d3f274201
+  AWSCognitoIdentityProviderASF: 1ccfe4092b617de54f203c1b728e7be6f49716c1
+  AWSCore: 2d4b06b24e2f882deec23567438195818b16a3f2
+  AWSMobileClient: 72e55c9c7162516feab354aa67f4d38dcecdcfc7
+  AWSPinpoint: a4444edba76b3c6ee7985a0bd7c2b290b2ddcbe8
+  AWSPluginsCore: c347f9088e9b327d2e5e0a09fc7de4763e4ea9bc
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: 6f9776d62d9773502415a7db3bcbb2bbb3f71fc3
-  JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
+  JWTDecode: 5e6d4b49c2b098f994cf7617401c195c8c06300b
   Keychain83: 834aee02e6f8051604f6be5009f82b528c3ee59a
   KituraContracts: e845e60dc8627ad0a76fa55ef20a45451d8f830b
-  Lock: f642866e3e417d59ebe6d7d6a445b82e76ea3bbe
+  Lock: 28a4d563e094d912ecffbca05390cda278b40e65
   LoggerAPI: ad9c4a6f1e32f518fdb43a1347ac14d765ab5e3d
   Logging: beeb016c9c80cf77042d62e83495816847ef108b
-  MobileWallet: 4e01b1d8ded30682ca76aa68e3974e2ffe54070a
+  MobileWallet: 33d8678f1acb94582b2cdcf7dffea39b7bae9ebd
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  SimpleKeychain: 77443015b0f29005c16f74bf858469a9e9fb05e8
+  RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
+  SimpleKeychain: a0d119d6a3546441c93540cd9dd1342b0b6cdcbb
   SwiftEx83: a5fbbfb5b4d0c4ce1a6c02c7eb6288d3661116e8
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08

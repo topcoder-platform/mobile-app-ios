@@ -102,6 +102,17 @@ extension RestServiceApi {
         catch { return Observable.error(error) }
         
         NotificationCenter.post(UIEvents.connectionUpdate)
+        
+        // Remove related credentials
+        _ = getCredentials()
+            .subscribe(onNext: { value in
+                let relatedCredentials = value.filter({$0.connection.id == connection.id})
+                if !relatedCredentials.isEmpty {
+                    _ = delete(credentials: relatedCredentials)
+                }
+            }, onError: { error in
+                print("ERROR: \(error)")
+            })
         return Observable.just(())
     }
     
@@ -117,6 +128,24 @@ extension RestServiceApi {
     static func add(credentials: CredentialsInfo) -> Observable<Void> {
         _ = getCredentials()
         cacheCredentials?.append(credentials)
+        
+        // Store changes
+        do { try saveFileCredentials() }
+        catch { return Observable.error(error) }
+        
+        NotificationCenter.post(UIEvents.credentialUpdate)
+        return Observable.just(())
+    }
+    
+    /// Delete credentials
+    /// - Parameter credentials: the credentials
+    static func delete(credentials: [CredentialsInfo]) -> Observable<Void> {
+        _ = getCredentials()
+        for item in credentials {
+            if let i = cacheCredentials?.firstIndex(of: item) {
+                cacheCredentials?.remove(at: i)
+            }
+        }
         
         // Store changes
         do { try saveFileCredentials() }
@@ -155,6 +184,20 @@ extension RestServiceApi {
         }
         return get(url: url).map { (profile: ProfileJson) -> String? in
             return profile.photoURL
+        }
+    }
+    
+    /// Get profile ID
+    /// - Parameter handle: the handle
+    static func getProfileId(handle: String) -> Observable<Int?> {
+        let url = "https://api.topcoder.com/v5/members/\(handle)"
+        struct ProfileJson: Decodable {
+            let userId: Int
+            let handle: String
+            let photoURL: String?
+        }
+        return get(url: url).map { (profile: ProfileJson) -> Int? in
+            return profile.userId
         }
     }
     

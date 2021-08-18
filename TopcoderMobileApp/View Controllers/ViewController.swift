@@ -195,7 +195,7 @@ class ViewController: UIViewController, CodeScannerViewControllerDelegate {
     
     private func openScanner() {
         // Open scanner
-        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CodeScannerViewController") as? CodeScannerViewController else {
+        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CustomCodeScannerViewController") as? CustomCodeScannerViewController else {
             return
         }
         vc.delegate = self

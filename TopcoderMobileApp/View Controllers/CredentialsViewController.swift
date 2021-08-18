@@ -21,7 +21,6 @@ class CredentialsViewController: AbstractViewController {
     
     /// collection data source
     private var dataSource: CollectionDataModel<ConnectionCell>!
-    private var loadingIndicator: ActivityIndicator? // also a flag of loading process (if not nil, then loading in progress)
     private weak var noDataLabel: UIView!
     private var dataLoaded = false
     private var needToFetchOffersAfterDataLoading = false
@@ -32,7 +31,22 @@ class CredentialsViewController: AbstractViewController {
     
     private var cancellables = [AnyCancellable]()
     
+    /// flag: true - loading credentials, false - else
+    private var loadingCredentials = false {
+        didSet {
+            if loadingCredentials {
+                showInitIndicator()
+            }
+            else {
+                navigationItem.rightBarButtonItem = nil
+            }
+        }
+    }
+    
+    /// Setup UI
     override func viewDidLoad() {
+        // Remove buttons that simulate
+        navigationItem.rightBarButtonItems?.removeAll()
         super.viewDidLoad()
         initEmptyScreen()
         
@@ -56,9 +70,6 @@ class CredentialsViewController: AbstractViewController {
         
         // Event
         Amplify.Analytics.tryRecord(event: BasicAnalyticsEvent(name: "App", properties: ["event_action": "Credentials List open"]))
-        
-        // Remove buttons that simulate
-        navigationItem.rightBarButtonItems?.removeAll()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +84,19 @@ class CredentialsViewController: AbstractViewController {
                 self?.loadData()
             }
         }
+    }
+    
+    /// Show SDK initialization indicator
+    override func showInitIndicator() {
+        let indicator = UIActivityIndicatorView()
+        indicator.startAnimating()
+        indicator.color = .white
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: indicator)]
+    }
+    
+    /// Hide SDK initialization indicator
+    override func hideInitIndicator() {
+        navigationItem.rightBarButtonItem = nil
     }
     
     /// Reload when initialization complete
@@ -120,9 +144,9 @@ class CredentialsViewController: AbstractViewController {
     }
     
     private func loadCredentialOffers() {
-        guard loadingIndicator == nil else { print("loadCredentialOffers: Skipping. Already loading"); return }
+        guard !loadingCredentials else { print("loadCredentialOffers: Skipping. Already loading"); return }
         guard CMConfig.shared.sdkInited else { return }
-        self.loadingIndicator = ActivityIndicator(parentView: nil).start()
+        loadingCredentials = true
         
         let savedCredentialsTitles = items.map({$0.title})
         API.getConnections()
@@ -149,8 +173,7 @@ class CredentialsViewController: AbstractViewController {
                     }
                 }
                 g.notify(queue: .main) {
-                    self?.loadingIndicator?.stop()
-                    self?.loadingIndicator = nil
+                    self?.loadingCredentials = false
                     self?.cancellables.removeAll()
                 }
                 return
@@ -205,7 +228,7 @@ class CredentialsViewController: AbstractViewController {
     // MARK: - Button actions
 
     @IBAction func simulateCredentialsAction(_ sender: Any) {
-        guard loadingIndicator == nil else { print("loadCredentialOffers: Skipping. Already loading"); return }
+        guard !loadingCredentials else { print("loadCredentialOffers: Skipping. Already loading"); return }
         guard let vc = create(IncomingRequestViewController.self) else { return }
         vc.type = .credentials
         vc.account = "sample_account"
@@ -214,7 +237,7 @@ class CredentialsViewController: AbstractViewController {
     }
     
     @IBAction func simulateProofsAction(_ sender: Any) {
-        guard loadingIndicator == nil else { print("loadCredentialOffers: Skipping. Already loading"); return }
+        guard !loadingCredentials else { print("loadCredentialOffers: Skipping. Already loading"); return }
         guard let vc = create(IncomingRequestViewController.self) else { return }
         vc.type = .proof
         guard let parent = Current else { return }

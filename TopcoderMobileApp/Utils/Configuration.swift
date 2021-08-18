@@ -35,4 +35,9 @@ class Configuration {
     static var apnEndpoint: String {
         return shared.dict!["APN_ENDPOINT"] as! String
     }
+    
+    /// the endpoint for Topcoder API
+    static var apiEndpoint: String {
+        return shared.dict!["API_ENDPOINT"] as! String
+    }
 }

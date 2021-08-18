@@ -6,7 +6,11 @@
 //
 
 import Foundation
+#if COCOAPODS
 import AWSMobileClient
+#else
+import AWSMobileClientXCF
+#endif
 
 protocol AWSMobileClientBehavior {
 
@@ -44,12 +48,22 @@ protocol AWSMobileClientBehavior {
                     hostedUIOptions: HostedUIOptions?,
                     _ completionHandler: @escaping (UserState?, Error?) -> Void)
 
+    @available(iOS 13, *)
+    func showSignIn(uiwindow: UIWindow,
+                    hostedUIOptions: HostedUIOptions,
+                    _ completionHandler: @escaping (UserState?, Error?) -> Void)
+
     func confirmSignIn(challengeResponse: String,
                        userAttributes: [String: String],
                        clientMetaData: [String: String],
                        completionHandler: @escaping ((SignInResult?, Error?) -> Void))
 
     func signOut(options: SignOutOptions,
+                 completionHandler: @escaping ((Error?) -> Void))
+
+    @available(iOS 13, *)
+    func signOut(uiwindow: UIWindow,
+                 options: SignOutOptions,
                  completionHandler: @escaping ((Error?) -> Void))
 
     func signOutLocally()

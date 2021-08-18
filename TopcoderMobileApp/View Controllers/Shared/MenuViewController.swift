@@ -13,6 +13,7 @@ import Auth0
 import Amplify
 import MobileWallet
 import Lock
+import SwiftUI
 
 /// flag: true - menu is opened, false - else
 var MenuViewControllerOpened = false
@@ -241,9 +242,10 @@ class MenuViewController: UIViewController {
                 guard let vc = self?.create(SettingsViewController.self) else { return }
                 viewController = vc
             case .challenges:
-                guard let vc = self?.create(WebViewController.self) else { return }
+                let view = ChallengesView()
+                let vc = UIHostingController(rootView: view)
+                vc.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu-8"), style: .plain, target: self, action: #selector(UIViewController.menuAction(_:)))
                 vc.title = NSLocalizedString("Challenges", comment: "Challenges").uppercased()
-                vc.urlString = Configuration.urlChallenges
                 viewController = vc
             default: break
             }

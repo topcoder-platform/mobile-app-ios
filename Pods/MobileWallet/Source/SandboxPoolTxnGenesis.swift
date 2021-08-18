@@ -1,6 +1,6 @@
 //
 //  SandboxPoolTxnGenesis.swift
-// TopcoderMobileApp
+//  EvernymApp
 //
 //  Created by Volkov Alexander on 12/24/20.
 //  Copyright © 2020 Volkov Alexander. All rights reserved.
