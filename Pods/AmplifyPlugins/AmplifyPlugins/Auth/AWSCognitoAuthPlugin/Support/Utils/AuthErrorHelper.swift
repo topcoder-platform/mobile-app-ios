@@ -6,7 +6,13 @@
 //
 
 import Amplify
+import SafariServices
+import AuthenticationServices
+#if COCOAPODS
 import AWSMobileClient
+#else
+import AWSMobileClientXCF
+#endif
 
 struct AuthErrorHelper {
 
@@ -97,11 +103,15 @@ struct AuthErrorHelper {
                                             AuthPluginErrorConstants.tooManyFailedError,
                                             AWSCognitoAuthError.failedAttemptsLimitExceeded)
 
-        case .tooManyRequests(let message),
-             .limitExceeded(let message):
+        case .tooManyRequests(let message):
             return AuthError.service(message,
                                             AuthPluginErrorConstants.tooManyRequestError,
                                             AWSCognitoAuthError.requestLimitExceeded)
+
+        case .limitExceeded(let message):
+            return AuthError.service(message,
+                                     AuthPluginErrorConstants.limitExceededError,
+                                     AWSCognitoAuthError.limitExceeded)
 
         case .errorLoadingPage(let message):
             return AuthError.service(message,
@@ -164,5 +174,22 @@ struct AuthErrorHelper {
         }
         return AuthError.unknown("An unknown error occurred", error)
 
+    }
+
+    static func didUserCancelHostedUI(_ error: Error) -> Bool {
+        if let sfAuthError = error as? SFAuthenticationError,
+           case SFAuthenticationError.Code.canceledLogin = sfAuthError.code {
+            return true
+        }
+
+        if #available(iOS 12.0, *) {
+
+            if let asWebAuthError = error as? ASWebAuthenticationSessionError,
+               case ASWebAuthenticationSessionError.Code.canceledLogin = asWebAuthError.code {
+                return true
+            }
+        }
+
+        return false
     }
 }

@@ -1,6 +1,6 @@
 //
 //  CMConfig.swift
-// TopcoderMobileApp
+//  EvernymApp
 //
 //  Created by Volkov Alexander on 11/22/20.
 //  Copyright © 2020 Volkov Alexander. All rights reserved.
@@ -9,9 +9,33 @@
 import Foundation
 import vcx
 import Combine
-
+import CryptoKit
 typealias VcxUtil = CMConfig
 
+extension String {
+    enum ExtendedEncoding {
+        case hexadecimal
+    }
+
+    func data(using encoding:ExtendedEncoding) -> Data? {
+        let hexStr = self.dropFirst(self.hasPrefix("0x") ? 2 : 0)
+
+        guard hexStr.count % 2 == 0 else { return nil }
+
+        var newData = Data(capacity: hexStr.count/2)
+
+        var indexIsEven = true
+        for i in hexStr.indices {
+            if indexIsEven {
+                let byteRange = i...hexStr.index(after: i)
+                guard let byte = UInt8(hexStr[byteRange], radix: 16) else { return nil }
+                newData.append(byte)
+            }
+            indexIsEven.toggle()
+        }
+        return newData
+    }
+}
 /**
  Utility used for configuration
  ```
@@ -191,13 +215,11 @@ open class CMConfig {
         
         let filePath = "\(documentsDirectory!)/\(CMConfig.genesisFileName(environment: environment))"
         
-        if !FileManager.default.fileExists(atPath: filePath) {
-            let fileData = CMConfig.genesisFile(environment: environment).data(using: .utf8)!
-            let success = FileManager.default.createFile(atPath: filePath, contents: fileData, attributes: nil)
-            if !success {
-                print("error while creating pool transaction genesis file")
-                return ""
-            }
+        let fileData = CMConfig.genesisFile(environment: environment).data(using: .utf8)!
+        let success = FileManager.default.createFile(atPath: filePath, contents: fileData, attributes: nil)
+        if !success {
+            print("error while creating pool transaction genesis file")
+            return ""
         }
 
         print("Creating pool transaction genesis file was successful: \(filePath)")
@@ -220,16 +242,54 @@ open class CMConfig {
         }
     }
     
+    public func getProvisioningToken() -> String{
+        let nonce = UUID().uuidString
+        let sponseeId = "Topcoder dev"
+        let sponsorId = "universal_identity"
+        let date = Date()
+        let RFC3339DateFormatter = DateFormatter()
+        RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZ"
+        RFC3339DateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let timestamp = RFC3339DateFormatter.string(from: date)
+
+        let unsignedSig = nonce + timestamp + sponseeId + sponsorId
+        print("Unsigned sig: \(unsignedSig)")
+        do {
+            let privateKey = "<PASTE HERE>".data(using: .hexadecimal)
+            let signingKey = try Curve25519.Signing.PrivateKey.init(rawRepresentation: privateKey!)
+            let sig = try signingKey.signature(for:unsignedSig.data(using: .utf8)!).base64EncodedString(options: [])
+        
+            let token = """
+                        {
+                          "sponseeId":     "\(sponseeId)",
+                          "sponsorId":     "\(sponsorId)",
+                          "nonce":         "\(nonce)",
+                          "timestamp":     "\(timestamp)",
+                          "sig":           "\(sig)",
+                          "sponsorVerKey": "97yVC1NKot3D8tWsPwgzhRwi2wSsTS2w12KX9mz7D9Kg"
+                        }
+                    """
+            return token
+        }
+        catch{
+            print("ERROR signing provisioning token(): \(error)")
+            return ""
+        }
+    }
     // MARK: - VCX Init
     
     /// Initialize library. Configure environment, wallet, etc. before calling this method.
-    public func initialize() -> Future<Void, Error> {
+    public func initialize(deviceToken:String, handle:String) -> Future<Void, Error> {
         return Future { promise in
             let sdkApi = CMConfig.sdkApi
             let agencyConfig = self.getAgencyConfig()
+            let provisioningToken = self.getProvisioningToken()
             print("Agency config \(agencyConfig)")
-            print("sdkApi.agentProvisionAsync...")
-            sdkApi.agentProvisionAsync(agencyConfig) { (error, oneTimeInfo) in
+            print("sdkApi.agentProvisionWithTokenAsync...")
+            print("Provisioning token \(provisioningToken)")
+            sdkApi.agentProvision(withTokenAsync: agencyConfig, token:provisioningToken) { (error, oneTimeInfo) in
                 if let nsError = error as NSError?, nsError.code == 1075 {
                     promise(.failure(nsError))
                     print("ERROR: 1075 WalletAccessFailed: The `wallet_name` already exist, but you provided different `wallet_key`. Use the same `wallet_key` once it's generated for the first time.")
@@ -247,6 +307,21 @@ open class CMConfig {
                     guard !CMConfig.printError(label: "initWithConfig", error, promise: promise) else { return }
                     self.sdkInited = true
                     print("######## VCX Config Successful! :) #########")
+                    //https://gitlab.com/evernym/mobile/mobile-sdk/-/blob/main/docs/PushNotifications.md#push-notifications-setup
+                    print("Attempting agent registration")
+                    let agentConfig = """
+                    {
+                         "id": "\(deviceToken)",
+                         "type": 3,
+                         "value": "\(handle)"
+                    }
+                    """
+                    
+                    print("Config:", agentConfig)
+
+                    sdkApi.agentUpdateInfo(agentConfig) { (error) in
+                        print("Agent update info sent", error)
+                    }
                     promise(.success(()))
                 }
             }

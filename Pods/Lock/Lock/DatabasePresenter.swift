@@ -27,6 +27,7 @@ class DatabasePresenter: Presentable, Loggable {
 
     let database: DatabaseConnection
     let options: Options
+    let style: Style
 
     var authenticator: DatabaseAuthenticatable
     var creator: DatabaseUserCreator
@@ -47,16 +48,17 @@ class DatabasePresenter: Presentable, Loggable {
     weak var databaseView: DatabaseOnlyView?
     var currentScreen: DatabaseScreen?
 
-    convenience init(interactor: DatabaseInteractor, connection: DatabaseConnection, navigator: Navigable, options: Options) {
-        self.init(authenticator: interactor, creator: interactor, connection: connection, navigator: navigator, options: options)
+    convenience init(interactor: DatabaseInteractor, connection: DatabaseConnection, navigator: Navigable, options: Options, style: Style) {
+        self.init(authenticator: interactor, creator: interactor, connection: connection, navigator: navigator, options: options, style: style)
     }
 
-    init(authenticator: DatabaseAuthenticatable, creator: DatabaseUserCreator, connection: DatabaseConnection, navigator: Navigable, options: Options) {
+    init(authenticator: DatabaseAuthenticatable, creator: DatabaseUserCreator, connection: DatabaseConnection, navigator: Navigable, options: Options, style: Style) {
         self.authenticator = authenticator
         self.creator = creator
         self.database = connection
         self.navigator = navigator
         self.options = options
+        self.style = style
     }
 
     var view: View {
@@ -98,7 +100,7 @@ class DatabasePresenter: Presentable, Loggable {
         let form = view.form
         form?.onValueChange = self.handleInput
 
-        form?.onSubmit = { input in
+        form?.onSubmit = { [weak form] input in
             form?.onValueChange(input)
 
             guard let attribute = self.getUserAttribute(from: input.type) else { return false }
@@ -112,7 +114,7 @@ class DatabasePresenter: Presentable, Loggable {
         }
 
         let action = { [weak form] (button: PrimaryButton) in
-            guard let isValid = view.form?.shouldSubmit(), isValid else { return }
+            guard let isValid = form?.shouldSubmit(), isValid else { return }
 
             self.messagePresenter?.hideCurrent()
             self.logger.info("Perform login for email: \(self.authenticator.email.verbatim())")
@@ -163,7 +165,7 @@ class DatabasePresenter: Presentable, Loggable {
         view.primaryButton?.onPress = action
         view.secondaryButton?.title = "Don’t remember your password?".i18n(key: "com.auth0.lock.database.button.forgot_password", comment: "Forgot password")
         view.secondaryButton?.color = .clear
-        view.secondaryButton?.onPress = { button in
+        view.secondaryButton?.onPress = { _ in
             self.navigator.navigate(.forgotPassword)
         }
     }
@@ -180,7 +182,7 @@ class DatabasePresenter: Presentable, Loggable {
         let form = view.form
         view.form?.onValueChange = self.handleInput
 
-        form?.onSubmit = { input in
+        form?.onSubmit = { [weak form] input in
             form?.onValueChange(input)
 
             guard let attribute = self.getUserAttribute(from: input.type) else { return false }
@@ -194,13 +196,14 @@ class DatabasePresenter: Presentable, Loggable {
         }
 
         let action = { [weak form, weak view] (button: PrimaryButton) in
-            guard let isValid = view?.form?.shouldSubmit(), isValid else { return }
+            guard let isValid = form?.shouldSubmit(), isValid else { return }
 
             self.messagePresenter?.hideCurrent()
             self.logger.info("Perform sign up for email \(self.creator.email.verbatim())")
             view?.allFields?.forEach { self.handleInput($0) }
             let interactor = self.creator
             button.inProgress = true
+
             interactor.create { createError, loginError in
                 Queue.main.async {
                     button.inProgress = false
@@ -249,7 +252,8 @@ class DatabasePresenter: Presentable, Loggable {
         }
         view.primaryButton?.onPress = checkTermsAndSignup
         view.secondaryButton?.title = "By signing up, you agree to our terms of\n service and privacy policy".i18n(key: "com.auth0.lock.database.button.tos", comment: "tos & privacy")
-        view.secondaryButton?.color = UIColor(red: 0.9333, green: 0.9333, blue: 0.9333, alpha: 1.0)
+        view.secondaryButton?.color = self.style.termsButtonColor
+        view.secondaryButton?.titleColor = self.style.termsButtonTitleColor
         view.secondaryButton?.onPress = { button in
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             alert.popoverPresentationController?.sourceView = button

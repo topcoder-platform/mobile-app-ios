@@ -18,8 +18,19 @@ class LoginViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         if initialOpening {
             initialOpening = false
+            
+            if let creds = AuthenticationUtil.keychain["credentials"] {
+                print("COPY THE FOLLOWING LINE TO PASTE IN LoginViewController.swift: \n\(creds.replace("\n", withString: " ").replace("\"", withString: "\\\""))")
+            }
+            // TODO uncomment to login without calling API (check README.md)
+            // 1. Run in simulator and login, then 2. relaunch in simulator and copy the line printed above, then 3. paste the line instead of "<PASTE HERE>" and run on a real device (with changed Bundle Identifier if needed).
+//            UserDefaults.setupCompleted = true
+//            RestServiceApi.keychain["pincode"] = "123456"
+//            AuthenticationUtil.processCredentials(credentials: Credentials.from(string: "<PASTE HERE>"))
+            
             
             // If setup completed, then move to Pin Code enter.
             if UserDefaults.setupCompleted {

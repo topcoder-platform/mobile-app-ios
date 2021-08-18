@@ -13,7 +13,7 @@ target 'TopcoderMobileApp' do
   pod 'MobileWallet', :git => 'git@github.com:topcoder-platform/mobile-wallet.git', :branch => 'master'
   pod 'Keychain83', '0.0.1'
   pod 'SwiftEx83/Int', :git => 'git@gitlab.com:seriyvolk83/SwiftEx.git', :tag => '1.1.11'
-  pod 'QRCodeScanner83', :git => 'https://github.com/seriyvolk83/QRCodeScanner.git', :tag => '0.0.3'
+  pod 'QRCodeScanner83', :git => 'https://github.com/seriyvolk83/QRCodeScanner.git', :tag => '0.0.4'
 
   pod 'AppCenter/Distribute'
   pod 'Auth0', '~> 1.0'

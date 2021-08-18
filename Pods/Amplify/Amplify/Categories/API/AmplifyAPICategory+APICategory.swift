@@ -19,6 +19,15 @@ extension AmplifyAPICategory: APICategory {
             throw error
         }
 
+        guard !isConfigured else {
+            let pluginDescription = String(describing: plugin)
+            let error = ConfigurationError.amplifyAlreadyConfigured(
+                "\(pluginDescription) cannot be added after `Amplify.configure()`.",
+                "Do not add plugins after calling `Amplify.configure()`."
+            )
+            throw error
+        }
+
         plugins[plugin.key] = plugin
     }
 
@@ -47,6 +56,8 @@ extension AmplifyAPICategory: APICategory {
 }
 
 extension AmplifyAPICategory: CategoryTypeable {
+
+    /// The category type for API
     public var categoryType: CategoryType {
         .api
     }

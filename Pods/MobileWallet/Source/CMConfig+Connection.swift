@@ -1,6 +1,6 @@
 //
 //  CMConfig.swift
-// TopcoderMobileApp
+//  EvernymApp
 //
 //  Created by Volkov Alexander on 11/22/20.
 //  Copyright © 2020 Volkov Alexander. All rights reserved.
@@ -145,6 +145,7 @@ extension CMConfig {
             sdkApi.connectionDeserialize(serializedConnection) { (error, handle) in
                 guard !CMConfig.printError(label: "connectionDeserialize", error, promise: promise) else { return }
                 print("connectionDeserialize was successful!")
+                print("Connection handle", handle)
                 promise(.success(handle))
             }
         }

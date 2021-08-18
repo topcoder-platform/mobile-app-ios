@@ -24,7 +24,7 @@ extension CMConfig {
     func tryInitialize() {
         guard !CMConfigInitializationStarted else { return }
         CMConfigInitializationStarted = true
-        CMConfigInitCancellable = CMConfig.shared.initialize()
+        CMConfigInitCancellable = CMConfig.shared.initialize(deviceToken: AppDelegate.deviceToken ?? "-", handle: AuthenticationUtil.handle ?? "-")
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .finished:

@@ -6,19 +6,31 @@
 //
 
 import Amplify
+#if COCOAPODS
 import AWSMobileClient
+#else
+import AWSMobileClientXCF
+#endif
 
 extension AuthenticationProviderAdapter {
 
     func signOut(request: AuthSignOutRequest, completionHandler: @escaping (Result<Void, AuthError>) -> Void) {
+
+        // If developer had signed in using private session, we just need to signout the user locally.
+        guard !userdefaults.isPrivateSessionPreferred() else {
+            awsMobileClient.signOutLocally()
+            // Reset the user defaults.
+            userdefaults.storePreferredBrowserSession(privateSessionPrefered: false)
+            completionHandler(.success(()))
+            return
+        }
 
         // If user is signed in through HostedUI the signout require UI to complete. So calling this in main thread.
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {
                 return
             }
-            self.signOutWithUI(isGlobalSignout: request.options.globalSignOut,
-                               completionHandler: completionHandler)
+            self.signOutWithUI(isGlobalSignout: request.options.globalSignOut, completionHandler: completionHandler)
         }
     }
 
@@ -31,19 +43,32 @@ extension AuthenticationProviderAdapter {
 
         let signOutOptions = SignOutOptions(signOutGlobally: isGlobalSignout, invalidateTokens: true)
         awsMobileClient.signOut(options: signOutOptions) { [weak self] error in
-            guard error == nil else {
-                let authError = AuthErrorHelper.toAuthError(error!)
-                if case .notAuthorized = authError {
-                    // signOut globally might return notAuthorized when the current token is expired or invalidated
-                    // In this case, we just signOut the user locally and return a success result back.
-                    self?.awsMobileClient.signOutLocally()
-                    completionHandler(.success(()))
-                } else {
-                    completionHandler(.failure(authError))
-                }
+            guard let error = error else {
+                completionHandler(.success(()))
                 return
             }
-            completionHandler(.success(()))
+
+            // If the user had cancelled the signOut flow by closing the HostedUI,
+            // return userCancelled error.
+            if AuthErrorHelper.didUserCancelHostedUI(error) {
+                let signOutError = AuthError.service(
+                    AuthPluginErrorConstants.hostedUIUserCancelledSignOutError.errorDescription,
+                    AuthPluginErrorConstants.hostedUIUserCancelledSignOutError.recoverySuggestion,
+                    AWSCognitoAuthError.userCancelled)
+                completionHandler(.failure(signOutError))
+                return
+            }
+
+            let authError = AuthErrorHelper.toAuthError(error)
+            if case .notAuthorized = authError {
+                // signOut globally might return notAuthorized when the current token is expired or invalidated
+                // In this case, we just signOut the user locally and return a success result back.
+                self?.awsMobileClient.signOutLocally()
+                completionHandler(.success(()))
+            } else {
+                completionHandler(.failure(authError))
+            }
+            return
         }
     }
 }

@@ -121,7 +121,7 @@ class ConnectionsViewController: AbstractViewController {
             return
         }
         // Open scanner
-        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CodeScannerViewController") as? CodeScannerViewController else {
+        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CustomCodeScannerViewController") as? CustomCodeScannerViewController else {
             return
         }
         if let button = vc.view.subviews.filter({$0.tag == 1}).first as? UIButton {

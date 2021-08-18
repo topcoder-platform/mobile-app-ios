@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "76178bcd-a847-492d-9def-05a76afd7815",
+		"name": "universal-identity-api.topcoder-dev.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST holder_id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/holder_id/{{HANDLE}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"holder_id",
+						"{{HANDLE}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET holder_id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/holder_id/{{HANDLE}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"holder_id",
+						"{{HANDLE}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST credential",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "password",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"credentialRecords\": [\n        {\n            \"credentialDefinitionId\": \"a0C04000000S3jgEAC\",\n            \"state\": \"offered\",\n            \"attributes\": [\n                {\n                    \"attributeName\": \"Rating\",\n                    \"type\": \"number\",\n                    \"numberValue\": 2001\n                }\n            ]\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/credential/{{HANDLE}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"credential",
+						"{{HANDLE}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

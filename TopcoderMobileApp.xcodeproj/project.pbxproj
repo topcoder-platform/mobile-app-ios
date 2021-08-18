@@ -10,6 +10,12 @@
 		7FAB330F0C3A58E2F5D5BA00 /* Pods_TopcoderMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3525007624FBD98979CF83C1 /* Pods_TopcoderMobileApp.framework */; };
 		FD00264D25C6EDA900502B19 /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD00264C25C6EDA900502B19 /* Auth0.plist */; };
 		FD00264F25C6F21800502B19 /* AuthenticaionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD00264E25C6F21800502B19 /* AuthenticaionUtil.swift */; };
+		FD0A117726C7E66000DFFAA6 /* ChallengeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A117626C7E66000DFFAA6 /* ChallengeCell.swift */; };
+		FD0A117A26C7EC6900DFFAA6 /* SwiftUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A117926C7EC6900DFFAA6 /* SwiftUIExtensions.swift */; };
+		FD0A117D26C8004300DFFAA6 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A117C26C8004300DFFAA6 /* SearchTextField.swift */; };
+		FD0A118026C80A9A00DFFAA6 /* ChallengeFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A117F26C80A9A00DFFAA6 /* ChallengeFiltersView.swift */; };
+		FD0A118326C8397F00DFFAA6 /* ChallengeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A118226C8397F00DFFAA6 /* ChallengeDetailsView.swift */; };
+		FD0A118626C83F5400DFFAA6 /* CustomCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0A118526C83F5400DFFAA6 /* CustomCodeScannerViewController.swift */; };
 		FD1B180D25988A3F00FA7455 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B180C25988A3F00FA7455 /* SettingsViewController.swift */; };
 		FD1B180F2598ADEA00FA7455 /* ConnectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B180E2598ADEA00FA7455 /* ConnectionsViewController.swift */; };
 		FD1B18112598AE2300FA7455 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1B18102598AE2300FA7455 /* Connection.swift */; };
@@ -60,6 +66,10 @@
 		FDB64B3425C5B76A005F1F16 /* AbstractViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB64B3325C5B76A005F1F16 /* AbstractViewController.swift */; };
 		FDBDA6E3259740590013532C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBDA6E2259740580013532C /* HomeViewController.swift */; };
 		FDBDA6E52597408F0013532C /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBDA6E42597408F0013532C /* Notification.swift */; };
+		FDC2B60E26C7D1360025A5ED /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC2B60D26C7D1360025A5ED /* API.swift */; };
+		FDC2B61126C7D1610025A5ED /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC2B61026C7D1610025A5ED /* Challenge.swift */; };
+		FDC2B61526C7D5FD0025A5ED /* ChallengesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC2B61426C7D5FD0025A5ED /* ChallengesView.swift */; };
+		FDC2B61A26C7DE490025A5ED /* ChallengesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC2B61926C7DE490025A5ED /* ChallengesDataSource.swift */; };
 		FDD8621A259B254B00A88CE7 /* IncomingRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */; };
 		FDDBD59E25D2EB0500ED6E12 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDBD59D25D2EB0500ED6E12 /* WelcomeViewController.swift */; };
 		FDDBD5A025D2EB7B00ED6E12 /* WelcomeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDBD59F25D2EB7B00ED6E12 /* WelcomeInfoViewController.swift */; };
@@ -99,6 +109,13 @@
 		B2CC79E0896E96807743C9DB /* Pods-TopcoderMobileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopcoderMobileApp.release.xcconfig"; path = "Target Support Files/Pods-TopcoderMobileApp/Pods-TopcoderMobileApp.release.xcconfig"; sourceTree = "<group>"; };
 		FD00264C25C6EDA900502B19 /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Auth0.plist; sourceTree = "<group>"; };
 		FD00264E25C6F21800502B19 /* AuthenticaionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticaionUtil.swift; sourceTree = "<group>"; };
+		FD0A117626C7E66000DFFAA6 /* ChallengeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCell.swift; sourceTree = "<group>"; };
+		FD0A117926C7EC6900DFFAA6 /* SwiftUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensions.swift; sourceTree = "<group>"; };
+		FD0A117C26C8004300DFFAA6 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		FD0A117F26C80A9A00DFFAA6 /* ChallengeFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFiltersView.swift; sourceTree = "<group>"; };
+		FD0A118226C8397F00DFFAA6 /* ChallengeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsView.swift; sourceTree = "<group>"; };
+		FD0A118526C83F5400DFFAA6 /* CustomCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCodeScannerViewController.swift; sourceTree = "<group>"; };
+		FD0A118826C84BA400DFFAA6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		FD1B180C25988A3F00FA7455 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FD1B180E2598ADEA00FA7455 /* ConnectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsViewController.swift; sourceTree = "<group>"; };
 		FD1B18102598AE2300FA7455 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
@@ -152,6 +169,10 @@
 		FDB64B3325C5B76A005F1F16 /* AbstractViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractViewController.swift; sourceTree = "<group>"; };
 		FDBDA6E2259740580013532C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FDBDA6E42597408F0013532C /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		FDC2B60D26C7D1360025A5ED /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		FDC2B61026C7D1610025A5ED /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
+		FDC2B61426C7D5FD0025A5ED /* ChallengesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengesView.swift; sourceTree = "<group>"; };
+		FDC2B61926C7DE490025A5ED /* ChallengesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengesDataSource.swift; sourceTree = "<group>"; };
 		FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingRequestViewController.swift; sourceTree = "<group>"; };
 		FDDBD59D25D2EB0500ED6E12 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		FDDBD59F25D2EB7B00ED6E12 /* WelcomeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeInfoViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +227,7 @@
 				FD7F52F625975C6600AB4507 /* MenuViewController.swift */,
 				FDB64B3325C5B76A005F1F16 /* AbstractViewController.swift */,
 				FDDBD5A525D2F84000ED6E12 /* WebViewController.swift */,
+				FD0A118526C83F5400DFFAA6 /* CustomCodeScannerViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -280,6 +302,7 @@
 		FDB5B6F0252A4B6D0035ADC1 /* TopcoderMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				FD0A118826C84BA400DFFAA6 /* README.md */,
 				FD59A2BE2680BFB300D07728 /* TopcoderMobileApp.entitlements */,
 				FDA8877D25D675B5000ECA39 /* AmplifyConfigs */,
 				FDEDA0C6256A5AA500E0FFE7 /* General */,
@@ -297,8 +320,22 @@
 			isa = PBXGroup;
 			children = (
 				FD8D856D25792E79009D5DD9 /* DataSource.swift */,
+				FDC2B60D26C7D1360025A5ED /* API.swift */,
 			);
 			path = "Data Source";
+			sourceTree = "<group>";
+		};
+		FDC2B61326C7D5F20025A5ED /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FDC2B61426C7D5FD0025A5ED /* ChallengesView.swift */,
+				FDC2B61926C7DE490025A5ED /* ChallengesDataSource.swift */,
+				FD0A117626C7E66000DFFAA6 /* ChallengeCell.swift */,
+				FD0A117C26C8004300DFFAA6 /* SearchTextField.swift */,
+				FD0A117F26C80A9A00DFFAA6 /* ChallengeFiltersView.swift */,
+				FD0A118226C8397F00DFFAA6 /* ChallengeDetailsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		FDDBD59C25D2EAF700ED6E12 /* Tutorial */ = {
@@ -329,6 +366,7 @@
 				FD1B18102598AE2300FA7455 /* Connection.swift */,
 				FDAC930525E2D1E900F38BB4 /* Credentials.swift */,
 				FDAC930725E2DA6A00F38BB4 /* Offer.swift */,
+				FDC2B61026C7D1610025A5ED /* Challenge.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -360,6 +398,7 @@
 				FD2E2C4C26663D42004B70AA /* CredentialDetailsViewController.swift */,
 				FDD86219259B254B00A88CE7 /* IncomingRequestViewController.swift */,
 				FDA6575D25A7692900CC95DC /* ConnectionInfoViewController.swift */,
+				FDC2B61326C7D5F20025A5ED /* Views */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -382,6 +421,7 @@
 				FD7F52DC2597479900AB4507 /* HelpFunctions.swift */,
 				FDB64B3125C56684005F1F16 /* CMConfig+Wallet.swift */,
 				FD00264E25C6F21800502B19 /* AuthenticaionUtil.swift */,
+				FD0A117926C7EC6900DFFAA6 /* SwiftUIExtensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -606,27 +646,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD7F52DD2597479900AB4507 /* HelpFunctions.swift in Sources */,
+				FDC2B61126C7D1610025A5ED /* Challenge.swift in Sources */,
 				FD1B18112598AE2300FA7455 /* Connection.swift in Sources */,
 				FDD8621A259B254B00A88CE7 /* IncomingRequestViewController.swift in Sources */,
 				FD90364D2597884D00C13C74 /* FirstSetupViewController.swift in Sources */,
+				FD0A117A26C7EC6900DFFAA6 /* SwiftUIExtensions.swift in Sources */,
 				FD1B181C259909E800FA7455 /* CredentialsViewController.swift in Sources */,
 				FD1B181E25990B9500FA7455 /* ConnectionDetailsViewController.swift in Sources */,
 				FDDBD5A025D2EB7B00ED6E12 /* WelcomeInfoViewController.swift in Sources */,
 				FD2E2C4D26663D42004B70AA /* CredentialDetailsViewController.swift in Sources */,
 				FD8D856E25792E79009D5DD9 /* DataSource.swift in Sources */,
+				FD0A117726C7E66000DFFAA6 /* ChallengeCell.swift in Sources */,
 				FD1B180D25988A3F00FA7455 /* SettingsViewController.swift in Sources */,
 				FDB64B3425C5B76A005F1F16 /* AbstractViewController.swift in Sources */,
+				FDC2B61A26C7DE490025A5ED /* ChallengesDataSource.swift in Sources */,
 				FDB64B3225C56684005F1F16 /* CMConfig+Wallet.swift in Sources */,
+				FD0A118026C80A9A00DFFAA6 /* ChallengeFiltersView.swift in Sources */,
 				FD90365325978CBE00C13C74 /* LocalAuthenticationUtil.swift in Sources */,
 				FDB5B6F6252A4B6D0035ADC1 /* ViewController.swift in Sources */,
 				FDDBD5A625D2F84000ED6E12 /* WebViewController.swift in Sources */,
+				FD0A118326C8397F00DFFAA6 /* ChallengeDetailsView.swift in Sources */,
 				FD7F52F725975C6600AB4507 /* MenuViewController.swift in Sources */,
 				FDDBD59E25D2EB0500ED6E12 /* WelcomeViewController.swift in Sources */,
+				FD0A117D26C8004300DFFAA6 /* SearchTextField.swift in Sources */,
 				FD90365125978B8B00C13C74 /* BiometricsViewController.swift in Sources */,
 				FDA792D72583643700F28CFB /* Configuration.swift in Sources */,
 				FD1B18172598FEDE00FA7455 /* AppDelegate+Notifications.swift in Sources */,
+				FD0A118626C83F5400DFFAA6 /* CustomCodeScannerViewController.swift in Sources */,
 				FD1B180F2598ADEA00FA7455 /* ConnectionsViewController.swift in Sources */,
 				FD00264F25C6F21800502B19 /* AuthenticaionUtil.swift in Sources */,
+				FDC2B61526C7D5FD0025A5ED /* ChallengesView.swift in Sources */,
 				FDBDA6E3259740590013532C /* HomeViewController.swift in Sources */,
 				FDB5B6F2252A4B6D0035ADC1 /* AppDelegate.swift in Sources */,
 				FD1B18152598FDDE00FA7455 /* AllowPushNotificationsViewController.swift in Sources */,
@@ -639,6 +688,7 @@
 				FD7F52DF25974A2200AB4507 /* EmptyInfoViewController.swift in Sources */,
 				FD90364F2597889100C13C74 /* UserDefaultsExtensions.swift in Sources */,
 				FDA6575E25A7692900CC95DC /* ConnectionInfoViewController.swift in Sources */,
+				FDC2B60E26C7D1360025A5ED /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
