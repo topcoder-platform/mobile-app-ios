@@ -116,6 +116,7 @@ struct ChallengesView: View {
                                     }
                                     Spacer()
                                 }
+                                .foregroundColor(.black)
                                 .frame(height: 43)
                                 .tag(item.rawValue)
                             }

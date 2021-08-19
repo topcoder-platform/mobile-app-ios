@@ -59,9 +59,9 @@ PODS:
   - MobileWallet/Core (0.1.5)
   - "NSObject+Rx (5.1.0)":
     - RxSwift (~> 5.1)
-  - QRCodeScanner83 (0.0.3):
-    - QRCodeScanner83/Core (= 0.0.3)
-  - QRCodeScanner83/Core (0.0.3)
+  - QRCodeScanner83 (0.0.4):
+    - QRCodeScanner83/Core (= 0.0.4)
+  - QRCodeScanner83/Core (0.0.4)
   - RxAlamofire (5.0.0):
     - RxAlamofire/Core (= 5.0.0)
   - RxAlamofire/Core (5.0.0):
@@ -90,7 +90,7 @@ DEPENDENCIES:
   - Keychain83 (= 0.0.1)
   - Lock (~> 2.0)
   - "MobileWallet (from `git@github.com:topcoder-platform/mobile-wallet.git`, branch `master`)"
-  - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.3`)
+  - QRCodeScanner83 (from `https://github.com/seriyvolk83/QRCodeScanner.git`, tag `0.0.4`)
   - "SwiftEx83/Int (from `git@gitlab.com:seriyvolk83/SwiftEx.git`, tag `1.1.11`)"
   - SwiftJWT
 
@@ -130,7 +130,7 @@ EXTERNAL SOURCES:
     :git: "git@github.com:topcoder-platform/mobile-wallet.git"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
-    :tag: 0.0.3
+    :tag: 0.0.4
   SwiftEx83:
     :git: "git@gitlab.com:seriyvolk83/SwiftEx.git"
     :tag: 1.1.11
@@ -141,7 +141,7 @@ CHECKOUT OPTIONS:
     :git: "git@github.com:topcoder-platform/mobile-wallet.git"
   QRCodeScanner83:
     :git: https://github.com/seriyvolk83/QRCodeScanner.git
-    :tag: 0.0.3
+    :tag: 0.0.4
   SwiftEx83:
     :git: "git@gitlab.com:seriyvolk83/SwiftEx.git"
     :tag: 1.1.11
@@ -170,7 +170,7 @@ SPEC CHECKSUMS:
   Logging: beeb016c9c80cf77042d62e83495816847ef108b
   MobileWallet: 33d8678f1acb94582b2cdcf7dffea39b7bae9ebd
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
-  QRCodeScanner83: 018aab8c484b5ef69afed9e71fd3e2649711a90e
+  QRCodeScanner83: 7c9fe705ce5b3c44234eeb4194434f0c26de08a8
   RxAlamofire: e7875a012aff55345672d0f70a2a9cd6aeb0f211
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   SimpleKeychain: a0d119d6a3546441c93540cd9dd1342b0b6cdcbb
@@ -178,6 +178,6 @@ SPEC CHECKSUMS:
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 76b5845e2e2011ccb945881938f5ad6be4e759d1
+PODFILE CHECKSUM: 592bea346ea7a35da57e1be0120a0b1d43a8279d
 
 COCOAPODS: 1.10.1

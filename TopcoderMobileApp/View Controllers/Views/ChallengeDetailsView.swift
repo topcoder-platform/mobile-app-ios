@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SwiftEx83
+import MarkdownUI
 
 /// the challenge details
 struct ChallengeDetailsView: View {
@@ -15,6 +16,7 @@ struct ChallengeDetailsView: View {
     var item: Challenge
     
     var body: some View {
+        ScrollView(showsIndicators: false) {
         VStack(alignment: .leading, spacing: 5) {
             
             // Title
@@ -133,12 +135,27 @@ struct ChallengeDetailsView: View {
             .padding(.top, 40)
             .padding(.bottom, 20)
             .padding([.leading, .trailing], 16)
-            Text(item.description?.removeHtmlTags() ?? "-")
+            renderMarkdown(item.description ?? "-")
                 .regular(size: 14)
                 .padding([.leading, .trailing], 16)
             Spacer()
         }
         .padding([.top, .bottom], 8)
+        }
+    }
+    
+    private func renderMarkdown(_ text: String) -> some View {
+        ZStack {
+            if #available(iOS 15, *) {
+                Text(text)
+            }
+            else if #available(iOS 13, *) {
+                Markdown(Document(text))
+            }
+            else {
+                Text(text)
+            }
+        }
     }
 }
 

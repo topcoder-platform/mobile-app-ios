@@ -37,7 +37,6 @@ public protocol CodeScannerViewControllerDelegate {
     /// Update flash button state (if is)
     /// - Parameter mode: the flash mode
     func codeScannerUpdateUIFlashButton(mode: AVCaptureDevice.FlashMode)
-    
 }
 
 /// CodeScannerViewController delegate for rendering corners
