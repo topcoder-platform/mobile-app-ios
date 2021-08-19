@@ -99,6 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Failed to initialize Amplify with \(error)")
         }
+        UIApplication.shared.registerForRemoteNotifications()
         return true
     }
     
