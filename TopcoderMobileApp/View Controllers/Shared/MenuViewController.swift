@@ -159,7 +159,7 @@ class MenuViewController: UIViewController {
                 
                 // Initialize wallet if tapped for the first time: https://github.com/topcoder-platform/evernym-tc-wallet/issues/33
                 if item == .wallet {
-                    CMConfig.shared.tryInitialize()
+                    CMConfig.shared.tryInitialize(deviceToken: AppDelegate.deviceToken!, handle:AuthenticationUtil.handle!)
                 }
                 
                 selectedIndex = item.rawValue

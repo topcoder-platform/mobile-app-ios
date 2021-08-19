@@ -52,15 +52,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // VCX
         // Configure wallet (UNCOMMENT .staging or .demo)
         // If you launched with another configuration, then use `CMConfig.shared.setupWallet(force: true)` to regenerate the wallet for another configuration.
-        do { // .staging
-            CMConfig.shared.environment = .staging
-            CMConfig.shared.setupWallet()
-            CMConfig.shared.poolName = "7e96cbb3b0a1711f3b843af3cb28e31dcmpool"
-        }
-//        do { // .demo
+//        do { // .staging
 //            CMConfig.shared.environment = .demo
 //            CMConfig.shared.setupWallet()
+//            CMConfig.shared.poolName = "7e96cbb3b0a1711f3b843af3cb28e31dcmpool"
 //        }
+        do { // .demo
+            CMConfig.shared.environment = .demo
+            CMConfig.shared.setupWallet()
+        }
         
         
         
