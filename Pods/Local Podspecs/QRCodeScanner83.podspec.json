@@ -1,6 +1,6 @@
 {
   "name": "QRCodeScanner83",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "summary": "Simple and extendable QR code/barcode/etc. scanner for iOS apps.",
   "homepage": "https://github.com/seriyvolk83/QRCodeScanner",
   "license": {
@@ -16,7 +16,7 @@
   },
   "source": {
     "git": "https://github.com/seriyvolk83/QRCodeScanner.git",
-    "tag": "0.0.3"
+    "tag": "0.0.4"
   },
   "source_files": "Source/*.swift",
   "default_subspecs": "Core",

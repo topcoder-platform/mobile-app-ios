@@ -42,6 +42,10 @@ struct Challenge: Decodable, Identifiable {
     var created: String?
     var endDate: String?
     var description: String? = ""
+    
+    var descriptionLines: [String] {
+        return []
+    }
     let name: String?
     var numOfRegistrants: Int? = 0
     var numOfSubmissions: Int? = 0

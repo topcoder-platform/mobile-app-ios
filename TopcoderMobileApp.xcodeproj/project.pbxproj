@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -75,6 +75,7 @@
 		FDDBD5A025D2EB7B00ED6E12 /* WelcomeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDBD59F25D2EB7B00ED6E12 /* WelcomeInfoViewController.swift */; };
 		FDDBD5A325D2F1D900ED6E12 /* welcome.json in Resources */ = {isa = PBXBuildFile; fileRef = FDDBD5A225D2F1D900ED6E12 /* welcome.json */; };
 		FDDBD5A625D2F84000ED6E12 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDBD5A525D2F84000ED6E12 /* WebViewController.swift */; };
+		FDF29B4926CE548700294D75 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDF29B4826CE548700294D75 /* MarkdownUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +193,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDF29B4926CE548700294D75 /* MarkdownUI in Frameworks */,
 				FD7F52EC259759D800AB4507 /* UIComponents.framework in Frameworks */,
 				7FAB330F0C3A58E2F5D5BA00 /* Pods_TopcoderMobileApp.framework in Frameworks */,
 			);
@@ -477,6 +479,9 @@
 				FD7F52EB259759D800AB4507 /* PBXTargetDependency */,
 			);
 			name = TopcoderMobileApp;
+			packageProductDependencies = (
+				FDF29B4826CE548700294D75 /* MarkdownUI */,
+			);
 			productName = EvernymApp;
 			productReference = FDB5B6EE252A4B6D0035ADC1 /* TopcoderMobileApp.app */;
 			productType = "com.apple.product-type.application";
@@ -509,6 +514,9 @@
 				Base,
 			);
 			mainGroup = FDB5B6E5252A4B6D0035ADC1;
+			packageReferences = (
+				FDF29B4726CE548700294D75 /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+			);
 			productRefGroup = FDB5B6EF252A4B6D0035ADC1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -976,6 +984,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FDF29B4726CE548700294D75 /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:seriyvolk83/MarkdownUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FDF29B4826CE548700294D75 /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FDF29B4726CE548700294D75 /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FDB5B6E6252A4B6D0035ADC1 /* Project object */;
 }
